@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+    xml:id="section_glance-e-series">
+    <title>Configuration of Glance with NetApp E-Series and EF-Series</title>
+    <para>
+        E-Series and EF-Series storage systems can alternatively be used as the backing store for Glance images. An E-Series volume should be created (with SANtricity specifiing the desired RAID level and capacity) and then mapped to the Glance node. After the volume is visible to the host it is formatted with a file system, mounted, and a directory structure created on it. This directory path can be specified as the <option>filesystem_store_datadir</option> in the Glance configuration file <filename>/etc/glance/glance-api.conf </filename>.
+    </para>
+    <para>
+        Steps:
+    </para>
+    <orderedlist>
+        <listitem>
+            Create the volume using SANtricity and map to the host. Assume the volume is <filename>/dev/sdc</filename> on the host.
+        </listitem>
+        <listitem>
+            Create a partition on the volume: fdisk <filename>/dev/sdc</filename>
+        </listitem>
+        <listitem>
+            Create a filesystem on the partition (e.g. ext4): mkfs.ext4 <filename>/dev/sdc1</filename>
+        </listitem>
+        <listitem>
+            Mount the volume: mount <filename>/dev/sdc1</filename> <filename>/mnt/sdc1</filename>. Create the Glance image store directory: mkdir <filename>/mnt/sdc1/glanceImageStore</filename>
+        </listitem>
+        <listitem>
+            Edit <filename>/etc/glance/glance-api.conf</filename>, add / modify the line <option>filesystem_store_datadir = /mnt/sdc1/glanceImageStore</option>
+        </listitem>
+    </orderedlist>
+</section>

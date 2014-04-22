@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="section_modular-collection">
+    <title>OpenStack - A Modular Collection of Cloud Services</title>
+    <para>
+        The various OpenStack community projects and the services they implement are modular in nature and generally capable of being used independently. They are intended to knit together into a net capability greater than the sum of the individual parts.
+    </para>
+    <simplesect>
+        <title>OpenStack Compute (project name: Nova)</title>
+        <para>
+            OpenStack enables enterprises and service providers to offer on-demand computing resources, by provisioning and managing large networks of virtual machines. Compute resources are accessible via APIs for developers building cloud applications and through web interfaces for administrators and users. The compute architecture is designed to scale horizontally on standard hardware. OpenStack Compute is architected to avoid inherent proprietary hardware or software requirements and the ability to integrate with existing systems and third-party technologies. It is designed to manage and automate pools of compute resources and can work with widely available virtualization technologies, as well as bare metal and high-performance computing configurations.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack Block Storage (project name: Cinder)</title>
+        <para>
+            OpenStack Block Storage provides a “block storage as a service” capability. It provides persistent block devices mapped to OpenStack compute instances (which are otherwise assumed to be ephemeral). The block storage system manages the creation, attaching and detaching of the block devices to instances. It also optionally supports instance booting and provides mechanisms for creating Snapshot copies and cloning. While fully integrated with OpenStack Compute and Dashboard, it can also be used independent of OpenStack to provide a standardized abstraction for block storage provisioning.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack Object Storage (project name: Swift)</title>
+        <para>
+            OpenStack Object Storage provides a fully distributed, scale-out, API-accessible storage platform that can be integrated directly into applications or used for backup, archiving and data retention. Object storage does not present a traditional file system, but rather a distributed storage system for static data such as virtual machine images, photo storage, email storage, backups and archives. The OpenStack Object Storage API (aka Swift API), in a manner somewhat similar to CDMI, proposes an open standard for cloud storage. It can also function as an alternative endpoint for Amazon Web Services S3 and as a CDMI server through the use of add-on components.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack Dashboard (project name: Horizon)</title>
+        <para>
+            The OpenStack Dashboard provides administrators and users a graphical interface to access, provision and automate cloud-based resources. The extensible design makes it easy to plug in and expose third-party products and services, such as billing, monitoring, and additional management tools. The dashboard can also be made brand specific for service providers and other Enterprises who require customization. The dashboard is one of several ways to interact with OpenStack resources. Developers can automate access or build tools to manage their resources using the native OpenStack API or the EC2 compatibility API. The dashboard provides users a self-service portal to provision their own resources within the limits set by administrators.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack Identity (project name: Keystone)</title>
+        <para>
+            OpenStack Identity provides a central directory of users mapped to the OpenStack services they can access. It acts as a common authentication system across the cloud operating system and can integrate with existing backend directory services (for example, for example, LDAP). It supports multiple forms of authentication including standard user name and password credentials, token-based systems and AWS-style logins. Additionally, the catalog provides a list of all of the services deployed in an OpenStack cloud in that can be queried in a single registry. Users and third-party tools can programmatically determine which resources they can access. OpenStack Identity enables:
+        </para>
+        <itemizedlist>
+            <listitem>
+                Configuration of centralized policies across users and systems
+            </listitem>
+            <listitem>
+                Creation of users and tenants and define permissions for compute, storage and networking resources using role-based access control (RBAC) features
+            </listitem>
+            <listitem>
+                Integration with existing directories, allowing for a single source of identity authentication
+            </listitem>
+            <listitem>
+                As a user, get a list of the services that you can access and make API requests or log into the web dashboard to create resources owned by your account
+            </listitem>
+        </itemizedlist>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack Image Service (project name: Glance)</title>
+        <para>
+            The OpenStack Image Service provides discovery, registration and delivery services for disk and server images. The ability to copy or snapshot a server image and immediately store it away is a powerful capability of the OpenStack cloud operating system. Stored images can be used as a template to get new servers up and running quickly and more consistently if you are provisioning multiple servers than installing a server operating system and individually configuring additional services. It can also be used to store and catalog an unlimited number of backups.  The Image Service can store disk and server images in a variety of back-ends, including through NFS and Object Storage. The Image Service API provides a standard REST interface for querying information about disk images and lets clients stream the images to new servers. A multiformat image registry allowing uploads of private and public images in a variety of formats.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack Network Service (project name: Neutron)</title>
+        <para>
+            OpenStack Networking is a pluggable, scalable and API-driven system for managing networks and IP addresses. Like other aspects of the cloud operating system, it can be used by administrators and users to increase the value of existing data center assets. OpenStack Networking ensures the network will not be the bottleneck or limiting factor in a cloud deployment and provides users self-service over their own network configurations. The pluggable backend architecture lets users take advantage of basic commodity gear or advanced networking services from supported vendors. Administrators can take advantage of software-defined networking (SDN) technology like OpenFlow to allow for high levels of multi-tenancy and massive scale. OpenStack Networking has an extension framework allowing additional network services, such as intrusion detection systems (IDS), load balancing, firewalls and virtual private networks (VPN) to be deployed and managed.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack Telemetry (project name: Ceilometer)</title>
+        <para>
+            OpenStack Telemetry provides common infrastructure to collect usage and performance measurements within an OpenStack cloud. Its primary initial targets are monitoring and metering, but the framework is expandable to collect data for other needs. Ceilometer was promoted from incubation status to an integrated component of OpenStack in the Grizzly (April 2013) release.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack Orchestration (project name: Heat)</title>
+        <para>
+            OpenStack Orchestration implements a service to orchestrate multiple composite cloud applications using the Amazon Web Services (AWS) CloudFormation template format, through both an OpenStack-native and CloudFormation-compatible API. It is intended, in part, to facilitate movement of workloads from AWS to OpenStack deployments. Heat was promoted from incubation status to an integrated component of OpenStack in the Grizzly (April 2013) release.
+        </para>
+    </simplesect>
+    <note>
+        <para>
+            The OpenStack Foundation regularly evaluates new project contributions for eventual inclusion as officially integrated. As such, the list above is expected to grow over time.
+        </para>
+    </note>
+</section>

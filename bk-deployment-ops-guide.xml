@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="bk-deployment-ops-guide">
+    <title>OpenStack Deployment and Operations Guide</title>
+    <titleabbrev>Deployment and Operations Guide</titleabbrev>
+    <info>
+        <authorgroup>
+            <author>
+                <personname>
+                    <firstname>Bob</firstname>
+                    <surname>Callaway</surname>
+                </personname>
+                <affiliation>
+                    <orgname>NetApp, Inc.</orgname>
+                </affiliation>
+            </author>
+            <author>
+                <personname>
+                    <firstname>Rob</firstname>
+                    <surname>Esker</surname>
+                </personname>
+                <affiliation>
+                    <orgname>NetApp, Inc.</orgname>
+                </affiliation>
+            </author>
+        </authorgroup>
+        <copyright>
+            <year><?dbtimestamp format="Y"?></year>
+            <holder>NetApp, Inc.</holder>
+        </copyright>
+        <productname>OpenStack</productname>
+        <releaseinfo>Version 3.0</releaseinfo>
+        <pubdate><?dbtimestamp format="B Y"?></pubdate>
+        <abstract>
+            <para>
+                This guide is intended to detail design considerations, configuration, deployment and ongoing operational practices for the successful implementation of OpenStack services atop or in concert with NetApp technologies. Please note that this version of the guide applies to the Icehouse (Spring 2014) release of OpenStack. The Grizzly release and prior are documented in version 1.1 available at netapp.com/openstack.
+            </para>
+        </abstract>
+        <revhistory>
+            <revision>
+                <revnumber>1.0</revnumber>
+                <date>2013-04</date>
+                <revremark>
+                    Initial OpenStack Deployment and Operations Guide.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>1.1</revnumber>
+                <date>2013-04</date>
+                <revremark>
+                    Minor enhancements.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2.0</revnumber>
+                <date>2013-12</date>
+                <revremark>
+                    Updated with OpenStack Havana changes -  including the new unified driver support, and enhanced instance creation for boot from volume.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2.1</revnumber>
+                <date>2013-12</date>
+                <revremark>
+                    Addition of Swift on E-Series deployment information.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2.2</revnumber>
+                <date>2014-01</date>
+                <revremark>
+                    Minor enhancement to clarify NFS configuration.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>2.3</revnumber>
+                <date>2014-01</date>
+                <revremark>
+                    Addition of Glance on E-series deployment information, add note of additional required Glance configuration in support of enhanced instance creation feature.
+                </revremark>
+            </revision>
+        </revhistory>
+    </info>
+    <xi:include href="ch_executive-summary.xml"/>
+    <xi:include href="ch_openstack-overview.xml"/>
+    <xi:include href="ch_netapp-storage.xml"/>
+    <xi:include href="ch_cinder.xml"/>
+</book>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_cinder-key-concepts">
+    <title>Key Concepts</title>
+    <simplesect>
+        <title>Volume</title>
+        <para>
+            A Cinder volume is the fundamental resource unit allocated by the Block Storage service. It represents an allocation of persistent, readable, and writable block storage that could be utilized as the root disk for a compute instance, or as secondary storage that could be attached and/or detached from a compute instance. The underlying connection between the consumer of the volume and the Cinder service providing the volume can be achieved with the iSCSI, NFS, or Fibre Channel storage protocols (dependent on the support of the Cinder driver deployed).
+        </para>
+        <note>
+            <para>
+                A Cinder volume is an abstract storage object that may or may not directly map to a "volume" concept from the underlying backend provider of storage. It is critically important to understand this distinction, particularly in context of a Cinder deployment that leverages NetApp storage solutions.
+            </para>
+        </note>
+        <para>
+            Cinder volumes can be identified uniquely through a UUID assigned by the Cinder service at the time of volume creation. A Cinder volume may also be optionally referred to by a human-readable name, though this string is not guaranteed to be unique within a single tenant or deployment of Cinder. 
+        </para>
+        <para>
+            The actual blocks provisioned in support of a Cinder volume reside on a single Cinder backend. Starting in the Havana release, a Cinder volume can be migrated from one storage backend to another within a deployment of the Cinder service.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>Snapshot</title>
+        <para>
+            A Cinder snapshot is a point-in-time, read-only copy of a Cinder volume. Snapshots can be created from an existing Cinder volume that is operational and either attached to an instance or in a detached state. A Cinder snapshot can serve as the content source for a new Cinder volume when the Cinder volume is created with the <emphasis>create from snapshot</emphasis> option specified. 
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>Backend</title>
+        <para>
+            A Cinder backend is the configuration object that represents a single provider of block storage available for provisioning requests to be rendered against it. A Cinder backend communicates with the other Cinder processes through a Cinder driver. Cinder supports multiple backends to be simultaneously configured and managed (even using the same Cinder driver) as of the Grizzly release.
+        </para>
+        <note>
+            <para>
+                A Cinder backend may be defined in the <literal>[DEFAULT]</literal> stanza of <filename>cinder.conf</filename>; however, this is not the recommended way to configure backends within Cinder. It is recommended that the <option>enabled_backends</option> configuration option be set to a comma-separated list of backend names, and each backend name have its own configuration stanza with the same name as listed in the <option>enabled_backends</option> option.
+            </para>
+        </note>
+    </simplesect>
+    <simplesect>
+        <title>Driver</title>
+        <para>
+            A Cinder driver is a particular implementation of a Cinder backend that maps the abstract APIs and primitives of Cinder to appropriate constructs within the particular storage solution underpinning the Cinder backend.
+        </para>
+        <caution>
+            <para>
+                The use of the term "driver" often creates confusion given common understanding of the behavior of “device drivers” in operating systems. The term can connote software that provides a data I/O path. In the case of Cinder driver implementations, the software provides provisioning and other manipulation of storage devices but does not lay in the path of data I/O. For this reason, the term "driver" is often used interchangeably with the alternative (and perhaps more appropriate) term “provider”.
+            </para>
+        </caution>
+    </simplesect>
+    <simplesect>
+        <title>Volume Type</title>
+        <para>
+            A Cinder volume type is an abstract collection of criteria used to characterize Cinder volumes. They are most commonly used to create a hierarchy of functional capabilities that represent a tiered level of storage services; for example, a cloud administrator might define a <literal>premium</literal> volume type that indicates a greater level of performance than a <literal>basic</literal> volume type, which would represent a best-effort level of performance.
+        </para>
+        <para>
+            The collection of criteria is specified as a list of key/value pairs, which are inspected by the Cinder scheduler when determining which Cinder backend(s) are able to fulfill a provisioning request. Individual Cinder drivers (and subsequently Cinder backends) may advertise arbitrary key/value pairs (also referred to as capabilities) to the Cinder scheduler, which are then compared against volume type definitions when determining which backend will fulfill a provisioning request.
+        </para>
+        <note>
+            <para>
+                The list of default capabilities that may be reported by a Cinder driver and included in a volume type definition include:
+            </para>
+            <itemizedlist>
+                <listitem><literal>volume_backend_name</literal>: The name of the backend as defined in <filename>cinder.conf</filename></listitem>
+                <listitem><literal>vendor_name</literal>: The name of the vendor who has implemented the driver (e.g. <literal>NetApp</literal>)</listitem>
+                <listitem><literal>driver_version</literal>: The version of the driver (e.g. <literal>1.0</literal>)</listitem>
+                <listitem><literal>storage_protocol</literal>: The protocol used by the backend to export block storage to clients (e.g. <literal>iscsi</literal> or <literal>nfs</literal>)</listitem>
+                <!--<listitem><literal>QoS_support</literal>: A boolean indicating whether the driver has support for QoS (NetApp currently doesn't support this)</listitem>-->
+            </itemizedlist>
+        </note>
+        <formalpara>
+            <title>Extra Spec</title>
+            <para>
+                An extra spec is a key/value pair, expressed in the style of <literal>key=value</literal>. Extra specs are associated with Cinder volume types, so that when users request volumes of a particular volume type, the volumes are created on storage backends that meet the specified criteria.
+            </para>
+            <note>
+                <para>
+                    For a list of NetApp-supported extra specs, please refer to section XYZ. ADD XREF HERE
+                </para>
+            </note>
+        </formalpara>
+        <formalpara>
+            <title>QoS Spec</title>
+            <para>
+                QoS Specs are used to apply generic Quality-of-Service(QoS) support for volumes that can be enforced either at the hypervisor (<literal>front-end</literal>) or at the storage subsystem (<literal>back-end</literal>), or both. QoS specifications are added as standalone objects that can then be associated with Cinder volume types.
+            </para>
+            <note>
+                <para>
+                    The NetApp Cinder drivers do not currently support any back-end QoS specs; however, the NetApp construct of QoS policy groups can be assigned to Cinder volumes managed through a clustered Data ONTAP backend using the NFS storage protocol. For more information, please see section XYZ ADD XREF HERE.
+                </para>
+            </note>
+                <!--
+                front-end = means enforced by hypervisor (through iotune in libvirt, KVM)
+                back-end = means enforced by storage subsystem
+
+                Front-end QoS options are:
+
+    total_bytes_sec: the total allowed bandwidth for the guest per second
+    read_bytes_sec: sequential read limitation
+    write_bytes_sec: sequential write limitation
+    total_iops_sec: the total allowed IOPS for the guest per second
+    read_iops_sec: random read limitation
+    write_iops_sec: random write limitation
+
+-->
+        </formalpara>
+    </simplesect>
+</section>

@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <groupId>com.netapp.openstack.docs</groupId>
+    <artifactId>pom</artifactId>
+    <version>Icehouse</version>
+    <modelVersion>4.0.0</modelVersion>
+    <name>NetApp and OpenStack: Deployment and Operations Guide - </name>
+    <!-- ################################################ -->
+    <!-- USE "mvn clean generate-sources" to run this POM -->
+    <!-- ################################################ -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.agilejava.docbkx</groupId>
+                <artifactId>docbkx-maven-plugin</artifactId>
+                <version>2.0.14</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-html</goal>
+                            <goal>generate-pdf</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.docbook</groupId>
+                        <artifactId>docbook-xml</artifactId>
+                        <version>5.0-all</version>
+                        <type>zip</type>
+                        <classifier>resources</classifier>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <generateToc>
+                        appendix  toc,title
+                        article/appendix  nop
+                        article   toc,title
+                        book      toc,title,figure,table
+                        chapter   title
+                        section   toc
+                    </generateToc>
+                    <bodyFontFamily>Arial</bodyFontFamily>
+                    <!--<bodyFontSize>12</bodyFontSize>-->
+                    <foCustomization>foCustomization.xsl</foCustomization>
+                    <externalFOPConfiguration>fop.xconf</externalFOPConfiguration>
+                    <hyphenation>false</hyphenation>
+                    <headerRule>0</headerRule>
+                    <footerRule>0</footerRule>
+                    <!-- The following elements sets the autonumbering of sections in output for chapter numbers but no numbered sections-->
+                    <sectionAutolabel>1</sectionAutolabel>
+                    <tocSectionDepth>1</tocSectionDepth>
+                    <sectionLabelIncludesComponentLabel>1</sectionLabelIncludesComponentLabel>
+                    <xincludeSupported>true</xincludeSupported>
+                    <sourceDirectory>.</sourceDirectory>
+                    <includes>bk-deployment-ops-guide.xml</includes>
+                    <showXslMessages>true</showXslMessages>
+                    <admonGraphics>1</admonGraphics>
+                    <admonGraphicsExtension>.jpg</admonGraphicsExtension>
+                    <admonGraphicsPath>images/</admonGraphicsPath>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

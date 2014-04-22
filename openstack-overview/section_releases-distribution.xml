@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="section_releases-distributions">
+    <title>OpenStack Releases and Distributions</title>
+    <para>
+        OpenStack’s major release cadence switched from every three months to 6 months starting with the Essex release. The Juno release date is tentative as of the date of this writing. Successive releases are alphabetically incremented. Hence, the release intended for April of 2015, by convention, will start with the letter “K.”
+    </para>
+    <table rules="all">
+    <caption>OpenStack Releases to Date</caption>
+    <col width="35%"/>
+    <col width="65%"/>
+        <thead>
+            <tr>
+                <td>Release</td>
+                <td>Date</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Austin</td>
+            <td>October 2010</td>
+        </tr>
+        <tr>
+            <td>Bexar</td>
+            <td>February 2011</td>
+        </tr>
+        <tr>
+            <td>Cactus</td>
+            <td>April 2011</td>
+        </tr>
+        <tr>
+            <td>Diablo</td>
+            <td>September 2011</td>
+        </tr>
+        <tr>
+            <td>Essex</td>
+            <td>April 2012</td>
+        </tr>
+        <tr>
+            <td>Folsom</td>
+            <td>October 2012</td>
+        </tr>
+        <tr>
+            <td>Grizzly</td>
+            <td>April 2013</td>
+        </tr>
+        <tr>
+            <td>Havana</td>
+            <td>October 2013</td>
+        </tr>
+        <tr>
+            <td>Icehouse</td>
+            <td>April 2014</td>
+        </tr>
+        <tr>
+            <td>Juno</td>
+            <td>November 2014 (planned)</td>
+        </tr>
+        </tbody>
+    </table>
+    <para>
+        Additionally, for each major version a stable branch is maintained. These branches represent a centralized effort to maintain bugfixes and security vulnerability patches for released OpenStack project versions in a ready-to-deploy form.
+    </para>
+    <para>
+        OpenStack is often consumed through one of a variety of prepackaged methods (for example, Red Hat’s RHEL-OSP, Rackspace Private Cloud Software, Canonical’s Ubuntu, SUSE Cloud, StackOps, MetaCloud Carbon OS and a growing variety of other options). Additional distributions or packaged appliances (for example, for example, Nebula One) from leading technology vendors are currently under development or are in preview, and are expected to be released in the coming months.
+    </para>
+    <para>
+        This document is intended to be broadly applicable to deployment with distributions meeting the OpenStack Foundation’s requirements for a compliant software distribution.
+    </para>
+</section>
