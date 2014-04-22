@@ -1,2 +1,2 @@
-The NetApp OpenStack Deployment & Operations Guide
-===================================================
+NetApp OpenStack Deployment & Operations Guide
+===============================================
