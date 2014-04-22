@@ -31,7 +31,7 @@
             <title>Cinder Workflow - Volume Creation</title>
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="../images/cinder_create_volume_process.png" align="center" scale="70"/>
+                    <imagedata fileref="../images/cinder_create_volume_process.png" align="center" scale="80"/>
                 </imageobject>
                 <textobject>
                     <phrase>An logical diagram of the volume creation workflow within Cinder</phrase>
@@ -40,31 +40,80 @@
         </figure>
         <orderedlist>
             <listitem>
-                Client issues request to create volume through invoking REST API (may use <literal>python-cinderclient</literal> CLI utility)
+                Client issues request to create volume through invoking REST API (may use <literal>python-cinderclient</literal> CLI utility).
             </listitem>
             <listitem>
-                <literal>cinder-api</literal> process validates request, user credentials; once validated, puts message onto AMQP queue for processing
+                <literal>cinder-api</literal> process validates request, user credentials; once validated, puts message onto AMQP queue for processing.
             </listitem>
             <listitem>
-                <literal>cinder-volume</literal> process takes message off of queue, sends message to cinder-scheduler to determine which backend to provision volume into
+                <literal>cinder-volume</literal> process takes message off of queue, sends message to cinder-scheduler to determine which backend to provision volume into.
             </listitem>
             <listitem>
-                <literal>cinder-scheduler</literal> process takes message off of queue, generates candidate list based on current state and requested volume criteria (size, availability zone, volume type (including extra specs))
+                <literal>cinder-scheduler</literal> process takes message off of queue, generates candidate list based on current state and requested volume criteria (size, availability zone, volume type (including extra specs)).
             </listitem>
             <listitem>
-                <literal>cinder-volume</literal> process reads response message from <literal>cinder-scheduler</literal> from queue; iterates through candidate list by invoking backend driver methods until successful
+                <literal>cinder-volume</literal> process reads response message from <literal>cinder-scheduler</literal> from queue; iterates through candidate list by invoking backend driver methods until successful.
             </listitem>
             <listitem>
-                NetApp Cinder driver creates requested volume through interactions with storage subsystem (dependent on configuration and protocol)
+                NetApp Cinder driver creates requested volume through interactions with storage subsystem (dependent on configuration and protocol).
             </listitem>
             <listitem>
-                <literal>cinder-volume</literal> process collects volume metadata and connection information and posts response message to AMQP queue
+                <literal>cinder-volume</literal> process collects volume metadata and connection information and posts response message to AMQP queue.
             </listitem>
             <listitem>
-                <literal>cinder-api</literal> process reads response message from queue and responds to client
+                <literal>cinder-api</literal> process reads response message from queue and responds to client.
             </listitem>
             <listitem>
                 Client receives information including status of creation request, volume UUID, etc.
+            </listitem>
+        </orderedlist>
+    </simplesect>
+    <simplesect>
+        <title>Volume Attach Workflow</title>
+        <para>
+            The following section will walk through the steps that occur when a user requests that a Cinder volume be attached to a Nova compute instance.
+        </para>
+        <figure xml:id="cinder.volume_attach_workflow">
+            <title>Cinder &amp; Nova Workflow - Volume Attach</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="../images/nova_volume_attach_process.png" align="center" scale="70"/>
+                </imageobject>
+                <textobject>
+                    <phrase>An logical diagram of the volume attach workflow between Nova &amp; Cinder</phrase>
+                </textobject>
+            </mediaobject>
+        </figure>
+        <orderedlist>
+            <listitem>
+                Client issues request to attach volume through invoking Nova REST API (may use <literal>python-novaclient</literal> CLI utility).
+            </listitem>
+            <listitem>
+                <literal>nova-api</literal> process validates request, user credentials; once validated, invokes Cinder API to get connection information for specified volume.
+            </listitem>
+            <listitem>
+                <literal>cinder-api</literal> process validates request, user credentials; once validated, posts message to volume manager over AMQP.
+            </listitem>
+            <listitem>
+                <literal>cinder-volume</literal> reads message from queue, invokes Cinder driver corresponding to volume to be attached.
+            </listitem>
+            <listitem>
+                NetApp Cinder driver prepares Cinder volume in preparation for attachment (specific steps dependent on storage protocol used).
+            </listitem>
+            <listitem>
+                <literal>cinder-volume</literal> process posts response information to <literal>cinder-api</literal> process via AMQP queue.
+            </listitem>
+            <listitem>
+                <literal>cinder-api</literal> process reads response message from <literal>cinder-volume</literal> from queue; passes connection information in RESTful response to Nova caller.
+            </listitem>
+            <listitem>
+                Nova creates the connection to the storage using the returned information from Cinder.
+            </listitem>
+            <listitem>
+                Nova passes the volume device/file to the hypervisor.
+            </listitem>
+            <listitem>
+                The hypervisor attaches the volume device/file to the guest VM as an actual or virtualized block device (dependent on storage procotol).
             </listitem>
         </orderedlist>
     </simplesect>

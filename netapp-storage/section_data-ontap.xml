@@ -42,29 +42,48 @@
         <para>
             NetApp’s storage clustering feature within Data ONTAP provides a number of key benefits, including the ability to:
         </para>
-        <itemizedlist>
-            <listitem>
-                <emphasis>Accelerate performance</emphasis>. Clustered Data ONTAP uses a clustered file system technology to provide maximum input/output (I/O) throughput and remove the bottlenecks that affect production. Information can be striped as volumes across any or all of the storage controllers and disks in the system, which enables balanced levels of throughput for even a single file or volume and allows technical teams to run multiple compute jobs concurrently. When many compute nodes simultaneously require data, you can use load-balancing mirrors within Data ONTAP with a clustering system or add NetApp FlexCache® storage accelerators in front of the system to deliver much higher read throughput.
-            </listitem>
-            <listitem>
-                <emphasis>Simplify storage and data management</emphasis>. Clustered Data ONTAP supports fully integrated storage solutions that are easy to install, manage, and maintain. Enhancing this with its global namespace capability, administrators can simplify client-side management by mapping all data volumes in the cluster into a file system tree structure that automatically maps or remaps servers to their data, even if that data is moved. By offering a single system image across multiple storage nodes, the global namespace eliminates the need for complex automounter maps and symbolic link scripts.
-            </listitem>
-            <listitem>
-                <emphasis>Improve data access</emphasis>. Storage is virtualized at the file system level to enable all compute nodes to mount a single file system, access all stored data, and automatically accommodate physical storage changes that are fully transparent to the compute cluster. Each client can access a huge pool of information residing anywhere in the storage cluster through a single mount point.
-            </listitem>
-            <listitem>
-                <emphasis>Keep resources in balance without disrupting operations</emphasis>. As storage nodes are added to the cluster, physical resources, including CPU, cache memory, network I/O bandwidth, and disk I/O bandwidth, are kept in balance automatically. Clustered Data ONTAP enables you to add storage and move data between storage controllers and tiers of storage without disrupting users and applications. This ushers in a whole new paradigm in which capacity increases, workload balancing, eliminating storage I/O hotspots, and component deprecation become normal parts of the data center without needing to schedule downtime. More importantly, these tasks are accomplished without the need to remount shares, modify client settings, or stop active workloads as is typically the case with traditional or other high-performance computing storage systems.
-            </listitem>
-            <listitem>
-                <emphasis>Simplify installation and maintenance</emphasis>. Using standard Network File System (NFS) and Common Internet File System (CIFS) protocols to access clustered Data ONTAP systems without needing to install special clients, network stack filters, or code on each server in the compute cluster is the value of a unified storage product. The clustered Data ONTAP architecture also reduces or eliminates routine capacity allocation and storage management tasks, resulting in more time to address organizational goals and objectives and less time spent managing storage.
-            </listitem>
-            <listitem>
-                <emphasis>Meet high-availability requirements</emphasis>. Along with stringent performance requirements, high reliability is important for technical applications and cluster computing. Clustered Data ONTAP leverages core NetApp software such as WAFL® (Write Anywhere File Layout), RAID-DP®, and NetApp Snapshot. RAID-DP, a high-performance implementation of RAID 6, protects against double-disk failures, and transparent node failover automatically bypasses any failed components with no interruption in data availability. In addition to having no single point of failure, clustered Data ONTAP supports the expansion or reconfiguration of the storage infrastructure while online, enabling applications to run uninterrupted as more storage capacity, processing power, and/or throughput is added.
-            </listitem>
-            <listitem>
-                <emphasis>Enable continuous operations</emphasis>. Clustered Data ONTAP is configured for continuous operation with the use of high-performance and modular NetApp storage components. Each system consists of one or more FAS building blocks where each building block is a high-availability pair of controllers (storage nodes). Multiple controller pairs form a single, integrated cluster. Clustered Data ONTAP uses Ethernet technology — Gigabit(Gb) and 10Gb — for server connections and for interconnecting FAS controllers. Servers can also be connected through InfiniBand using a gateway device. Each controller can support any mix of high-performance SAS and cost-effective SATA disk drives. Data can move nondisruptively between nodes or between different tiers of disk as performance requirements change. This capability makes sure that data center and IT administrators can maximize performance where needed while simultaneously improving capacity utilization.
-            </listitem>
-        </itemizedlist>
+        <formalpara>
+            <title>Accelerate performance</title>
+            <para>
+                Clustered Data ONTAP uses a clustered file system technology to provide maximum input/output (I/O) throughput and remove the bottlenecks that affect production. Information can be striped as volumes across any or all of the storage controllers and disks in the system, which enables balanced levels of throughput for even a single file or volume and allows technical teams to run multiple compute jobs concurrently. When many compute nodes simultaneously require data, you can use load-balancing mirrors within Data ONTAP with a clustering system or add NetApp FlexCache® storage accelerators in front of the system to deliver much higher read throughput.
+            </para>
+        </formalpara>
+        <formalpara>
+            <title>Simplify storage and data management</title>
+            <para>
+                Clustered Data ONTAP supports fully integrated storage solutions that are easy to install, manage, and maintain. Enhancing this with its global namespace capability, administrators can simplify client-side management by mapping all data volumes in the cluster into a file system tree structure that automatically maps or remaps servers to their data, even if that data is moved. By offering a single system image across multiple storage nodes, the global namespace eliminates the need for complex automounter maps and symbolic link scripts.
+            </para>
+        </formalpara>
+        <formalpara>
+            <title>Improve data access</title>
+            <para>
+                Storage is virtualized at the file system level to enable all compute nodes to mount a single file system, access all stored data, and automatically accommodate physical storage changes that are fully transparent to the compute cluster. Each client can access a huge pool of information residing anywhere in the storage cluster through a single mount point.
+            </para>
+        </formalpara>
+        <formalpara>
+            <title>Keep resources in balance without disrupting operations</title>
+            <para>
+                As storage nodes are added to the cluster, physical resources, including CPU, cache memory, network I/O bandwidth, and disk I/O bandwidth, are kept in balance automatically. Clustered Data ONTAP enables you to add storage and move data between storage controllers and tiers of storage without disrupting users and applications. This ushers in a whole new paradigm in which capacity increases, workload balancing, eliminating storage I/O hotspots, and component deprecation become normal parts of the data center without needing to schedule downtime. More importantly, these tasks are accomplished without the need to remount shares, modify client settings, or stop active workloads as is typically the case with traditional or other high-performance computing storage systems.
+            </para>
+        </formalpara>
+        <formalpara>
+            <title>Simplify installation and maintenance</title>
+            <para>
+                Using standard Network File System (NFS) and Common Internet File System (CIFS) protocols to access clustered Data ONTAP systems without needing to install special clients, network stack filters, or code on each server in the compute cluster is the value of a unified storage product. The clustered Data ONTAP architecture also reduces or eliminates routine capacity allocation and storage management tasks, resulting in more time to address organizational goals and objectives and less time spent managing storage.
+            </para>
+        </formalpara>
+        <formalpara>
+            <title>Meet high-availability requirements</title>
+            <para>
+                Along with stringent performance requirements, high reliability is important for technical applications and cluster computing. Clustered Data ONTAP leverages core NetApp software such as WAFL® (Write Anywhere File Layout), RAID-DP®, and NetApp Snapshot. RAID-DP, a high-performance implementation of RAID 6, protects against double-disk failures, and transparent node failover automatically bypasses any failed components with no interruption in data availability. In addition to having no single point of failure, clustered Data ONTAP supports the expansion or reconfiguration of the storage infrastructure while online, enabling applications to run uninterrupted as more storage capacity, processing power, and/or throughput is added.
+            </para>
+        </formalpara>
+        <formalpara>
+            <title>Enable continuous operations</title>
+            <para>
+                Clustered Data ONTAP is configured for continuous operation with the use of high-performance and modular NetApp storage components. Each system consists of one or more FAS building blocks where each building block is a high-availability pair of controllers (storage nodes). Multiple controller pairs form a single, integrated cluster. Clustered Data ONTAP uses Ethernet technology — Gigabit(Gb) and 10Gb — for server connections and for interconnecting FAS controllers. Servers can also be connected through InfiniBand using a gateway device. Each controller can support any mix of high-performance SAS and cost-effective SATA disk drives. Data can move nondisruptively between nodes or between different tiers of disk as performance requirements change. This capability makes sure that data center and IT administrators can maximize performance where needed while simultaneously improving capacity utilization.
+            </para>
+        </formalpara>
     </simplesect>
     <simplesect>
         <title>Data ONTAP operating in 7-Mode</title>

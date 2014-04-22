@@ -54,24 +54,22 @@
         <para>
             The collection of criteria is specified as a list of key/value pairs, which are inspected by the Cinder scheduler when determining which Cinder backend(s) are able to fulfill a provisioning request. Individual Cinder drivers (and subsequently Cinder backends) may advertise arbitrary key/value pairs (also referred to as capabilities) to the Cinder scheduler, which are then compared against volume type definitions when determining which backend will fulfill a provisioning request.
         </para>
-        <note>
-            <para>
-                The list of default capabilities that may be reported by a Cinder driver and included in a volume type definition include:
-            </para>
-            <itemizedlist>
-                <listitem><literal>volume_backend_name</literal>: The name of the backend as defined in <filename>cinder.conf</filename></listitem>
-                <listitem><literal>vendor_name</literal>: The name of the vendor who has implemented the driver (e.g. <literal>NetApp</literal>)</listitem>
-                <listitem><literal>driver_version</literal>: The version of the driver (e.g. <literal>1.0</literal>)</listitem>
-                <listitem><literal>storage_protocol</literal>: The protocol used by the backend to export block storage to clients (e.g. <literal>iscsi</literal> or <literal>nfs</literal>)</listitem>
-                <!--<listitem><literal>QoS_support</literal>: A boolean indicating whether the driver has support for QoS (NetApp currently doesn't support this)</listitem>-->
-            </itemizedlist>
-        </note>
         <formalpara>
             <title>Extra Spec</title>
             <para>
                 An extra spec is a key/value pair, expressed in the style of <literal>key=value</literal>. Extra specs are associated with Cinder volume types, so that when users request volumes of a particular volume type, the volumes are created on storage backends that meet the specified criteria.
             </para>
             <note>
+                <para>
+                    The list of default capabilities that may be reported by a Cinder driver and included in a volume type definition include:
+                </para>
+                <itemizedlist>
+                    <listitem><literal>volume_backend_name</literal>: The name of the backend as defined in <filename>cinder.conf</filename></listitem>
+                    <listitem><literal>vendor_name</literal>: The name of the vendor who has implemented the driver (e.g. <literal>NetApp</literal>)</listitem>
+                    <listitem><literal>driver_version</literal>: The version of the driver (e.g. <literal>1.0</literal>)</listitem>
+                    <listitem><literal>storage_protocol</literal>: The protocol used by the backend to export block storage to clients (e.g. <literal>iscsi</literal> or <literal>nfs</literal>)</listitem>
+                    <!--<listitem><literal>QoS_support</literal>: A boolean indicating whether the driver has support for QoS (NetApp currently doesn't support this)</listitem>-->
+                </itemizedlist>
                 <para>
                     For a list of NetApp-supported extra specs, please refer to section XYZ. ADD XREF HERE
                 </para>

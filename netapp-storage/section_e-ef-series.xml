@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section xmlns="http://docbook.org/ns/docbook"
-    xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
-    xml:id="section_e-ef-series">
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="section_e-ef-series">
     <title>Description of E-Series and EF-Series Systems</title>
     <para>
-        The family of E-series and EF-series systems provides performance-efficient, high-density block storage aimed primarily at application-driven workloads. 
+        The family of E-series and EF-series systems provides performance-efficient, high-density block storage aimed primarily at application-driven workloads.
     </para>
     <para>
         NetApp E-Series systems are designed to provide:
@@ -24,7 +21,7 @@
             High performance GB/s or IOPS
         </listitem>
         <listitem>
-            Performance, power and space efficiency
+            Performance, power, and space efficiency
         </listitem>
         <listitem>
             Consistent, low latency
@@ -33,7 +30,7 @@
             Consistently high IOPS and throughput
         </listitem>
         <listitem>
-            Enterprise-class capabilities (reliability, availability, manageability)
+            Enterprise-class capabilities (reliability, availability, manageability)
         </listitem>
     </itemizedlist>
     <para>
