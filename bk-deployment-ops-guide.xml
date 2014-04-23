@@ -84,7 +84,7 @@
                 <revnumber>3.0</revnumber>
                 <date>May 2014</date>
                 <revremark>
-                    Major revision; theory of operation and concept discussion for Cinder, Glance, Nova, Swift; expanded configuration examples and deployment advice.
+                    Major revision for Icehouse release; theory of operation and concept discussion for Cinder, Glance, Nova, Swift; expanded configuration examples and deployment advice.
                 </revremark>
             </revision>
         </revhistory>

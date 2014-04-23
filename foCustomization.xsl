@@ -302,9 +302,18 @@
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
+                    <!-- note: some of the padding-top size may have to be shrunk in the future as the version history table grows in order to fit all content on a single page -->
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="3">
-                            <fo:block padding-top="64pt" font-size="9pt">
+                            <fo:block padding-top="64pt" font-size="8pt">
+                                Some content enclosed in this document was derived from the <fo:basic-link external-destination="url(http://docs.openstack.org/icehouse/config-reference/)"><fo:inline color="#0067c5" text-decoration="underline">OpenStack Configuration Reference</fo:inline></fo:basic-link>, available under the Apache License, Version 2.0. You may obtain a copy of the License at <fo:basic-link external-destination="url(http://www.apache.org/licenses/LICENSE-2.0)"><fo:inline color="#0067c5" text-decoration="underline">http://www.apache.org/licenses/LICENSE-2.0</fo:inline></fo:basic-link>.
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <!-- note: some of the padding-top size may have to be shrunk in the future as the version history table grows in order to fit all content on a single page -->
+                    <fo:table-row>
+                        <fo:table-cell number-columns-spanned="3">
+                            <fo:block padding-top="24pt" font-size="9pt">
                                 NetApp provides no representations or warranties regarding the accuracy, reliability, or serviceability of any information or recommendations provided in this publication, or with respect to any results that may be obtained by the use of the information or observance of any recommendations provided herein. The information in this document is distributed AS IS, and the use of this information or the implementation of any recommendations or techniques herein is a customer’s responsibility and depends on the customer’s ability to evaluate and integrate them into the customer’s operational environment. This document and the information contained herein may be used solely in connection with the NetApp products discussed in this document.
                             </fo:block>
                             <fo:block padding-top="4pt" padding-bottom="4pt">
@@ -314,6 +323,7 @@
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
+                    <!-- note: some of the padding-top size may have to be shrunk in the future as the version history table grows in order to fit all content on a single page -->
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block padding-top="24pt">

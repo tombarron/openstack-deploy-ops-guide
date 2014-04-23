@@ -8,8 +8,3 @@ mvn clean generate-resources
 
 If successful, the PDF output will be in target/docbkx/pdf/bk-deployment-ops-guide.pdf
 
-TODO:
-
-- license attribution to docs.openstack.org (via Apache 2)
-- ensure copyright statements from last page match previous version
-
