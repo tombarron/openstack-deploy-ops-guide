@@ -17,11 +17,10 @@
                 <version>2.0.14</version>
                 <executions>
                     <execution>
+                        <phase>generate-resources</phase>
                         <goals>
-                            <goal>generate-html</goal>
                             <goal>generate-pdf</goal>
                         </goals>
-                        <phase>generate-sources</phase>
                     </execution>
                 </executions>
                 <dependencies>
@@ -43,9 +42,38 @@
                         section   toc
                     </generateToc>
                     <bodyFontFamily>Arial</bodyFontFamily>
+                    <fonts>
+                        <font>
+                            <name>Arial</name>
+                            <style>normal</style>
+                            <weight>normal</weight>
+                            <embedFile>${basedir}/src/fonts/Arial.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/Arial-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>Arial</name>
+                            <style>italic</style>
+                            <weight>normal</weight>
+                            <embedFile>${basedir}/src/fonts/Arial-Italic.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/Arial-Italic-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>Arial</name>
+                            <style>normal</style>
+                            <weight>bold</weight>
+                            <embedFile>${basedir}/src/fonts/Arial-Bold.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/Arial-Bold-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>Arial</name>
+                            <style>italic</style>
+                            <weight>bold</weight>
+                            <embedFile>${basedir}/src/fonts/Arial-Bold-Italic.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/Arial-Bold-Italic-metrics.xml</metricsFile>
+                        </font>
+                    </fonts>
                     <!--<bodyFontSize>12</bodyFontSize>-->
                     <foCustomization>foCustomization.xsl</foCustomization>
-                    <externalFOPConfiguration>fop.xconf</externalFOPConfiguration>
                     <hyphenation>false</hyphenation>
                     <headerRule>0</headerRule>
                     <footerRule>0</footerRule>
@@ -61,6 +89,22 @@
                     <admonGraphicsExtension>.jpg</admonGraphicsExtension>
                     <admonGraphicsPath>images/</admonGraphicsPath>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.agilejava.docbkx</groupId>
+                <artifactId>docbkx-fop-support</artifactId>
+                <version>2.0.14</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <ansi>true</ansi>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

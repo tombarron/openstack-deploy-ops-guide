@@ -14,7 +14,7 @@
       OpenStack is committed to an open design and development process. The community operates around a six-month, time-based release cycle with frequent development milestones. For additional information, refer to <link xlink:href="http://www.openstack.org">http://www.openstack.org</link>.
   </para>
   <para>
-      OpenStack is available to be deployed on all major Linux® platforms. For additional information, refer to <link xlink:href="http://wiki.openstack.org/GetOpenStack">http://wiki.openstack.org/GetOpenStack</link>.
+      OpenStack is available to be deployed on all major <trademark class="registered">Linux</trademark> platforms. For additional information, refer to <link xlink:href="http://wiki.openstack.org/GetOpenStack">http://wiki.openstack.org/GetOpenStack</link>.
   </para>
   <xi:include href="openstack-overview/section_openstack-foundation.xml"/>
   <xi:include href="openstack-overview/section_modular-collection.xml"/>

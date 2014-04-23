@@ -2,13 +2,13 @@
 <chapter version="5.0" xml:id="ch_executive-summary" xmlns="http://docbook.org/ns/docbook">
   <title>Executive Summary</title>
   <para>
-      Most options for OpenStack integrated storage solutions aspire to offer scalability, but often lack the features and performance needed for efficient and cost-effective cloud deployment at scale. NetApp® platforms integrated with OpenStack avail a unique combination of advanced storage efficiency, integrated data protection, and non-disruptive operations with the ability to scale while preserving performance.
+      Most options for OpenStack integrated storage solutions aspire to offer scalability, but often lack the features and performance needed for efficient and cost-effective cloud deployment at scale. <trademark class="registered">NetApp</trademark> platforms integrated with OpenStack avail a unique combination of advanced storage efficiency, integrated data protection, and non-disruptive operations with the ability to scale while preserving performance.
   </para>
   <para>
       With NetApp, organizations can lower risk and enable a broad spectrum of cloud SLAs by combining the power and ingenuity of OpenStack cloud management with proven data integrity and fully-developed storage provisioning, data protection, and efficiency.
   </para>
   <para>
-      By leveraging the power of the NetApp clustered Data ONTAP® operating system, enterprise organizations and service providers can build a cloud storage platform with an agile data infrastructure that delivers high-performing, efficient, and scalable open-source cloud services. NetApp provides storage platforms that enable quick deployment, nimble reaction to change, and low-entry points with ability to scale.
+      By leveraging the power of the NetApp <trademark class="registered">clustered Data ONTAP</trademark> operating system, enterprise organizations and service providers can build a cloud storage platform with an agile data infrastructure that delivers high-performing, efficient, and scalable open-source cloud services. NetApp provides storage platforms that enable quick deployment, nimble reaction to change, and low-entry points with ability to scale.
   </para>
   <para>
       With capabilities such as self-healing and integrated data protection for backup and disaster recovery, NetApp solutions are enterprise proven and help reduce risk for OpenStack cloud deployments. A global network of service provider partners already have deployed hundreds of high-SLA cloud services built on NetApp with over a billion users worldwide.

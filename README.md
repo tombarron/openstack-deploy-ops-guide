@@ -4,7 +4,7 @@ You must have Maven (and a JDK) installed, and the first time you run mvn you wi
 
 to build, run:
 
-mvn clean generate-sources
+mvn clean generate-resources
 
 If successful, the PDF output will be in target/docbkx/pdf/bk-deployment-ops-guide.pdf
 

@@ -113,7 +113,7 @@
                 Nova passes the volume device/file to the hypervisor.
             </listitem>
             <listitem>
-                The hypervisor attaches the volume device/file to the guest VM as an actual or virtualized block device (dependent on storage procotol).
+                The hypervisor attaches the volume device or file to the guest virtual machine as an actual or virtualized block device (dependent on storage protocol).
             </listitem>
         </orderedlist>
     </simplesect>
