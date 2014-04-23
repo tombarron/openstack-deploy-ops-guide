@@ -45,8 +45,7 @@
                     </fo:table-row>
                     <fo:table-row >
                         <fo:table-cell number-columns-spanned="3">
-                            <!-- TODO: add space above this block to space away from logos -->
-                            <fo:block text-align="center">
+                            <fo:block text-align="center" padding-top="36pt">
                                 <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="d:title"/>
                             </fo:block>
                         </fo:table-cell>
@@ -55,9 +54,9 @@
                         <fo:table-cell>
                             <fo:block/>
                         </fo:table-cell>
-                        <fo:table-cell>
-                            <fo:block text-align="left" color="#454545">
-                                <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="d:info/d:authorgroup/d:author"/>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block text-align="left" color="#454545" padding-top="12pt">
+                                <xsl:apply-templates mode="titlepage.mode" select="d:info/d:authorgroup/d:author"/>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -65,11 +64,21 @@
                         <fo:table-cell>
                             <fo:block/>
                         </fo:table-cell>
-                        <fo:table-cell>
-                            <fo:block text-align="left">
-                                <xsl:apply-templates mode="titlepage.mode" select="d:info/d:pubdate"/>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block text-align="left" padding-top="8pt">
+                                <xsl:apply-templates select="d:info/d:pubdate/processing-instruction()"/>
                                 <xsl:text> | </xsl:text>
                                 <xsl:apply-templates mode="book.titlepage.recto.auto.mode" select="d:info/d:releaseinfo"/>
+                            </fo:block>
+                        </fo:table-cell>
+                    </fo:table-row>
+                    <fo:table-row >
+                        <fo:table-cell>
+                            <fo:block/>
+                        </fo:table-cell>
+                        <fo:table-cell number-columns-spanned="2">
+                            <fo:block text-align="left" padding-top="320pt">
+                                <xsl:apply-templates select="d:info/d:abstract"/>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>

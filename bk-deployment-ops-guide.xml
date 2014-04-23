@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="bk-deployment-ops-guide">
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="bk-deployment-ops-guide">
     <title>OpenStack Deployment and Operations Guide</title>
     <titleabbrev>Deployment and Operations Guide</titleabbrev>
     <info>
@@ -31,8 +31,9 @@
         <releaseinfo>Version 3.0</releaseinfo>
         <pubdate><?dbtimestamp format="B Y"?></pubdate>
         <abstract>
+            <title>Abstract</title>
             <para>
-                This guide is intended to detail design considerations, configuration, deployment and ongoing operational practices for the successful implementation of OpenStack services atop or in concert with NetApp technologies. Please note that this version of the guide applies to the Icehouse (Spring 2014) release of OpenStack. The Grizzly release and prior are documented in version 1.1 available at netapp.com/openstack.
+                This guide is intended to detail design considerations, configuration, deployment and ongoing operational practices for the successful implementation of OpenStack services atop or in concert with NetApp technologies. Please note that this version of the guide applies to the Icehouse (Spring 2014) release of OpenStack. The Havana release and prior are documented in version 2.3 available at <link xlink:href="http://www.netapp.com/openstack">http://www.netapp.com/openstack</link>.
             </para>
         </abstract>
         <revhistory>

@@ -6,9 +6,9 @@
     <version>Icehouse</version>
     <modelVersion>4.0.0</modelVersion>
     <name>NetApp and OpenStack: Deployment and Operations Guide - </name>
-    <!-- ################################################ -->
-    <!-- USE "mvn clean generate-sources" to run this POM -->
-    <!-- ################################################ -->
+    <!-- ################################################## -->
+    <!-- USE "mvn clean generate-resources" to run this POM -->
+    <!-- ################################################## -->
     <build>
         <plugins>
             <plugin>
@@ -72,7 +72,6 @@
                             <metricsFile>${basedir}/target/fonts/Arial-Bold-Italic-metrics.xml</metricsFile>
                         </font>
                     </fonts>
-                    <!--<bodyFontSize>12</bodyFontSize>-->
                     <foCustomization>foCustomization.xsl</foCustomization>
                     <hyphenation>false</hyphenation>
                     <headerRule>0</headerRule>
