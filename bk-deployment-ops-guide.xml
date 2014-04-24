@@ -93,5 +93,6 @@
     <xi:include href="ch_openstack-overview.xml"/>
     <xi:include href="ch_netapp-storage.xml"/>
     <xi:include href="ch_cinder.xml"/>
+    <xi:include href="ch_swift.xml"/>
     <xi:include href="ch_backpage.xml"/>
 </book>

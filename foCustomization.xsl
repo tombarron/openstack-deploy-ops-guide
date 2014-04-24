@@ -145,6 +145,13 @@
         </xsl:if>
     </xsl:template>
 
+    <!-- Center captions above figures, tables, etc. -->
+    <xsl:template name="formal.title.properties">
+        <xsl:if test="not(self::d:table)">
+            <xsl:attribute name="text-align">center</xsl:attribute>
+        </xsl:if>
+    </xsl:template>
+
     <!-- Text should be NetApp deep gray -->
     <xsl:attribute-set name="root.properties">
         <xsl:attribute name="color">#454545</xsl:attribute>

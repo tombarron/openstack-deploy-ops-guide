@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_swift-ring-considerations">
+    <title>Swift Ring Considerations with DDP</title>
+    <para>
+        A Swift ring represents a mapping between the names of entities stored on disk and their physical location. There are separate rings for accounts, containers, and objects. When other components need to perform any operation on an object, container, or account, they need to interact with the appropriate ring to determine its location in the cluster.
+    </para>
+    <para>
+        The ring maintains this mapping using zones, devices, partitions, and replicas. Each partition in the ring is replicated 3 times, by default, across the cluster. The locations for a partition are stored in the mapping maintained by the ring. The ring is also responsible for determining which devices are used for handoff in failure scenarios.
+    </para>
+    <tip>
+        <para>
+            When leveraging the DDP capabilities of the E-Series storage system, it is only necessary to have Swift maintain 1 replica of the data as the storage subsystem automatically is providing sufficient replication of the data within the storage cluster to withstand multiple failures. 
+        </para>
+    </tip>
+    <para>
+        The number of replicas for partitions within Swift rings is set at the time the ring is created. To create the Swift rings for the Swift object types of account, container, and object, use the <command>swift-ring-builder</command> CLI command with the &lt;replicas&gt; parameter set to 1:
+    </para>
+    <programlisting>
+cd /etc/swift
+swift-ring-builder account.builder create 10 2 <replaceable>1</replaceable>
+swift-ring-builder container.builder create 10 2 <replaceable>1</replaceable>
+swift-ring-builder object.builder create 10 2 <replaceable>1</replaceable>
+    </programlisting>
+</section>

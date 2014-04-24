@@ -5,9 +5,9 @@
         OpenStack’s major release cadence switched from every three months to 6 months starting with the Essex release. The Juno release date is tentative as of the date of this writing. Successive releases are alphabetically incremented. Hence, the release intended for April of 2015, by convention, will start with the letter “K.”
     </para>
     <table rules="all">
-    <caption>OpenStack Releases to Date</caption>
-    <col width="35%"/>
-    <col width="65%"/>
+        <caption>OpenStack Releases to Date</caption>
+        <col width="1.5in"/>
+        <col width="2in"/>
         <thead>
             <tr>
                 <td>Release</td>
@@ -15,46 +15,46 @@
             </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Austin</td>
-            <td>October 2010</td>
-        </tr>
-        <tr>
-            <td>Bexar</td>
-            <td>February 2011</td>
-        </tr>
-        <tr>
-            <td>Cactus</td>
-            <td>April 2011</td>
-        </tr>
-        <tr>
-            <td>Diablo</td>
-            <td>September 2011</td>
-        </tr>
-        <tr>
-            <td>Essex</td>
-            <td>April 2012</td>
-        </tr>
-        <tr>
-            <td>Folsom</td>
-            <td>October 2012</td>
-        </tr>
-        <tr>
-            <td>Grizzly</td>
-            <td>April 2013</td>
-        </tr>
-        <tr>
-            <td>Havana</td>
-            <td>October 2013</td>
-        </tr>
-        <tr>
-            <td>Icehouse</td>
-            <td>April 2014</td>
-        </tr>
-        <tr>
-            <td>Juno</td>
-            <td>November 2014 (planned)</td>
-        </tr>
+            <tr>
+                <td>Austin</td>
+                <td>October 2010</td>
+            </tr>
+            <tr>
+                <td>Bexar</td>
+                <td>February 2011</td>
+            </tr>
+            <tr>
+                <td>Cactus</td>
+                <td>April 2011</td>
+            </tr>
+            <tr>
+                <td>Diablo</td>
+                <td>September 2011</td>
+            </tr>
+            <tr>
+                <td>Essex</td>
+                <td>April 2012</td>
+            </tr>
+            <tr>
+                <td>Folsom</td>
+                <td>October 2012</td>
+            </tr>
+            <tr>
+                <td>Grizzly</td>
+                <td>April 2013</td>
+            </tr>
+            <tr>
+                <td>Havana</td>
+                <td>October 2013</td>
+            </tr>
+            <tr>
+                <td>Icehouse</td>
+                <td>April 2014</td>
+            </tr>
+            <tr>
+                <td>Juno</td>
+                <td>November 2014 (planned)</td>
+            </tr>
         </tbody>
     </table>
     <para>
