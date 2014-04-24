@@ -11,7 +11,7 @@
         NetApp has provided enhancements to the OpenStack Compute (Nova) and OpenStack Image (Glance) projects to enhance instance creation and storage efficiency as well.
     </para>
     <para>
-        NetApp additionaly leads a development effort within the OpenStack community to introduce a new core storage service developed under the project name “Manila.” It adds a shared file system service to the existing block and object storage services, addressing a critical gap in OpenStack’s storage services coverage and enabling a new category of on-demand file storage based on Infrastructure as a Service (IaaS).
+        NetApp additionally leads a development effort within the OpenStack community to introduce a new core storage service developed under the project name “Manila.” It adds a shared file system service to the existing block and object storage services, addressing a critical gap in OpenStack’s storage services coverage and enabling a new category of on-demand file storage based on Infrastructure as a Service (IaaS).
     </para>
     <para>
         Where possible NetApp intends to (and has to date) contribute integrations upstream in OpenStack directly.  NetApp’s direct contributions to OpenStack date back to the Essex release.

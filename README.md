@@ -8,3 +8,7 @@ mvn clean generate-resources
 
 If successful, the PDF output will be in target/docbkx/pdf/bk-deployment-ops-guide.pdf
 
+TODO:
+
+- add spell check as part of build process
+- post resulting PDF to destination site

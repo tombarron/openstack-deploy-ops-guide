@@ -5,7 +5,7 @@
     xml:id="section_glance-e-series">
     <title>Configuration of Glance with NetApp E-Series and EF-Series</title>
     <para>
-        E-Series and EF-Series storage systems can alternatively be used as the backing store for Glance images. An E-Series volume should be created (with SANtricity specifiing the desired RAID level and capacity) and then mapped to the Glance node. After the volume is visible to the host it is formatted with a file system, mounted, and a directory structure created on it. This directory path can be specified as the <option>filesystem_store_datadir</option> in the Glance configuration file <filename>/etc/glance/glance-api.conf </filename>.
+        E-Series and EF-Series storage systems can alternatively be used as the backing store for Glance images. An E-Series volume should be created (with SANtricity specifying the desired RAID level and capacity) and then mapped to the Glance node. After the volume is visible to the host it is formatted with a file system, mounted, and a directory structure created on it. This directory path can be specified as the <option>filesystem_store_datadir</option> in the Glance configuration file <filename>/etc/glance/glance-api.conf </filename>.
     </para>
     <para>
         Steps:
