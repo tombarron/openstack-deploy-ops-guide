@@ -87,6 +87,7 @@
                     <admonGraphics>1</admonGraphics>
                     <admonGraphicsExtension>.jpg</admonGraphicsExtension>
                     <admonGraphicsPath>images/</admonGraphicsPath>
+                    <!--<ulinkShow>0</ulinkShow>-->
                 </configuration>
             </plugin>
             <plugin>

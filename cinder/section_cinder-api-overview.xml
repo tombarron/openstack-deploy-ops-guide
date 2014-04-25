@@ -1,7 +1,295 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_cinder-api-overview">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_cinder-api-overview">
     <title>API Overview</title>
     <para>
-        Text here
+        This section describes some of the most commonly used Cinder API calls and their corresponding CLI commands. It is not meant to be a comprehensive list that is representative of all functionality present in Cinder; for more information, please refer to the <link xlink:href="http://docs.openstack.org/icehouse/config-reference/content/config_overview.html">OpenStack Configuration Reference.</link>
     </para>
+    <simplesect>
+        <title>Volume API</title>
+        <para>
+            <xref linkend="cinder.api.volume_table"/> specifies the valid operations that can be performed on Cinder volumes. Please note that Cinder volumes are identified as CLI command arguments by either their names or UUID.
+        </para>
+        <table rules="all" xml:id="cinder.api.volume_table">
+            <caption>Cinder API Overview - Volume</caption>
+            <col width="1.15in"/>
+            <col width="1.6in"/>
+            <col width="3in"/>
+            <thead>
+                <tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Create</td>
+                    <td><command>cinder create</command></td>
+                    <td>Create a Cinder volume of specified size; optional name, availability zone, volume type</td>
+                </tr>
+                <tr>
+                    <td>Delete</td>
+                    <td><command>cinder delete</command></td>
+                    <td>Delete an existing Cinder volume; the <command>cinder force-delete</command> command may be required if the Cinder volume is in an error state</td>
+                </tr>
+                <tr>
+                    <td>Edit</td>
+                    <td><command>cinder metadata</command></td>
+                    <td>Set or unset metadata on a Cinder volume</td>
+                </tr>
+                <tr>
+                    <td>Extend</td>
+                    <td><command>cinder extend</command></td>
+                    <td>Increase the capacity of a Cinder volume to the specified size</td>
+                </tr>
+                <tr>
+                    <td>List</td>
+                    <td><command>cinder list</command></td>
+                    <td>List all Cinder volumes</td>
+                </tr>
+                <tr>
+                    <td>Migrate</td>
+                    <td><command>cinder migrate</command></td>
+                    <td>Move a Cinder volume to a new Cinder backend (specified by name)</td>
+                </tr>
+                <tr>
+                    <td>Show</td>
+                    <td><command>cinder show</command></td>
+                    <td>Show details about a Cinder volume</td>
+                </tr>
+                <tr>
+                    <td>Upload as image</td>
+                    <td><command>cinder upload-to-image</command></td>
+                    <td>Upload a Cinder volume to the OpenStack Image Service</td>
+                </tr>
+            </tbody>
+        </table>
+    </simplesect>
+    <simplesect>
+        <title>Snapshot API</title>
+        <para>
+            <xref linkend="cinder.api.snapshot_table"/> specifies the valid operations that can be performed on Cinder snapshots. Please note that Cinder snapshots are identified as CLI command arguments by either their display name or UUID.
+        </para>
+        <table rules="all" xml:id="cinder.api.snapshot_table">
+            <caption>Cinder API Overview - Snapshot</caption>
+            <col width="0.8in"/>
+            <col width="1.95in"/>
+            <col width="3in"/>
+            <thead>
+                <tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Create</td>
+                    <td><command>cinder snapshot-create</command></td>
+                    <td>Create a Cinder snapshot of a specific Cinder volume</td>
+                </tr>
+                <tr>
+                    <td>Delete</td>
+                    <td><command>cinder snapshot-delete</command></td>
+                    <td>Delete a Cinder snapshot</td>
+                </tr>
+                <tr>
+                    <td>Edit</td>
+                    <td><command>cinder snapshot-metadata</command></td>
+                    <td>Set or unset metadata on a Cinder snapshot</td>
+                </tr>
+                <tr>
+                    <td>List</td>
+                    <td><command>cinder snapshot-list</command></td>
+                    <td>List all Cinder snapshots</td>
+                </tr>
+                <tr>
+                    <td>Rename</td>
+                    <td><command>cinder snapshot-rename</command></td>
+                    <td>Change the display-name of a Cinder snapshot</td>
+                </tr>
+                <tr>
+                    <td>Reset State</td>
+                    <td><command>cinder snapshot-reset-state</command></td>
+                    <td>Reset the state of a Cinder snapshot</td>
+                </tr>
+                <tr>
+                    <td>Show</td>
+                    <td><command>cinder snapshot-show</command></td>
+                    <td>Show details about a Cinder snapshot</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Add once NetApp supports Cinder backup
+    </simplesect>
+    <simplesect>
+        <title>Backup API</title>
+    <para>
+        <xref linkend="cinder.api.backup_table"/> specifies the valid operations that can be performed on Cinder backups. Please note that Cinder backups are identified as CLI command arguments by either their display name or UUID.
+    </para>
+    <table rules="all" xml:id="cinder.api.backup_table">
+        <caption>Cinder API Overview - Backup</caption>
+        <col width="0.75in"/>
+        <col width="1.75in"/>
+        <col width="3in"/>
+        <thead>
+            <tr>
+                <td>Operation</td>
+                <td>CLI Command</td>
+                <td>Description</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Create</td>
+                <td><command>cinder backup-create</command></td>
+                <td>Create a Cinder backup</td>
+            </tr>
+            <tr>
+                <td>Delete</td>
+                <td><command>cinder backup-delete</command></td>
+                <td>Delete a Cinder backup</td>
+            </tr>
+            <tr>
+                <td>List</td>
+                <td><command>cinder backup-list</command></td>
+                <td>List all Cinder backups</td>
+            </tr>
+            <tr>
+                <td>Restore</td>
+                <td><command>cinder backup-restore</command></td>
+                <td>Restore a Cinder backup into a Cinder volume</td>
+            </tr>
+            <tr>
+                <td>Show</td>
+                <td><command>cinder backup-show</command></td>
+                <td>Show details about a Cinder backup</td>
+            </tr>
+        </tbody>
+    </table>
+    -->
+    </simplesect>
+    <simplesect>
+        <title>Volume Type API</title>
+        <para>
+            <xref linkend="cinder.api.volume_type_table"/> specifies the valid operations that can be performed on Cinder volume types. Please note that Cinder volume types are identified as CLI command arguments by either their display name or UUID.
+        </para>
+        <table rules="all" xml:id="cinder.api.volume_type_table">
+            <caption>Cinder API Overview - Volume Type</caption>
+            <col width="1in"/>
+            <col width="1.5in"/>
+            <col width="3.25in"/>
+            <thead>
+                <tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Create</td>
+                    <td><command>cinder type-create</command></td>
+                    <td>Create a Cinder volume type</td>
+                </tr>
+                <tr>
+                    <td>Delete</td>
+                    <td><command>cinder type-delete</command></td>
+                    <td>Delete a Cinder volume type</td>
+                </tr>
+                <tr>
+                    <td>List</td>
+                    <td><command>cinder type-list</command></td>
+                    <td>List existing Cinder volume type</td>
+                </tr>
+            </tbody>
+        </table>
+    </simplesect>
+    <simplesect>
+        <title>Volume Type Extra Specs API</title>
+        <para>
+            <xref linkend="cinder.api.volume_type_extra_specs_table"/> specifies the valid operations that can be performed on Cinder volume type extra specs. Please note that Cinder volume type extra specs are properties of Cinder volume types and are identified by their parent object.
+        </para>
+        <table rules="all" xml:id="cinder.api.volume_type_extra_specs_table">
+            <caption>Cinder API Overview - Volume Type Extra Specs</caption>
+            <col width="1.25in"/>
+            <col width="2in"/>
+            <col width="2.5in"/>
+            <thead>
+                <tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Set extra specs</td>
+                    <td><command>cinder type-key <replaceable>vtype</replaceable> set</command></td>
+                    <td>Assign extra specs to Cinder volume type</td>
+                </tr>
+                <tr>
+                    <td>Unset extra specs</td>
+                    <td><command>cinder type-key <replaceable>vtype</replaceable> unset</command></td>
+                    <td>Remove extra specs from Cinder volume type</td>
+                </tr>
+            </tbody>
+        </table>
+    </simplesect>
+    <simplesect>
+        <title>Volume Type QoS Specs API</title>
+        <para>
+            <xref linkend="cinder.api.volume_type_qos_specs_table"/> specifies the valid operations that can be performed on Cinder volume type QoS specs. Please note that Cinder volume type QoS specs are created independently of Cinder volume types and are subsequently associated with a Cinder volume type.
+        </para>
+        <table rules="all" xml:id="cinder.api.volume_type_qos_specs_table">
+            <caption>Cinder API Overview - Volume Type QoS Specs</caption>
+            <col width="1.6in"/>
+            <col width="1.75in"/>
+            <col width="2.4in"/>
+            <thead>
+                <tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Create QoS specs</td>
+                    <td><command>cinder qos-create</command></td>
+                    <td>Create a Cinder QoS Spec</td>
+                </tr>
+                <tr>
+                    <td>Delete QoS specs</td>
+                    <td><command>cinder qos-delete</command></td>
+                    <td>Delete a Cinder QoS Spec</td>
+                </tr>
+                <tr>
+                    <td>List QoS specs</td>
+                    <td><command>cinder qos-list</command></td>
+                    <td>List existing Cinder QoS Specs</td>
+                </tr>
+                <tr>
+                    <td>Show</td>
+                    <td><command>cinder qos-show</command></td>
+                    <td>Show details about a Cinder QoS Spec</td>
+                </tr>
+                <tr>
+                    <td>Associate QoS specs</td>
+                    <td><command>cinder qos-associate</command></td>
+                    <td>Associate a Cinder QoS Spec with a Cinder volume type</td>
+                </tr>
+                <tr>
+                    <td>Disassociate QoS specs</td>
+                    <td><command>cinder qos-disassociate</command></td>
+                    <td>Disassociate a Cinder QoS Spec from a Cinder volume type</td>
+                </tr>
+                <tr>
+                    <td>Edit QoS spec</td>
+                    <td><command>cinder qos-key</command></td>
+                    <td>Set or unset specifications for a Cinder QoS Spec</td>
+                </tr>
+            </tbody>
+        </table>
+    </simplesect>
 </section>

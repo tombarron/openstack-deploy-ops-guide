@@ -138,11 +138,19 @@
 
     <!-- Table header should have blue background, white font -->
     <xsl:template name="table.row.properties">
-        <xsl:if test="ancestor::d:thead">
-            <xsl:attribute name="font-weight">bold</xsl:attribute>
-            <xsl:attribute name="color">#FFFFFF</xsl:attribute>
-            <xsl:attribute name="background-color">#0067c5</xsl:attribute>
-        </xsl:if>
+        <xsl:variable name="rownum">
+            <xsl:number from="d:tbody" count="d:tr"/>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="ancestor::d:thead">
+                <xsl:attribute name="font-weight">bold</xsl:attribute>
+                <xsl:attribute name="color">#FFFFFF</xsl:attribute>
+                <xsl:attribute name="background-color">#0067c5</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$rownum mod 2 = 0">
+                <xsl:attribute name="background-color">#C8C9C7</xsl:attribute>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 
     <!-- Center captions above figures, tables, etc. -->
