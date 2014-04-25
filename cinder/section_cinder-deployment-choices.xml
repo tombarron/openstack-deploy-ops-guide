@@ -1,7 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_cinder-deployment-choices">
-    <title>Deployment Choices</title>
-    <para>
-        Text here
-    </para>
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_cinder-deployment-choices">
+    <title>Theory of Operation &amp; Deployment Choices</title>
+    <simplesect>
+        <title>Construct Mapping between Cinder and Clustered Data ONTAP</title>
+        <para>
+            The mapping between a Cinder backend and an SVM is 1:1
+        </para>
+        <para>
+            The mapping between a Cinder volume and a NetApp FlexVol is 1:many
+        </para>
+        <para>
+            What is a Cinder volume when stored in a backend (dependent on storage protocol)
+        </para>
+        <para>
+            Compare/contrast Cinder snapshots vs NetApp snapshot (frequency, number, etc)
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>Deployment Choice: Direct versus Intermediated</title>
+        <para>
+            Direct vs middleware (DFM, WFA, etc)
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>Deployment Choice: FAS vs E-Series</title>
+        <para>
+            Explain product positioning
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>Deployment Choice: Clustered Data ONTAP vs Data ONTAP operating in 7-Mode</title>
+        <para>
+            Clustered Data ONTAP represents NetApp’s platform for delivering future innovation in the FAS product line. Its inherent qualities of virtualization of network interfaces, disk subsystem, and administrative storage controller map well to OpenStack constructs. The Storage Virtual Machine storage server (SVM, historically referred to as Vserver) can span across all nodes of a given clustered Data ONTAP deployment, for example. The elasticity provided to expand or contract a Storage Virtual Machine across horizontally scalable resources are capabilities critical to cloud deployment unique to the clustered ONTAP mode of operation.
+        </para>
+        <para>
+            The Data ONTAP 7-Mode drivers are primarily provided to allow rapid use of prior deployed FAS systems for OpenStack block storage requirements. There is no current intention to enhance the 7-Mode driver’s capabilities beyond providing basic bug fixes.
+        </para>
+        <important>
+            <title>Recommendation</title>
+            <para>
+                NetApp strongly recommends that all OpenStack deployments built upon NetApp's FAS product set leverage clustered Data ONTAP.
+            </para>
+        </important>
+    </simplesect>
+    <simplesect>
+        <title>Deployment Choice: NFS versus iSCSI</title>
+        <para>
+            A frequent question from customers and partners is whether to utilize NFS or iSCSI as the storage protocol with a Cinder deployment ontop of FAS products. 
+        </para>
+        <formalpara>
+            <title>iSCSI</title>
+            <para>
+                When utilizing the iSCSI storage protocol, a Cinder volume is stored as an iSCSI LUN. At the time of publishing, the maximum number of iSCSI LUNs per NetApp cluster is either 8,192 or 49,152 - dependent on the FAS model number (refer to <link xlink:href="http://hwu.netapp.com">Hardware Universe</link> for detailed information for a particular model). Cinder can be configured to operate with multiple NetApp clusters via multi-backend support to increase this number for an OpenStack deployment. 
+            </para>
+        </formalpara>
+        <formalpara>
+            <title>NFS</title>
+            <para>
+                 When our Cinder driver is configured for NFS, each Cinder volume is a file on the NFS export. The maximum number of files in a single FlexVol volume exported through NFS is dependent on the size of the FlexVol volume; a 1TB FlexVol can have 33,554,432 files (assuming 32k inodes). The theoretical maximum of files is roughly two billion. 
+            </para>
+        </formalpara>
+        <itemizedlist>
+            <listitem>There is no difference in the maximum size of a Cinder volume regardless of the storage protocol chosen (a file on NFS or an iSCSI LUN are both 16TB). </listitem>
+            <listitem>Performance differences between iSCSI and NFS are normally negligible in virtualized environments; for a detailed investigation, please refer to <link xlink:href="http://www.netapp.com/us/system/pdf-reader.aspx?m=tr-3808.pdf&amp;cc=us">NetApp TR3808: VMware vSphere and ESX 3.5 Multiprotocol Performance Comparison using FC, iSCSI, and NFS</link>.</listitem>
+        </itemizedlist>
+        <important>
+            <title>Recommendation</title>
+            <para>
+                Deploying NetApp's Cinder driver with clustered Data ONTAP utilizing the NFS storage protocol yields a more scalable solution (per cluster) than iSCSI with negligible performance differences.
+            </para>
+        </important>
+        <tip>
+            <para>
+                Present option of using a FlexVol with iSCSI for boot LUNs for compute nodes provides scalable, storage-efficent base for scale-out of infrastructure
+            </para>
+        </tip>
+    </simplesect>
 </section>
