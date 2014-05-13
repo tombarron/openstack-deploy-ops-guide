@@ -4,11 +4,22 @@
     <simplesect>
         <title>Construct Mappings between Cinder and Data ONTAP</title>
         <formalpara>
-            <title>Cinder backends and Storage Virtual Machines</title>
+            <title>Cinder Backends and Storage Virtual Machines</title>
             <para>
-                The recommended mapping between a Cinder backend and an SVM is 1:1
+                 Storage Virtual Machines (SVMs, formerly known as Vservers) contain data volumes and one or more LIFs through which they serve data to the clients. SVMs can either contain one or more FlexVol volumes, or a single Infinite Volume.
             </para>
         </formalpara>
+        <para>
+            SVMs securely isolate the shared virtualized data storage and network, and each SVM appears as a single dedicated server to the clients. Each SVM has a separate administrator authentication domain and can be managed independently by its SVM administrator.
+        </para>
+        <para>
+            In a cluster, SVMs facilitate data access. A cluster must have at least one SVM to serve data. SVMs use the storage and network resources of the cluster. However, the volumes and LIFs are exclusive to the SVM. Multiple SVMs can coexist in a single cluster without being bound to any node in a cluster. However, they are bound to the physical cluster on which they exist.
+        </para>
+        <important>
+            <para>
+                When deploying Cinder with clustered Data ONTAP, the recommended mapping is to have each Cinder backend refer to a single SVM within a cluster using the <option>netapp_vserver</option> configuration option. While the driver can operate without the explicit declaration of a mapping between a backend and an SVM, a variety of advanced functionality (e.g. volume type extra-specs) will be disabled.
+            </para>
+        </important>
         <formalpara>
             <title>Cinder volumes and FlexVol volumes</title>
             <para>
@@ -33,21 +44,67 @@
         <formalpara>
             <title>Cinder snapshots versus NetApp snapshots</title>
             <para>
-                Compare/contrast Cinder snapshots vs NetApp snapshot (frequency, number, etc)
+                A Snapshot copy is a point-in-time file system image. Low-overhead Snapshot copies are made possible by the unique features of the WAFL<trademark class="registered"/> (Write Anywhere File Layout) storage virtualization technology that is part of Data ONTAP. Up to 255 Snapshot copies can kept at any time for a FlexVol volume.
             </para>
         </formalpara>
+        <para>
+             Since NetApp Snapshots are taken at the FlexVol level, they can not be directly leveraged when a user of Cinder requests a snapshot be taken of a particular Cinder volume. As a Cinder volume is represented as either a file on NFS or an iSCSI LUN, the way that Cinder snapshots are created is through use of NetApp's FlexClone technology.  
+        </para>
+        <para>
+            FlexClone files or FlexClone LUNs and their parent files or LUNs that are present in the FlexClone volume continue to share blocks the same way they do in the parent FlexVol volume. In fact, all the FlexClone entities and their parents share the same underlying physical data blocks, minimizing physical disk space usage. 
+        </para>
+        <important>
+            <para>
+                When Cinder is deployed with Data ONTAP, Cinder snapshots are created leveraging the FlexClone feature of Data ONTAP. As such, a license option for FlexClone must be enabled.  
+            </para>
+        </important>
     </simplesect>
     <simplesect>
         <title>Deployment Choice: Direct versus Intermediated</title>
         <para>
-            Direct vs middleware (DFM, WFA, etc)
+            NetApp's Cinder driver can operate in two independent modes: a <emphasis>direct</emphasis> mode where the Cinder processes directly interact with NetApp FAS storage systems, and an <emphasis>intermediated</emphasis> mode where the Cinder processes interact with an additional software entity that issues provisioning and management requests on behalf of Cinder.
         </para>
+        <formalpara>
+            <title>OnCommand Workflow Automator</title>
+            <para>
+                OnCommand Workflow Automator (WFA) is a flexible framework that provides automation for storage-related tasks, customization, scripting capabilities, and integration with higher-order IT systems such as orchestration software through web services.
+            </para>
+        </formalpara>
+        <para>
+            While WFA can be utilized in conjunction with NetApp's unified Cinder driver, a deployment of Cinder and WFA does introduce additional complexity, management entities, and potential points of failure within a cloud architecture. If you have an existing set of workflows that are written within the WFA framework, and are looking to leverage them in lieu of the default provisioning behavior of the Cinder driver operating directly against a FAS system, then it may be desirable to use the intermediated mode.
+        </para>
+        <formalpara>
+            <title>SANtricity<trademark class="registered"/> Web Services Proxy</title>
+            <para>
+                The NetApp SANtricity Web Services Proxy provides access through standard HTTPS mechanisms to configuring management services for E-Series storage arrays. You can install Web Services Proxy on either Linux or Windows. As Web Services Proxy satisfies the client request by collecting data or executing configuration change requests to a target storage array, the Web Services Proxy module issues SYMbol requests to the target storage arrays. Web Services Proxy provides a Representative State Transfer (REST)-style API for managing E-Series controllers. The API enables you to integrate storage array management into other applications or ecosystems.
+            </para>
+        </formalpara>
+        <important>
+            <title>Recommendation</title>
+            <para>
+                Unless you have a significant existing investment with OnCommand Workflow Automator that you wish to leverage in an OpenStack deployment, it is recommend that you start with the <emphasis>direct</emphasis> mode of operation when using Cinder with a NetApp FAS deployment. When using Cinder with a NetApp E-Series deployment, use of the SANtricity Web Services Proxy in the <emphasis>intermediated</emphasis> mode is currently required. 
+            </para>
+        </important>
     </simplesect>
     <simplesect>
         <title>Deployment Choice: FAS vs E-Series</title>
-        <para>
-            Explain product positioning
-        </para>
+        <formalpara>
+            <title>FAS</title>
+            <para>
+                If rich data management, deep data protection, and storage efficiency are desired and should be availed directly by the storage, the NetApp FAS product line is a natural fit for use within Cinder deployments. Massive scalability, nondisruptive operations, proven storage efficiencies, and a unified architecture (NAS and SAN) are key features offered by the Data ONTAP storage operating system. These capabilities are frequently leveraged in existing virtualization deployments and thus align naturally to OpenStack use cases.
+            </para>
+        </formalpara>
+        <formalpara>
+            <title>E-Series</title>
+            <para>
+                For cloud environments where higher performance is critical, or where higher-value data management features are not needed or are implemented within an application, NetApp's E-Series product line can provide a cost-effective underpinning for a Cinder deployment. NetApp's E-Series storage offers a feature called Dynamic Disk Pools (DDP), which simplifies data protection by removing the complexity of configuring RAID groups and allocating hot spares. Utilization is improved by dynamically spreading data, parity, and spare capacity across all drives in a pool, reducing performance bottlenecks due to hot-spots. Additionally, should a drive failure occur, DDP enables the pool to return to an optimal state significantly faster than RAID6, while reducing the performance impact during the reconstruction of a failed drive. 
+            </para>
+        </formalpara>
+        <note>
+            <para>
+                As of the Icehouse release, NetApp has integrations with Cinder for both FAS and E-Series, and either storage solution can be leverages as part of a Cinder deployment to leverage the native benefits that either platform has to offer.
+            </para>
+        </note>
     </simplesect>
     <simplesect>
         <title>Deployment Choice: Clustered Data ONTAP vs Data ONTAP operating in 7-Mode</title>
@@ -83,6 +140,7 @@
             <itemizedlist>
                 <listitem>The maximum number of files in a single FlexVol volume exported through NFS is dependent on the size of the FlexVol volume; a 1TB FlexVol can have 33,554,432 files (assuming 32k inodes). The theoretical maximum of files is roughly two billion.</listitem>
                 <listitem>NFS drivers require support from the hypervisor to virtualize files and present them as block devices to an instance.</listitem>
+                <!-- refer to CDOT NFS BP guide? http://www.netapp.com/us/system/pdf-reader.aspx?m=tr-4067.pdf -->
             </itemizedlist>
         </formalpara>
         <itemizedlist>
