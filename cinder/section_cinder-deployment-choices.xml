@@ -162,4 +162,100 @@
             </para>
         </tip>
     </simplesect>
+    <simplesect xml:id="cinder.volume_types">
+        <title>Using Cinder Volume Types to Create a Storage Service Catalog</title>
+        <para>
+            The Storage Service Catalog (SSC) is a concept that describes a set of capabilities that enables efficient, repeated, and consistent use and management of storage resources by the definition of policy-based services and the mapping of those services to the backend storage technology. It is meant to abstract away the actual technical implementations of the features at a storage backend into a set of simplified configuration options.
+        </para>
+        <para>
+            The storage features are organized or combined into groups based on the customer needs to achieve a particular scenario or use case. Based on the catalog of the storage features, intelligent provisioning decisions are made by infrastructure or software enabling the storage service catalog. In OpenStack, this is achieved together by the Cinder filter scheduler and the NetApp driver by making use of volume type extra-specs support together with the filter scheduler. There are some prominent features which are exposed in the NetApp driver including mirroring, de-duplication, compression, and thin provisioning.
+        </para>
+        <para>
+            When using the NetApp unified driver with a clustered Data ONTAP storage system, you can leverage extra specs with Cinder volume types to ensure that Cinder volumes are created on storage backends that have certain properties (e.g. QoS, mirroring, compression) configured.
+        </para>
+        <para>
+            Extra specs are associated with Cinder volume types, so that when users request volumes of a particular volume type, they will be created on storage backends that meet the list of requirements (e.g. available space, extra specs, etc). You can use the specs in <xref linkend="cinder.netapp.extra_specs"/> later in this section when defining Cinder volume types using the <command>cinder type-key</command> command.
+        </para>
+        <table rules="all" xml:id="cinder.netapp.extra_specs">
+            <caption>NetApp-supported Extra Specs for use with Cinder Volume Types</caption>
+            <col width="1.75in"/>
+            <col width="0.65in"/>
+            <col width="3.55in"/>
+            <thead>
+                <tr>
+                    <td>Extra spec</td>
+                    <td>Type</td>
+                    <td>Description</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><option>netapp:raid_type</option></td>
+                    <td>String</td>
+                    <td>Limit the candidate volume list based on one of the following raid types: <option>raid4</option>, <option>raid_dp</option>.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp:disk_type</option></td>
+                    <td>String</td>
+                    <td>Limit the candidate volume list based on one of the following disk types: <option>ATA</option>, <option>BSAS</option>, <option>EATA</option>, <option>FCAL</option>, <option>FSAS</option>, <option>LUN</option>, <option>MSATA</option>, <option>SAS</option>, <option>SATA</option>, <option>SCSI</option>, <option>XATA</option>, <option>XSAS</option>, or <option>SSD</option>.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp:qos_policy_group</option></td>
+                    <td>String</td>
+                    <td>Limit the candidate volume list based on the name of a QoS policy group, which defines measurable Service Level Objectives that apply to the storage objects with which the policy group is associated.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp_mirrored</option></td>
+                    <td>Boolean</td>
+                    <td>Limit the candidate volume list to only the ones that are mirrored on the storage controller.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp_unmirrored</option></td>
+                    <td>Boolean</td>
+                    <td>Limit the candidate volume list to only the ones that are not mirrored on the storage controller.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp_dedup</option></td>
+                    <td>Boolean</td>
+                    <td>Limit the candidate volume list to only the ones that have deduplication enabled on the storage controller.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp_nodedup</option></td>
+                    <td>Boolean</td>
+                    <td>Limit the candidate volume list to only the ones that have deduplication disabled on the storage controller.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp_compression</option></td>
+                    <td>Boolean</td>
+                    <td>Limit the candidate volume list to only the ones that have compression enabled on the storage controller.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp_nocompression</option></td>
+                    <td>Boolean</td>
+                    <td>Limit the candidate volume list to only the ones that have compression disabled on the storage controller.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp_thin_provisioned</option></td>
+                    <td>Boolean</td>
+                    <td>Limit the candidate volume list to only the ones that support thin provisioning on the storage controller.</td>
+                </tr>
+                <tr>
+                    <td><option>netapp_thick_provisioned</option></td>
+                    <td>Boolean</td>
+                    <td>Limit the candidate volume list to only the ones that support thick provisioning on the storage controller.</td>
+                </tr>
+            </tbody>
+        </table>
+        <note>
+            <para>
+                If both the positive and negative specs for a pair are specified (e.g. <option>netapp_dedup</option> and <option>netapp_nodedup</option>) and set to the same value within a single extra_specs list, then neither spec will be utilized by the driver.
+            </para>
+        </note>
+        <important>
+            <title>Recommendation</title>
+            <para>
+                NetApp recommends that none of the Boolean extra specs in <xref linkend="cinder.netapp.extra_specs"/> be configured with a value of <option>False</option>; rather only positive assertions (e.g. <option>netapp_nocompression=True</option>) of the option with the negated meaning be used.
+            </para>
+        </important>
+    </simplesect>
 </section>

@@ -17,8 +17,13 @@
     </para>
     <programlisting>
 cd /etc/swift
-swift-ring-builder account.builder create 10 2 <replaceable>1</replaceable>
-swift-ring-builder container.builder create 10 2 <replaceable>1</replaceable>
-swift-ring-builder object.builder create 10 2 <replaceable>1</replaceable>
+swift-ring-builder account.builder create <replaceable>10</replaceable> <replaceable>1</replaceable> 1
+swift-ring-builder container.builder create <replaceable>10</replaceable> <replaceable>1</replaceable> 1
+swift-ring-builder object.builder create <replaceable>10</replaceable> <replaceable>1</replaceable> 1
     </programlisting>
+    <tip>
+        <para>
+            When creating the Swift rings, the number of partitions per ring must be calculated. However, the default computation for computing the number of partitions (expressed by the exponent of 2) - otherwise known as the partition power - is based on the number of disks in a Swift cluster. While some Swift deployments (without NetApp E-Series storage solutions) utilize direct attached storage without RAID, with E-Series virtual disks are attached and leveraged that are created from a dynamic disk pool. As such, be sure to calculate the partition power as a function of the virtual disk count, rather than the number of physical (spinning or SSD) drives present.
+        </para>
+    </tip>
 </section>

@@ -141,6 +141,7 @@
         <xsl:variable name="rownum">
             <xsl:number from="d:tbody" count="d:tr"/>
         </xsl:variable>
+        <xsl:attribute name="font-size">8</xsl:attribute>
         <xsl:choose>
             <xsl:when test="ancestor::d:thead">
                 <xsl:attribute name="font-weight">bold</xsl:attribute>

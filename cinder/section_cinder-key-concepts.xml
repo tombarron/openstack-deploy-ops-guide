@@ -71,7 +71,7 @@
                     <!--<listitem><literal>QoS_support</literal>: A boolean indicating whether the driver has support for QoS (NetApp currently doesn't support this)</listitem>-->
                 </itemizedlist>
                 <para>
-                    For a list of NetApp-supported extra specs, please refer to section XYZ. ADD XREF HERE
+                    For a table of NetApp-supported extra specs, please refer to <xref linkend="cinder.netapp.extra_specs"/>.
                 </para>
             </note>
         </formalpara>
@@ -82,7 +82,7 @@
             </para>
             <note>
                 <para>
-                    The NetApp Cinder drivers do not currently support any back-end QoS specs; however, the NetApp construct of QoS policy groups can be assigned to Cinder volumes managed through a clustered Data ONTAP backend using the NFS storage protocol. For more information, please see section XYZ ADD XREF HERE.
+                    The NetApp Cinder drivers do not currently support any back-end QoS specs; however, the NetApp construct of QoS policy groups can be assigned to Cinder volumes managed through a clustered Data ONTAP backend using the NFS storage protocol. For more information, please see <xref linkend="cinder.volume_types"/>.
                 </para>
             </note>
                 <!--

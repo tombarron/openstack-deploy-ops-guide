@@ -7,4 +7,5 @@
   <xi:include href="cinder/section_cinder-api-overview.xml"/>
   <xi:include href="cinder/section_cinder-deployment-choices.xml"/>
   <xi:include href="cinder/section_cinder-configuration.xml"/>
+  <xi:include href="cinder/section_cinder-examples.xml"/>
 </chapter>

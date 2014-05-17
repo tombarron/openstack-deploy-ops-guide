@@ -87,6 +87,9 @@
                     <admonGraphics>1</admonGraphics>
                     <admonGraphicsExtension>.jpg</admonGraphicsExtension>
                     <admonGraphicsPath>images/</admonGraphicsPath>
+                    <linenumberingExtension>true</linenumberingExtension>
+                    <calloutGraphicsExtension>.png</calloutGraphicsExtension>
+                    <calloutGraphicsNumberLimit>15</calloutGraphicsNumberLimit>
                     <!--<ulinkShow>0</ulinkShow>-->
                 </configuration>
             </plugin>

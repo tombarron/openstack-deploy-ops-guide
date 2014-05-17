@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_cinder-examples">
+    <title>Examples</title>
+    <itemizedlist>
+        <listitem>examples of how to configure volume types and extra specs in Dashboard and via CLI/API</listitem>
+        <listitem>run cinder service-list to show multiple backends, strings, etc</listitem>
+        <listitem>migration example</listitem>
+    </itemizedlist>
+    <para>
+        Cinder is typically deployed in conjunction with other OpenStack services (e.g. Compute, Object Storage, Image, etc) as part of a larger, more comprehensive cloud infrastructure. This is not an explicit requirement, as Cinder has been successfully deployed as a standalone solution for block storage provisioning and lifecycle management.
+    </para>
+    <programlisting>
+#ifndef _My_Parser_h_  <co id="condition-co"  linkends="condition" /> 
+#define _My_Parser_h_
+#include "MyFetch.h"   <co id="headerfile-co" linkends="headerfile" />
+class My_Parser  <co id="classdef-co" linkends="classdef" />
+{
+public:
+//
+// Construction/Destruction
+//
+My_Parser();  <coref  linkend="classdef-co"/>  4
+virtual      ~My_Parser() = 0;
+virtual int  parse(MyFetch &amp;fetcher) = 0;
+};
+#endif
+</programlisting>
+    <calloutlist>
+        <callout arearefs="condition-co"  id="condition" >
+            <para>Make this conditional.</para>
+        </callout>
+        <callout arearefs="headerfile-co" id="headerfile">
+            <para>Load necessary constants.</para>
+        </callout>
+        <callout arearefs="classdef-co" id="classdef">
+            <para>Define new class</para>
+        </callout>
+    </calloutlist>
+</section>

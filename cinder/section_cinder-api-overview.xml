@@ -11,9 +11,9 @@
         </para>
         <table rules="all" xml:id="cinder.api.volume_table">
             <caption>Cinder API Overview - Volume</caption>
-            <col width="1.15in"/>
-            <col width="1.6in"/>
-            <col width="3in"/>
+            <col width="1in"/>
+            <col width="1.4in"/>
+            <col width="3.35in"/>
             <thead>
                 <tr>
                     <td>Operation</td>
@@ -72,9 +72,9 @@
         </para>
         <table rules="all" xml:id="cinder.api.snapshot_table">
             <caption>Cinder API Overview - Snapshot</caption>
-            <col width="0.8in"/>
-            <col width="1.95in"/>
-            <col width="3in"/>
+            <col width="0.7in"/>
+            <col width="1.5in"/>
+            <col width="3.55in"/>
             <thead>
                 <tr>
                     <td>Operation</td>
@@ -243,9 +243,9 @@
         </para>
         <table rules="all" xml:id="cinder.api.volume_type_qos_specs_table">
             <caption>Cinder API Overview - Volume Type QoS Specs</caption>
-            <col width="1.6in"/>
-            <col width="1.75in"/>
-            <col width="2.4in"/>
+            <col width="1.4in"/>
+            <col width="1.5in"/>
+            <col width="2.85in"/>
             <thead>
                 <tr>
                     <td>Operation</td>

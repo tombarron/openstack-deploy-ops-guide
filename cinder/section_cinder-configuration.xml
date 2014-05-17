@@ -1,7 +1,350 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_cinder-configuration">
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="section_cinder-configuration">
     <title>Configuration</title>
-    <para>
-        Text here
-    </para>
+    <section xml:id="cinder.configuration">
+        <title>Cinder</title>
+        <para>
+            Cinder is configured by changing the contents of the <filename>cinder.conf</filename> and restarting all of the Cinder processes. Depending on the OpenStack distribution used, this may require issuing commands such as <command>service openstack-cinder-api restart</command> or <command>service cinder-api restart</command>.
+        </para>
+        <simplesect>
+            <title><filename>cinder.conf</filename></title>
+            <para>
+                The <filename>cinder.conf</filename> file contains a set of configuration options (one per line), specified as <option>option_name</option>=<replaceable>value</replaceable>. Configuration options are grouped together into a stanza, denoted by <option>[<replaceable>stanza_name</replaceable>]</option>. There must be at least one stanza named <option>[DEFAULT]</option> that contains configuration parameters that apply generically to Cinder (and not to any particular backend). Configuration options that are associated with a particular Cinder backend should be placed in a separate stanza. 
+            </para>
+            <note>
+                <para>While it is possible to specify driver-specific configuration options within the <option>[DEFAULT]</option> stanza, you will be unable to define multiple Cinder backends within the <filename>cinder.conf</filename> file. It is strongly recommended that you specify driver-specific configuration in separate named stanzas, being sure to list the backends that should be enabled as the value for the configuration option <option>enabled_backends</option>; for example:
+                </para>
+                <programlisting>
+                    enabled_backends=myNfsBackend,myIscsiBackend,myESeriesBackend
+                </programlisting>
+                <para>
+                    The <option>enabled_backends</option> option should be specified within the <option>[DEFAULT]</option> configuration stanza.
+                </para>
+            </note>
+        </simplesect>
+    </section>
+    <section xml:id="cinder.netapp.drivers">
+        <title>NetApp Data ONTAP Drivers for OpenStack Block Storage (Cinder)</title>
+        <para>
+            NetApp drivers for Data ONTAP operating in clustered mode or 7-Mode are now offered in a single, unified driver (in the Grizzly and prior releases, the drivers were written in two separate variants, namely, iSCSI and NFS drivers). The unified driver provides OpenStack with access to NetApp clustered Data ONTAP and Data ONTAP operating in 7-Mode controllers for provisioning and maintaining OpenStack block storage volumes.
+        </para>
+        <simplesect>
+            <title>Where to Obtain the Drivers</title>
+            <para>
+                NetApp’s contribution strategy involves adding all new capabilities directly into the upstream OpenStack Block Storage repositories, so all the features are available regardless of which distribution you choose when deploying OpenStack. Bug fixes are delivered into the appropriate branches that represent the different releases of OpenStack (e.g. <option>trunk</option>, <option>stable/icehouse</option>, <option>stable/havana</option>, etc). 
+            </para>
+            <para>
+                On occasion, it may be necessary for NetApp to deliver capability to a previous release of OpenStack that can not be accepted in the upstream OpenStack repositories. In that case, we will post the capability at the NetApp Github repository, accessible at <link xlink:href="https://github.com/NetApp/cinder">https://github.com/NetApp/cinder</link>. Be sure to choose the branch from this repository that matches the release version of OpenStack you are deploying with.
+            </para>
+        </simplesect>
+        <simplesect>
+            <title>Multiple Deployment Options</title>
+            <para>
+                A variety of OpenStack block storage deployment options for NetApp Data ONTAP based systems are available in the Icehouse OpenStack release and involve making deployment choices between the following:
+            </para>
+            <itemizedlist>
+                <listitem>Clustered Data ONTAP or Data ONTAP operating in 7-Mode</listitem>
+                <listitem>iSCSI or NFS storage protocol</listitem>
+            </itemizedlist>
+            <para>
+                While there are multiple supported deployment options, since the Havana release there is a new, single NetApp unified driver that can be configured to achieve any of the desired deployments. In Grizzly and prior releases, there were multiple drivers segmented by storage family, protocol, and integration with additional NetApp management software. The previous drivers have all been deprecated since the Havana release; see INSERT REF HERE for more information on the deprecated capabilities. 
+            </para>
+            <para>
+                The following lists all of the individual options and subsequent sections are intended to offer guidance on which configuration options ought to be employed given varying use cases:
+            </para>
+            <itemizedlist>
+                <listitem>NetApp clustered Data ONTAP with iSCSI</listitem><!-- TODO: make these references to the section -->
+                <listitem>NetApp clustered Data ONTAP with NFS</listitem>
+                <listitem>NetApp Data ONTAP operating in 7-Mode with iSCSI</listitem> 
+                <listitem>NetApp Data ONTAP operating in 7-Mode with NFS</listitem>
+            </itemizedlist>
+        </simplesect>
+    </section>
+    <section xml:id="cinder.cdot.iscsi.configuration">
+        <title>NetApp Unified Driver for Clustered Data ONTAP with iSCSI</title>
+        <para>
+            The NetApp unified driver for clustered Data ONTAP with iSCSI is a driver interface from OpenStack Cinder to NetApp clustered Data ONTAP storage controllers to accomplish provisioning and management of a storage-area network (SAN) block storage entity; that is, a NetApp LUN using the iSCSI protocol.
+        </para>
+        <simplesect>
+            <title>Prerequisites and Configuration Options</title>
+            <para>
+                The prerequisites for NetApp clustered Data ONTAP are:
+            </para>
+            <itemizedlist>
+                <listitem>The driver requires a storage controller running Data ONTAP 8.1.1 or later.</listitem>
+                <listitem>The storage system should have the following licenses applied:
+                    <itemizedlist>
+                        <listitem>Base</listitem>
+                        <listitem>iSCSI</listitem>
+                        <listitem>FlexClone</listitem>
+                    </itemizedlist>
+                </listitem>
+            </itemizedlist>
+            <para>
+                To set up the NetApp clustered Data ONTAP iSCSI driver for Cinder, the following stanza should be added to the Cinder configuration file (<filename>cinder.conf</filename>): ADD FOOTNOTE TO BE SURE TO UPDATE THE ENABLED_BACKENDS OPTION AS DISCUSSED ABOVE
+            </para>
+            <programlisting>
+[myIscsiBackend]
+volume_backend_name=myIscsiBackend
+volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
+netapp_server_hostname=<replaceable>hostname</replaceable>
+netapp_server_port=<replaceable>80</replaceable>
+netapp_storage_protocol=iscsi 
+netapp_storage_family=ontap_cluster
+netapp_login=<replaceable>admin_username</replaceable>
+netapp_password=<replaceable>admin_password</replaceable>
+            </programlisting>
+            <para>
+                <xref linkend="cinder.cdot.iscsi.options"/> lists the configuration options available for the unified driver for a clustered Data ONTAP deployment using the iSCSI storage protocol.
+            </para>
+            <!-- TODO: refer to autogenerated tables in upstream config reference? -->
+            <table rules="all" xml:id="cinder.cdot.iscsi.options">
+                <caption>Configuration options for clustered Data ONTAP with iSCSI</caption>
+                <col width="1.65in"/>
+                <col width="0.6in"/>
+                <col width="0.95in"/>
+                <col width="2.55in"/>
+                <thead>
+                    <tr>
+                        <td>Option</td>
+                        <td>Type</td>
+                        <td>Default Value</td>
+                        <td>Description</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><option>netapp_server_hostname</option></td>
+                        <td>Required</td>
+                        <td></td>
+                        <td>The hostname or IP address for the storage system or proxy server. <emphasis>The value of this option should be the IP address of either the cluster management LIF or the SVM management LIF.</emphasis></td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_server_port</option></td>
+                        <td>Optional</td>
+                        <td>80</td>
+                        <td>The TCP port to use for communication with the storage system or proxy server. Traditionally, port 80 is used for HTTP and port 443 is used for HTTPS; however, this value should be changed if an alternate port has been configured on the storage system or proxy server.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_login</option></td>
+                        <td>Required</td>
+                        <td></td>
+                        <td>Administrative user account name used to access the storage system or proxy server.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_password</option></td>
+                        <td>Required</td>
+                        <td></td>
+                        <td>Password for the administrative user account specified in the <option>netapp_login</option> option.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_storage_protocol</option></td>
+                        <td>Required</td>
+                        <td><option>nfs</option></td>
+                        <td>The storage protocol to be used. Valid options are <option>nfs</option> or <option>iscsi</option>. If None is specified or the option is omitted, <option>nfs</option> will be used.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_transport_type</option></td>
+                        <td>Optional</td>
+                        <td><option>http</option></td>
+                        <td>Transport protocol for communicating with the storage system or proxy server. Valid options include <option>http</option> and <option>https</option>.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_size_multiplier</option></td>
+                        <td>Optional</td>
+                        <td>1.2</td>
+                        <td>When creating volumes, the quantity to be multiplied to the requested OpenStack volume size to ensure enough space is available on the SVM (aka Vserver). <emphasis>This value is currently only used when ISCSI has been selected as the storage protocol to be used.</emphasis></td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_vserver</option></td>
+                        <td>Optional</td>
+                        <td></td>
+                        <td>This option specifies the virtual storage server (Vserver) name on the storage cluster on which provisioning of block storage volumes should occur. If using the NFS storage protocol, this parameter is mandatory for storage service catalog support (utilized by Cinder volume type extra_specs support). If this option is specified, the exports belonging to the Vserver will only be used for provisioning in the future. Block storage volumes on exports not belonging to the Vserver specified by this option will continue to function normally.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_storage_family</option></td>
+                        <td>Optional</td>
+                        <td><option>ontap_cluster</option></td>
+                        <td>The storage family type used on the storage system; valid values are <option>ontap_7mode</option> for using Data ONTAP operating in 7-Mode, <option>ontap_cluster</option> for using clustered Data ONTAP, or <option>eseries</option> for using E-Series.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <caution>
+                <para>
+                    If you specify an account in the <option>netapp_login</option> option that only has Vserver administration privileges (rather than cluster administration privileges), some advanced features of the NetApp unified driver will not work and you may see warnings in the Cinder logs.
+                </para>
+            </caution>
+        </simplesect>
+    </section>
+    <section xml:id="cinder.cdot.nfs.configuration">
+        <title>NetApp Unified Driver for Clustered Data ONTAP with NFS</title>
+        <para>
+            The NetApp unifed driver for clustered Data ONTAP with NFS is a driver interface from OpenStack block storage to a Data ONTAP cluster system to accomplish provisioning and management of OpenStack volumes on NFS exports provided by the Data ONTAP cluster system. The NetApp unified driver for the Data ONTAP cluster does not require any additional management software to achieve the desired functionality. It uses NetApp APIs to interact with the Data ONTAP cluster.
+        </para>
+        <simplesect>
+            <title>Prerequisites and Configuration Options</title>
+            <para>
+                The prerequisites for NetApp clustered Data ONTAP are:
+            </para>
+            <itemizedlist>
+                <listitem>The driver requires a storage controller running Data ONTAP 8.1.1 or later.</listitem>
+                <listitem>The storage system should have the following licenses applied:
+                    <itemizedlist>
+                        <listitem>Base</listitem>
+                        <listitem>NFS</listitem>
+                        <listitem>FlexClone</listitem>
+                    </itemizedlist>
+                </listitem>
+            </itemizedlist>
+            <para>
+                To set up the NetApp clustered Data ONTAP NFS driver for Cinder, the following stanza should be added to the Cinder configuration file (<filename>cinder.conf</filename>): ADD FOOTNOTE TO BE SURE TO UPDATE THE ENABLED_BACKENDS OPTION AS DISCUSSED ABOVE
+            </para>
+            <programlisting>
+[myNfsBackend]
+volume_backend_name=myNfsBackend
+volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
+netapp_server_hostname=<replaceable>hostname</replaceable>
+netapp_server_port=<replaceable>80</replaceable>
+netapp_storage_protocol=nfs 
+netapp_storage_family=ontap_cluster
+netapp_login=<replaceable>admin_username</replaceable>
+netapp_password=<replaceable>admin_password</replaceable>
+nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
+            </programlisting>
+            <note>
+                <para>
+                    The file referenced in the <option>nfs_shares_config</option> configuration option should contain the NFS exports in the ip:/share format, for example:
+                </para>
+                <programlisting>
+10.63.165.215:/nfs/test
+10.63.165.215:/nfs2/test2
+                </programlisting>
+                <para>
+                    where “ip” corresponds to the IP address assigned to a Data LIF, and “share” refers to a junction path for a FlexVol volume within an SVM. Make sure that volumes corresponding to exports have read/write permissions set on the Data ONTAP controllers. 
+                </para>
+            </note>
+            <para>
+                <xref linkend="cinder.cdot.nfs.options"/> lists the configuration options available for the unified driver for a clustered Data ONTAP deployment using the NFS storage protocol.
+            </para>
+            <!-- TODO: refer to autogenerated tables in upstream config reference? -->
+            <table rules="all" xml:id="cinder.cdot.nfs.options">
+                <caption>Configuration options for clustered Data ONTAP with NFS</caption>
+                <col width="1.85in"/>
+                <col width="0.6in"/>
+                <col width="0.95in"/>
+                <col width="2.35in"/>
+                <thead>
+                    <tr>
+                        <td>Option</td>
+                        <td>Type</td>
+                        <td>Default Value</td>
+                        <td>Description</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><option>netapp_server_hostname</option></td>
+                        <td>Required</td>
+                        <td></td>
+                        <td>The hostname or IP address for the storage system or proxy server. <emphasis>The value of this option should be the IP address of either the cluster management LIF or the SVM management LIF.</emphasis></td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_server_port</option></td>
+                        <td>Optional</td>
+                        <td>80</td>
+                        <td>The TCP port to use for communication with the storage system or proxy server. Traditionally, port 80 is used for HTTP and port 443 is used for HTTPS; however, this value should be changed if an alternate port has been configured on the storage system or proxy server.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_login</option></td>
+                        <td>Required</td>
+                        <td></td>
+                        <td>Administrative user account name used to access the storage system or proxy server.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_password</option></td>
+                        <td>Required</td>
+                        <td></td>
+                        <td>Password for the administrative user account specified in the <option>netapp_login</option> option.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_storage_protocol</option></td>
+                        <td>Required</td>
+                        <td><option>nfs</option></td>
+                        <td>The storage protocol to be used. Valid options are <option>nfs</option> or <option>iscsi</option>. If None is specified or the option is omitted, <option>nfs</option> will be used.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_transport_type</option></td>
+                        <td>Optional</td>
+                        <td><option>http</option></td>
+                        <td>Transport protocol for communicating with the storage system or proxy server. Valid options include <option>http</option> and <option>https</option>.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_copyoffload_tool_path</option></td>
+                        <td>Optional</td>
+                        <td/>
+                        <td>This option specifies the path of the NetApp copy offload tool binary. Ensure that the binary has execute permissions set which allow the effective user of the <command>cinder-volume</command> process to execute the file.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_vserver</option></td>
+                        <td>Optional</td>
+                        <td></td>
+                        <td>This option specifies the virtual storage server (Vserver) name on the storage cluster on which provisioning of block storage volumes should occur. If using the NFS storage protocol, this parameter is mandatory for storage service catalog support (utilized by Cinder volume type extra_specs support). If this option is specified, the exports belonging to the Vserver will only be used for provisioning in the future. Block storage volumes on exports not belonging to the Vserver specified by this option will continue to function normally.</td>
+                    </tr>
+                    <tr>
+                        <td><option>netapp_storage_family</option></td>
+                        <td>Optional</td>
+                        <td><option>ontap_cluster</option></td>
+                        <td>The storage family type used on the storage system; valid values are <option>ontap_7mode</option> for using Data ONTAP operating in 7-Mode, <option>ontap_cluster</option> for using clustered Data ONTAP, or <option>eseries</option> for using E-Series.</td>
+                    </tr>
+                    <tr>
+                        <td><option>thres_avl_size_perc_start</option></td>
+                        <td>Optional</td>
+                        <td>20</td>
+                        <td>If the percentage of available space for an NFS share has dropped below the value specified by this option, the NFS image cache will be cleaned.</td>
+                    </tr>
+                    <tr>
+                        <td><option>thres_avl_size_perc_stop</option></td>
+                        <td>Optional</td>
+                        <td>60</td>
+                        <td>When the percentage of available space on an NFS share has reached the percentage specified by this option, the driver will stop clearing files from the NFS image cache that have not been accessed in the last <replaceable>M</replaceable> minutes, where <replaceable>M</replaceable> is the value of the <option>expiry_thres_minutes</option> configuration option.</td>
+                    </tr>
+                    <tr>
+                        <td><option>expiry_thres_minutes</option></td>
+                        <td>Optional</td>
+                        <td>720</td>
+                        <td>This option specifies the threshold for last access time for images in the NFS image cache. When a cache cleaning cycle begins, images in the cache that have not been accessed in the last <replaceable>M</replaceable> minutes, where <replaceable>M</replaceable> is the value of this parameter, will be deleted from the cache to create free space on the NFS share.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <caution>
+                <para>
+                    If you specify an account in the <option>netapp_login</option> option that only has Vserver administration privileges (rather than cluster administration privileges), some advanced features of the NetApp unified driver will not work and you may see warnings in the Cinder logs.
+                </para>
+            </caution>
+            <!--Build tables of parameters (according to driver modes) including: -->           
+            <itemizedlist>
+                <listitem>Multi backend configuration explanation and examples should be included with an example cinder.conf with full config examples/notes</listitem>
+                <listitem>Parameter tables for CDOT (NFS, iSCSI), 7-mode (NFS, iSCSI), E-Series</listitem>
+            </itemizedlist>
+        </simplesect>
+    </section>
+    <section xml:id="cinder.fas.configuration">
+        <title>Data ONTAP Configuration</title>
+        <itemizedlist>
+            <listitem>SVM setup</listitem>
+            <listitem>User permissions</listitem>
+            <listitem>high level cDOT deployment for iSCSI and NFS support with VIF/VLAN/IFGRP requirements etc.</listitem>
+            <listitem>explain what pre-req/setup is required on storage to enable NFS, vol and namespace configured with common IP storage network between OpenStack nodes and FAS. This topic area should explain that the server mount is automated by Cinder and that VM image files get deployed automatically as files into the mount point as part of process.</listitem>
+            <listitem>Same needed for iSCSI, documenting the pre work required - I.e. SVM created with ISCSI connectivity/configuration on host and FAS with related volume deployed. Specify that LUNs get created automagically via Cinder.</listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="cinder.eseries.configuration">
+        <title>E-Series Configuration</title>
+        <itemizedlist>
+            <listitem>deployment topology picture</listitem>
+            <listitem>link to installation instructions for proxy</listitem>
+            <listitem>description of limitations (only DDP, HA?)</listitem>
+            <listitem>reference to E-Series docs</listitem>
+        </itemizedlist>
+    </section>
 </section>
