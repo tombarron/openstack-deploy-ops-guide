@@ -13,17 +13,17 @@
         </para>
     </tip>
     <para>
-        The number of replicas for partitions within Swift rings is set at the time the ring is created. To create the Swift rings for the Swift object types of account, container, and object, use the <command>swift-ring-builder</command> CLI command with the &lt;replicas&gt; parameter set to 1:
-    </para>
+        The number of replicas for partitions within Swift rings is set at the time the ring is created. To create the Swift rings for the Swift object types of account, container, and object, use the <command>swift-ring-builder</command> CLI command with the <option>replicas</option> parameter set to <replaceable>1</replaceable>:
     <programlisting>
-cd /etc/swift
+#swift-ring-builder <replaceable>ring-name</replaceable> create <replaceable>part-power</replaceable> <replaceable>replicas</replaceable> min-hours
 swift-ring-builder account.builder create <replaceable>10</replaceable> <replaceable>1</replaceable> 1
 swift-ring-builder container.builder create <replaceable>10</replaceable> <replaceable>1</replaceable> 1
 swift-ring-builder object.builder create <replaceable>10</replaceable> <replaceable>1</replaceable> 1
     </programlisting>
+    </para>
     <tip>
         <para>
-            When creating the Swift rings, the number of partitions per ring must be calculated. However, the default computation for computing the number of partitions (expressed by the exponent of 2) - otherwise known as the partition power - is based on the number of disks in a Swift cluster. While some Swift deployments (without NetApp E-Series storage solutions) utilize direct attached storage without RAID, with E-Series virtual disks are attached and leveraged that are created from a dynamic disk pool. As such, be sure to calculate the partition power as a function of the virtual disk count, rather than the number of physical (spinning or SSD) drives present.
+            When creating the Swift rings, the number of partitions per ring must be calculated. However, the default computation for computing the number of partitions (expressed by the exponent of 2) - otherwise known as the partition power (<option>part-power</option>) - is based on the number of disks in a Swift cluster. While some Swift deployments (without NetApp E-Series storage solutions) utilize direct attached storage without RAID, with E-Series virtual disks are attached and leveraged that are created from a dynamic disk pool. As such, be sure to calculate the partition power as a function of the virtual disk count, rather than the number of physical (spinning or SSD) drives present.
         </para>
     </tip>
 </section>

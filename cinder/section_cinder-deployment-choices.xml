@@ -82,7 +82,7 @@
         <important>
             <title>Recommendation</title>
             <para>
-                Unless you have a significant existing investment with OnCommand Workflow Automator that you wish to leverage in an OpenStack deployment, it is recommend that you start with the <emphasis>direct</emphasis> mode of operation when using Cinder with a NetApp FAS deployment. When using Cinder with a NetApp E-Series deployment, use of the SANtricity Web Services Proxy in the <emphasis>intermediated</emphasis> mode is currently required. 
+                Unless you have a significant existing investment with OnCommand Workflow Automator that you wish to leverage in an OpenStack deployment, it is recommended that you start with the <emphasis>direct</emphasis> mode of operation when using Cinder with a NetApp FAS deployment. When using Cinder with a NetApp E-Series deployment, use of the SANtricity Web Services Proxy in the <emphasis>intermediated</emphasis> mode is currently required. 
             </para>
         </important>
     </simplesect>
@@ -102,7 +102,7 @@
         </formalpara>
         <note>
             <para>
-                As of the Icehouse release, NetApp has integrations with Cinder for both FAS and E-Series, and either storage solution can be leverages as part of a Cinder deployment to leverage the native benefits that either platform has to offer.
+                As of the Icehouse release, NetApp has integrations with Cinder for both FAS and E-Series, and either storage solution can be included as part of a Cinder deployment to leverage the native benefits that either platform has to offer.
             </para>
         </note>
     </simplesect>
@@ -180,7 +180,7 @@
             <caption>NetApp-supported Extra Specs for use with Cinder Volume Types</caption>
             <col width="1.75in"/>
             <col width="0.65in"/>
-            <col width="3.55in"/>
+            <col width="3.35in"/>
             <thead>
                 <tr>
                     <td>Extra spec</td>

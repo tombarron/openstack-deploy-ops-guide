@@ -24,7 +24,7 @@ filesystem_store_datadir=/var/lib/glance/images/
         By specifying the value of <option>filesystem_store_datadir</option> to be a directory that is the mount point for an NFS share that is served from a NetApp FlexVol volume, you can have a single filesystem that can be mounted from one or more <command>glance-api</command> servers. 
     </para>
     <para>
-        If a single FlexVol volume will contain Cinder volumes in addition to Glance images, be sure to set the <option>show_image_direct_url</option> configuration option to <literal>True</literal> in <filename>/etc/glance/glance-api.conf</filename>. This ensures that the appropriate metadata will be passed to Cinder so that it can attempt to rapidly clone the image directly on the controller, avoiding the HTTP transfer between Glance and Cinder. See NEED LINK HERE Section 6.8 for more information on the Enhanced Image Cloning capability in Cinder.
+        If a single FlexVol volume will contain Cinder volumes in addition to Glance images, be sure to set the <option>show_image_direct_url</option> configuration option to <literal>True</literal> in <filename>/etc/glance/glance-api.conf</filename>. This ensures that the appropriate metadata will be passed to Cinder so that it can attempt to rapidly clone the image directly on the controller, avoiding the HTTP transfer between Glance and Cinder. See ADD REF HERE for more information on the Enhanced Image Cloning capability.
     </para>
     <simplesect>
         <title>Enabling Deduplication for OpenStack Image Service</title>

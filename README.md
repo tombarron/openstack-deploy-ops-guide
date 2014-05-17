@@ -12,3 +12,5 @@ TODO:
 
 - add spell check as part of build process
 - post resulting PDF to destination site
+- add instructions to rev version number of document
+- add Trove, Sahara to core list in Section 2

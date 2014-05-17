@@ -20,13 +20,10 @@
     </itemizedlist>
     <para>
         These parameters can be leveraged to configure the file system for optimal performance with the LUN. When a file system is created on a logical volume device, <command>mkfs.xfs</command> will automatically query the logical volume to determine appropriate stripe unit and stripe width values, unless values are passed at the time of filesystem creation; for example:
-    </para>
     <programlisting>
 mkfs.xfs –I su=131072,sw=8 –i size=1024 /dev/mapper/nodeX
     </programlisting>
-    <para>
         You can verify that the underlying filesystem has the correct values for stripe unit and stripe width by using the <command>xfs_info</command> command:
-    </para>
     <programlisting>
 mroot@swift21:~/bin# xfs_info /dev/mapper/nodeX
 meta-data=/dev/mapper/nodeX   isize=1024   agcount=4, agsize=134217664
@@ -38,24 +35,19 @@ log      =internal log      bsize=4096   blocks=262144, version=2
          =                  sectsz=512   sunit=32 blks, lazy-count=1
 realtime =none              extsz=4096   blocks=0, rtextents=0
     </programlisting>
-    <para>
         <literal>sunit</literal> and <literal>swidth</literal> are shown in <literal>bsize</literal> (block size) units in the <command>xfs_info</command> command output.
-    </para>
     <programlisting>
 stripe unit= 32 sunits * 4096 bsize (block size)= 131072 bytes = 128K
 stripe width= 256 blocks * 4096 bsize = 1M = 128K * 8 drives
     </programlisting>
-    <para>
         The sysctl <literal>fs.xfs.rotorstep</literal> can be used to change how many files are put into an XFS allocation group. Increasing the default number from 1 to 255 reduces seeks to multiple allocation groups. NetApp has observed improved performance in some cases by increasing this number. You can put the following line in <filename>/etc/sysctl.conf</filename> to ensure this change is affected on each boot of the system:
-    </para>
     <programlisting>
 fs.xfs.rotorstep = 255
     </programlisting>
-    <para>
         When mounting the XFS filesystem that resides on the LUNs offered from the E-Series storage, be sure to use the following mount options:
-    </para>
     <programlisting>
 mount –t xfs –o “nobarrier,noatime,nodiratime,logbugs=8,inode64” \
 /dev/mapper/nodeX /srv/node/sdb1
     </programlisting>
+    </para>
 </section>
