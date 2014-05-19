@@ -66,12 +66,12 @@ enabled_backends=myNfsBackend,myIscsiBackend,myESeriesBackend
             <title>Configuration Options</title>
             <para>
                 To set up the NetApp clustered Data ONTAP iSCSI driver for Cinder, the following stanza should be added to the Cinder configuration file (<filename>cinder.conf</filename>):<programlisting>
-[myIscsiBackend]<co id="cdot-iscsi-name-co" linkends="cdot-iscsi-name"/>
+[myIscsiBackend] <co id="cdot-iscsi-name-co" linkends="cdot-iscsi-name"/>
 volume_backend_name=myIscsiBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
 netapp_server_port=<replaceable>80</replaceable>
-netapp_storage_protocol=iscsi<co id="cdot-iscsi-protocol-co" linkends="cdot-iscsi-protocol"/>
+netapp_storage_protocol=iscsi <co id="cdot-iscsi-protocol-co" linkends="cdot-iscsi-protocol"/>
 netapp_storage_family=ontap_cluster
 netapp_login=<replaceable>admin_username</replaceable>
 netapp_password=<replaceable>admin_password</replaceable>
@@ -81,7 +81,7 @@ netapp_password=<replaceable>admin_password</replaceable>
                     <para>Be sure that the value of the <option>enabled_backends</option> option in the <option>[DEFAULT]</option> stanza includes the name of the stanza you chose for the backend.</para>
                 </callout>
                 <callout arearefs="cdot-iscsi-protocol-co" id="cdot-iscsi-protocol">
-                    <para>The value of <option>netapp_storage_protocol</option> MUST be set to <option>iSCSI</option>, as the default value for this option is <option>nfs</option>.</para>
+                    <para>The value of <option>netapp_storage_protocol</option> MUST be set to <option>iscsi</option>, as the default value for this option is <option>nfs</option>.</para>
                 </callout>
             </calloutlist>
             </para>
@@ -176,7 +176,7 @@ netapp_password=<replaceable>admin_password</replaceable>
             <title>Configuration Options</title>
             <para>
                 To set up the NetApp clustered Data ONTAP NFS driver for Cinder, the following stanza should be added to the Cinder configuration file (<filename>cinder.conf</filename>):<programlisting>
-[myNfsBackend]<co id="cdot-nfs-name-co" linkends="cdot-nfs-name"/>
+[myNfsBackend] <co id="cdot-nfs-name-co" linkends="cdot-nfs-name"/>
 volume_backend_name=myNfsBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
@@ -310,19 +310,25 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
             <title>Configuration Options</title>
             <para>
                 To set up the NetApp Data ONTAP operating in 7-Mode iSCSI driver for Cinder, the following stanza should be added to the Cinder configuration file (<filename>cinder.conf</filename>):<programlisting>
-[myIscsiBackend]<co id="7mode-iscsi-name-co" linkends="7mode-iscsi-name"/>
+[myIscsiBackend] <co id="7mode-iscsi-name-co" linkends="7mode-iscsi-name"/>
 volume_backend_name=myIscsiBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
 netapp_server_port=<replaceable>80</replaceable>
-netapp_storage_protocol=iscsi 
-netapp_storage_family=ontap_7mode
+netapp_storage_protocol=iscsi <co id="7mode-iscsi-protocol-co" linkends="7mode-iscsi-protocol"/> 
+netapp_storage_family=ontap_7mode <co id="7mode-iscsi-family-co" linkends="7mode-iscsi-family"/>
 netapp_login=<replaceable>admin_username</replaceable>
 netapp_password=<replaceable>admin_password</replaceable>
             </programlisting>
             <calloutlist>
                 <callout arearefs="7mode-iscsi-name-co" id="7mode-iscsi-name" >
                     <para>Be sure that the value of the <option>enabled_backends</option> option in the <option>[DEFAULT]</option> stanza includes the name of the stanza you chose for the backend.</para>
+                </callout>
+                <callout arearefs="7mode-iscsi-protocol-co" id="7mode-iscsi-protocol">
+                    <para>The value of <option>netapp_storage_protocol</option> MUST be set to <option>iscsi</option>, as the default value for this option is <option>nfs</option>.</para>
+                </callout>
+                <callout arearefs="7mode-iscsi-family-co" id="7mode-iscsi-family" >
+                    <para>The value of <option>netapp_storage_family</option> MUST be set to <option>ontap_7mode</option>, as the default value for this option is <option>ontap_cluster</option>.</para>
                 </callout>
             </calloutlist>
             </para>
@@ -418,13 +424,13 @@ netapp_password=<replaceable>admin_password</replaceable>
             <title>Configuration Options</title>
             <para>
                 To set up the NetApp Data ONTAP operating in 7-Mode NFS driver for Cinder, the following stanza should be added to the Cinder configuration file (<filename>cinder.conf</filename>):<programlisting>
-[myNfsBackend]<co id="7mode-nfs-name-co" linkends="7mode-nfs-name"/>
+[myNfsBackend] <co id="7mode-nfs-name-co" linkends="7mode-nfs-name"/>
 volume_backend_name=myNfsBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
 netapp_server_port=<replaceable>80</replaceable>
 netapp_storage_protocol=nfs 
-netapp_storage_family=ontap_7mode
+netapp_storage_family=ontap_7mode <co id="7mode-nfs-family-co" linkends="7mode-nfs-family"/>
 netapp_login=<replaceable>admin_username</replaceable>
 netapp_password=<replaceable>admin_password</replaceable>
 nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
@@ -432,6 +438,9 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
             <calloutlist>
                 <callout arearefs="7mode-nfs-name-co" id="7mode-nfs-name" >
                     <para>Be sure that the value of the <option>enabled_backends</option> option in the <option>[DEFAULT]</option> stanza includes the name of the stanza you chose for the backend.</para>
+                </callout>
+                <callout arearefs="7mode-nfs-family-co" id="7mode-nfs-family" >
+                    <para>The value of <option>netapp_storage_family</option> MUST be set to <option>ontap_7mode</option>, as the default value for this option is <option>ontap_cluster</option>.</para>
                 </callout>
             </calloutlist>
             </para>
@@ -531,17 +540,13 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
         <para>
             The NetApp E-Series driver for Cinder was introduced in the Icehouse release as a new storage family supported within the NetApp unified driver framework. The E-Series driver provides OpenStack with access to NetApp E-Series controllers for provisioning and maintaining OpenStack block storage volumes using the iSCSI protocol.
         </para>
-        <itemizedlist>
-            <listitem>deployment topology picture</listitem>
-            <listitem>link to installation instructions for proxy</listitem>
-            <listitem>description of limitations (only DDP, HA?)</listitem>
-            <listitem>reference to E-Series docs</listitem>
-        </itemizedlist>
+        <!-- TODO: add deployment picture? -->
         <simplesect>
             <title>Deployment Topology</title>
             <para>
-                As described in <xref linkend="section_cinder-deployment-choices"/>, using Cinder with NetApp E-Series requires the use of the NetApp SANtricity Web Services Proxy server deployed as an intermediary between Cinder and the E-Series storage system. HA for both proxy and iSCSI connection? 
+                As described in <xref linkend="section_cinder-deployment-choices"/>, using Cinder with NetApp E-Series requires the use of the NetApp SANtricity Web Services Proxy server deployed as an intermediary between Cinder and the E-Series storage system. 
             </para>
+            <!-- TODO: talk about HA deployment of proxy server -->
             <tip>
                 <para>
                     Documentation (including installation instructions) for the NetApp SANtricity Web Services Proxy server are available for download at <link xlink:href="https://library.netapp.com/ecm/ecm_download_file/ECMP1506075">https://library.netapp.com/ecm/ecm_download_file/ECMP1506075</link>.
@@ -555,13 +560,13 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
             <title>Configuration Options</title>
             <para>
                 To set up the NetApp E-Series driver for Cinder, the following stanza should be added to the Cinder configuration file (<filename>cinder.conf</filename>):<programlisting>
-[myESeriesBackend]<co id="eseries-iscsi-name-co" linkends="eseries-iscsi-name"/>
+[myESeriesBackend] <co id="eseries-iscsi-name-co" linkends="eseries-iscsi-name"/>
 volume_backend_name=myESeriesBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
 netapp_server_port=<replaceable>80</replaceable>
-netapp_storage_protocol=iscsi<co id="eseries-iscsi-protocol-co" linkends="eseries-iscsi-protocol"/> 
-netapp_storage_family=eseries
+netapp_storage_protocol=iscsi <co id="eseries-iscsi-protocol-co" linkends="eseries-iscsi-protocol"/> 
+netapp_storage_family=eseries <co id="eseries-iscsi-family-co" linkends="eseries-iscsi-family"/> 
 netapp_controller_ips=<replaceable>1.2.3.4,1.2.3.5</replaceable>
 netapp_sa_password=<replaceable>storage_array_password</replaceable>
 netapp_storage_pools=<replaceable>myPool1,myPool2</replaceable>
@@ -574,6 +579,9 @@ netapp_password=<replaceable>admin_password</replaceable>
                 </callout>
                 <callout arearefs="eseries-iscsi-protocol-co" id="eseries-iscsi-protocol">
                     <para>As the E-Series solution only provides block storage services, the value of <option>netapp_storage_protocol</option> MUST be set to <option>iscsi</option>.</para>
+                </callout>
+                <callout arearefs="eseries-iscsi-family-co" id="eseries-iscsi-family" >
+                    <para>The value of <option>netapp_storage_family</option> MUST be set to <option>eseries</option>, as the default value for this option is <option>ontap_cluster</option>.</para>
                 </callout>
             </calloutlist>
             </para>
