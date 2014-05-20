@@ -5,26 +5,26 @@
     xml:id="section_glance-e-series">
     <title>Configuration of Glance with NetApp E-Series and EF-Series</title>
     <para>
-        E-Series and EF-Series storage systems can alternatively be used as the backing store for Glance images. An E-Series volume should be created (with SANtricity specifying the desired RAID level and capacity) and then mapped to the Glance node. After the volume is visible to the host it is formatted with a file system, mounted, and a directory structure created on it. This directory path can be specified as the <option>filesystem_store_datadir</option> in the Glance configuration file <filename>/etc/glance/glance-api.conf </filename>.
+        E-Series and EF-Series storage systems can alternatively be used as the backing store for Glance images. An E-Series volume should be created (with SANtricity specifying the desired RAID level and capacity) and then mapped to the Glance node. After the volume is visible to the host it is formatted with a file system, mounted, and a directory structure created on it. This directory path can be specified as the <option>filesystem_store_datadir</option> in the Glance configuration file <filename>glance-api.conf</filename>.
     </para>
     <para>
         Steps:
     </para>
     <orderedlist>
         <listitem>
-            Create the volume using SANtricity and map to the host. Assume the volume is <filename>/dev/sdc</filename> on the host.
+            Create the LUN from a disk pool or volume group using SANtricity and map it to the host. Assuming that the volume has been mapped to <filename>/dev/sdc</filename> on the host, create a partition on the volume and then create a filesystem on the partition (e.g. ext4):
+            <programlisting>
+fdisk /dev/sdc
+mkfs.ext4 /dev/sdc1
+mount /dev/sdc1 /mnt/sdc1
+mkdir /mnt/sdc1/glanceImageStore
+            </programlisting>
         </listitem>
         <listitem>
-            Create a partition on the volume: fdisk <filename>/dev/sdc</filename>
-        </listitem>
-        <listitem>
-            Create a filesystem on the partition (e.g. ext4): mkfs.ext4 <filename>/dev/sdc1</filename>
-        </listitem>
-        <listitem>
-            Mount the volume: mount <filename>/dev/sdc1</filename> <filename>/mnt/sdc1</filename>. Create the Glance image store directory: mkdir <filename>/mnt/sdc1/glanceImageStore</filename>
-        </listitem>
-        <listitem>
-            Edit <filename>/etc/glance/glance-api.conf</filename>, add / modify the line <option>filesystem_store_datadir = /mnt/sdc1/glanceImageStore</option>
+            Edit the Glance configuration file <filename>glance-api.conf</filename> so that it contains the <option>filesystem_store_datadir</option> option, and ensure the value refers to the Glance image store directory created in the previous step:
+            <programlisting>
+filesystem_store_datadir=/mnt/sdc1/glanceImageStore
+            </programlisting>
         </listitem>
     </orderedlist>
 </section>

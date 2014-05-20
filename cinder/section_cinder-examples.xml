@@ -5,25 +5,25 @@
         <title><filename>cinder.conf</filename></title>
         <para>
             This section provides an example Cinder configuration file (<filename>cinder.conf</filename>) that contains three backends - one for clustered Data ONTAP with the NFS storage protocol, one for clustered Data ONTAP with the iSCSI storage protocol, and one for an E-Series deployment (leveraging iSCSI).
-<programlisting>
+            <programlisting>
 [DEFAULT]
-rabbit_password = netapp123
-rabbit_hosts = 192.168.33.40
-rpc_backend = cinder.openstack.common.rpc.impl_kombu
-notification_driver = cinder.openstack.common.notifier.rpc_notifier
-periodic_interval = 60
-lock_path = /opt/stack/data/cinder
-state_path = /opt/stack/data/cinder
-osapi_volume_extension = cinder.api.contrib.standard_extensions
-rootwrap_config = /etc/cinder/rootwrap.conf
-api_paste_config = /etc/cinder/api-paste.ini
-sql_connection = mysql://root:netapp123@127.0.0.1/cinder?charset=utf8
-iscsi_helper = tgtadm
-my_ip = 192.168.33.40
-volume_name_template = volume-%s
-verbose = True
-debug = True
-auth_strategy = keystone
+rabbit_password=netapp123
+rabbit_hosts=192.168.33.40
+rpc_backend=cinder.openstack.common.rpc.impl_kombu
+notification_driver=cinder.openstack.common.notifier.rpc_notifier
+periodic_interval=60
+lock_path=/opt/stack/data/cinder
+state_path=/opt/stack/data/cinder
+osapi_volume_extension=cinder.api.contrib.standard_extensions
+rootwrap_config=/etc/cinder/rootwrap.conf
+api_paste_config=/etc/cinder/api-paste.ini
+sql_connection=mysql://root:netapp123@127.0.0.1/cinder?charset=utf8
+iscsi_helper=tgtadm
+my_ip=192.168.33.40
+volume_name_template=volume-%s
+verbose=True
+debug=True
+auth_strategy=keystone
 #ceilometer settings 
 cinder_volume_usage_audit=True
 cinder_volume_usage_audit_period=hour
@@ -52,6 +52,7 @@ netapp_storage_family=ontap_cluster
 netapp_login=admin
 netapp_password=netapp123
 netapp_vserver=demo-nfs-svm
+nfs_shares_config=/etc/cinder/nfs.shares
 
 [eseries-iscsi] 
 volume_backend_name=eseries-iscsi
@@ -90,7 +91,7 @@ vserver create -vserver demo-nfs-svm -rootvolume vol1 \
 # iSCSI setup
 network interface create -vserver demo-iscsi-svm -lif \
 demo-iscsi-data -role data -home-node democluster-1-01 \
--home-port e0d -address 10.63.40.149 -netmask 255.255.192.0
+-home-port e0d -address <replaceable>10.63.40.149</replaceable> -netmask <replaceable>255.255.192.0</replaceable>
 
 volume create -vserver demo-iscsi-svm -volume vol2 \
 -aggregate aggr1 -size 10g
@@ -107,11 +108,11 @@ any -superuser any -anon 0
 nfs create -vserver demo-nfs-svm -access true
 network interface create -vserver demo-nfs-svm -lif demo-nfs-data \
 -role data -home-node democluster-1-02 -home-port e0d -address \
-10.63.40.153 -netmask 255.255.192.0
+<replaceable>10.63.40.153</replaceable> -netmask <replaceable>255.255.192.0</replaceable>
 
-vserver export-policy rule create -vserver demo-nfs-svm -policyname \
-default -clientmatch 0.0.0.0/0 -rorule any -rwrule any -superuser \
-any -anon 0
+vserver export-policy rule create -vserver demo-nfs-svm \
+-policyname default -clientmatch 0.0.0.0/0 -rorule any -rwrule \
+any -superuser any -anon 0
 
 volume create -vserver demo-nfs-svm -volume vol2_dedup -aggregate \
 aggr2 -size 6g -junction-path /vol2_dedup
@@ -153,7 +154,7 @@ nfs modify -vserver demo-nfs-svm -v4.0 enabled -v4.1 enabled \
         <title>Cinder Command Line Interface (CLI)</title>
         <itemizedlist>
             <listitem>run cinder service-list to show multiple backends, strings, etc</listitem>
-            <listitem>examples of how to configure volume types and extra specs in Dashboard and via CLI/API; example of gold/silver/bronze</listitem>
+            <listitem>examples of how to configure volume types and extra specs in Dashboard and via CLI and API; example of gold/silver/bronze</listitem>
             <listitem>create a volume, show that it is placed in correct FlexVol</listitem>
             <listitem>migrate a volume, show before and after </listitem>
         </itemizedlist>

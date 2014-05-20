@@ -6,11 +6,11 @@
         <formalpara>
             <title>Cinder Backends and Storage Virtual Machines</title>
             <para>
-                 Storage Virtual Machines (SVMs, formerly known as Vservers) contain data volumes and one or more LIFs through which they serve data to the clients. SVMs can either contain one or more FlexVol volumes, or a single Infinite Volume.
+                 Storage Virtual Machines (SVMs, formerly known as Vservers) contain data volumes and one or more LIFs through which they serve data to clients. SVMs can either contain one or more FlexVol volumes, or a single Infinite Volume.
             </para>
         </formalpara>
         <para>
-            SVMs securely isolate the shared virtualized data storage and network, and each SVM appears as a single dedicated server to the clients. Each SVM has a separate administrator authentication domain and can be managed independently by its SVM administrator.
+            SVMs securely isolate the shared virtualized data storage and network, and each SVM appears as a single dedicated server to clients. Each SVM has a separate administrator authentication domain and can be managed independently by its SVM administrator.
         </para>
         <para>
             In a cluster, SVMs facilitate data access. A cluster must have at least one SVM to serve data. SVMs use the storage and network resources of the cluster. However, the volumes and LIFs are exclusive to the SVM. Multiple SVMs can coexist in a single cluster without being bound to any node in a cluster. However, they are bound to the physical cluster on which they exist.
@@ -34,7 +34,7 @@
         <formalpara>
             <title>Cinder volume representation within a FlexVol volume</title>
             <para>
-                A Cinder volume has a different representation in Data ONTAP when stored in a FlexVol volume. The difference is dependent on storage protocol utilized with Cinder:
+                A Cinder volume has a different representation in Data ONTAP when stored in a FlexVol volume, dependent on storage protocol utilized with Cinder:
             </para>
             <itemizedlist>
                 <listitem><emphasis>iSCSI</emphasis>: When utilizing the iSCSI storage protocol, a Cinder volume is stored as an iSCSI LUN.</listitem>
@@ -44,7 +44,7 @@
         <formalpara>
             <title>Cinder snapshots versus NetApp snapshots</title>
             <para>
-                A Snapshot copy is a point-in-time file system image. Low-overhead Snapshot copies are made possible by the unique features of the WAFL<trademark class="registered"/> (Write Anywhere File Layout) storage virtualization technology that is part of Data ONTAP. Up to 255 Snapshot copies can kept at any time for a FlexVol volume.
+                A Snapshot copy is a point-in-time file system image. Low-overhead Snapshot copies are made possible by the unique features of the WAFL storage virtualization technology that is part of Data ONTAP. Up to 255 Snapshot copies can kept at any time for a FlexVol volume.
             </para>
         </formalpara>
         <para>
@@ -97,7 +97,7 @@
         <formalpara>
             <title>E-Series</title>
             <para>
-                For cloud environments where higher performance is critical, or where higher-value data management features are not needed or are implemented within an application, NetApp's E-Series product line can provide a cost-effective underpinning for a Cinder deployment. NetApp's E-Series storage offers a feature called Dynamic Disk Pools (DDP), which simplifies data protection by removing the complexity of configuring RAID groups and allocating hot spares. Utilization is improved by dynamically spreading data, parity, and spare capacity across all drives in a pool, reducing performance bottlenecks due to hot-spots. Additionally, should a drive failure occur, DDP enables the pool to return to an optimal state significantly faster than RAID6, while reducing the performance impact during the reconstruction of a failed drive. 
+                For cloud environments where higher performance is critical, or where higher-value data management features are not needed or are implemented within an application, NetApp's E-Series product line can provide a cost-effective underpinning for a Cinder deployment. NetApp's E-Series storage offers a feature called Dynamic Disk Pools, which simplifies data protection by removing the complexity of configuring RAID groups and allocating hot spares. Utilization is improved by dynamically spreading data, parity, and spare capacity across all drives in a pool, reducing performance bottlenecks due to hot-spots. Additionally, should a drive failure occur, DDP enables the pool to return to an optimal state significantly faster than RAID6, while reducing the performance impact during the reconstruction of a failed drive. 
             </para>
         </formalpara>
         <note>

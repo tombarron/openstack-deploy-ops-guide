@@ -6,16 +6,16 @@
         <para>
             A Cinder volume is the fundamental resource unit allocated by the Block Storage service. It represents an allocation of persistent, readable, and writable block storage that could be utilized as the root disk for a compute instance, or as secondary storage that could be attached and/or detached from a compute instance. The underlying connection between the consumer of the volume and the Cinder service providing the volume can be achieved with the iSCSI, NFS, or Fibre Channel storage protocols (dependent on the support of the Cinder driver deployed).
         </para>
-        <note>
+        <warning>
             <para>
                 A Cinder volume is an abstract storage object that may or may not directly map to a "volume" concept from the underlying backend provider of storage. It is critically important to understand this distinction, particularly in context of a Cinder deployment that leverages NetApp storage solutions.
             </para>
-        </note>
+        </warning>
         <para>
             Cinder volumes can be identified uniquely through a UUID assigned by the Cinder service at the time of volume creation. A Cinder volume may also be optionally referred to by a human-readable name, though this string is not guaranteed to be unique within a single tenant or deployment of Cinder. 
         </para>
         <para>
-            The actual blocks provisioned in support of a Cinder volume reside on a single Cinder backend. Starting in the Havana release, a Cinder volume can be migrated from one storage backend to another within a deployment of the Cinder service.
+            The actual blocks provisioned in support of a Cinder volume reside on a single Cinder backend. Starting in the Havana release, a Cinder volume can be migrated from one storage backend to another within a deployment of the Cinder service. ADD REF TO MIGRATION EXAMPLE HERE
         </para>
     </simplesect>
     <simplesect>
@@ -27,11 +27,11 @@
     <simplesect>
         <title>Backend</title>
         <para>
-            A Cinder backend is the configuration object that represents a single provider of block storage available for provisioning requests to be rendered against it. A Cinder backend communicates with the other Cinder processes through a Cinder driver. Cinder supports multiple backends to be simultaneously configured and managed (even using the same Cinder driver) as of the Grizzly release.
+            A Cinder backend is the configuration object that represents a single provider of block storage available for provisioning requests to be rendered against it. A Cinder backend communicates with the storage system through a Cinder driver. Cinder supports multiple backends to be simultaneously configured and managed (even using the same Cinder driver) as of the Grizzly release.
         </para>
         <note>
             <para>
-                A Cinder backend may be defined in the <literal>[DEFAULT]</literal> stanza of <filename>cinder.conf</filename>; however, this is not the recommended way to configure backends within Cinder. It is recommended that the <option>enabled_backends</option> configuration option be set to a comma-separated list of backend names, and each backend name have its own configuration stanza with the same name as listed in the <option>enabled_backends</option> option.
+                A Cinder backend may be defined in the <literal>[DEFAULT]</literal> stanza of <filename>cinder.conf</filename>; however, this is not the recommended way to configure backends within Cinder. It is recommended that the <option>enabled_backends</option> configuration option be set to a comma-separated list of backend names, and each backend name have its own configuration stanza with the same name as listed in the <option>enabled_backends</option> option. Refer to <xref linkend="cinder.configuration"/> for an example of the use of this option.
             </para>
         </note>
     </simplesect>
@@ -82,7 +82,7 @@
             </para>
             <note>
                 <para>
-                    The NetApp Cinder drivers do not currently support any back-end QoS specs; however, the NetApp construct of QoS policy groups can be assigned to Cinder volumes managed through a clustered Data ONTAP backend using the NFS storage protocol. For more information, please see <xref linkend="cinder.volume_types"/>.
+                    The NetApp Cinder drivers do not currently support any back-end QoS specs; however, the NetApp construct of QoS policy groups can be assigned to Cinder volumes managed through a clustered Data ONTAP backend using the NFS storage protocol. For more information, please see <xref linkend="cinder.netapp.extra_specs"/>.
                 </para>
             </note>
                 <!--

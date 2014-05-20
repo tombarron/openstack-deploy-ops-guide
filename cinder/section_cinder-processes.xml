@@ -14,7 +14,7 @@
         <title>Cinder Processes Concept Diagram</title>
         <mediaobject>
             <imageobject>
-                <imagedata fileref="../images/cinder_process_layout.png" align="center" scale="70"/>
+                <imagedata fileref="../images/cinder_process_layout.png" align="center" width="5.75in"/>
             </imageobject>
             <textobject>
                 <phrase>An logical diagram of the component processes comprising Cinder</phrase>
@@ -25,13 +25,12 @@
         <title>Volume Creation Workflow</title>
         <para>
             The following section will walk through the steps that occur when a user requests the creation of a new volume from Cinder.
-            <!--        Walk through steps of workflow including annotated diagram representing control and data paths -->
         </para>
         <figure xml:id="cinder.create_volume_workflow">
             <title>Cinder Workflow - Volume Creation</title>
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="../images/cinder_create_volume_process.png" align="center" scale="80"/>
+                    <imagedata fileref="../images/cinder_create_volume_process.png" align="center" width="5.75in"/>
                 </imageobject>
                 <textobject>
                     <phrase>An logical diagram of the volume creation workflow within Cinder</phrase>
@@ -40,7 +39,7 @@
         </figure>
         <orderedlist>
             <listitem>
-                Client issues request to create volume through invoking REST API (may use <literal>python-cinderclient</literal> CLI utility).
+                Client issues request to create volume through invoking REST API (client may use <literal>python-cinderclient</literal> CLI utility).
             </listitem>
             <listitem>
                 <literal>cinder-api</literal> process validates request, user credentials; once validated, puts message onto AMQP queue for processing.
@@ -77,7 +76,7 @@
             <title>Cinder &amp; Nova Workflow - Volume Attach</title>
             <mediaobject>
                 <imageobject>
-                    <imagedata fileref="../images/nova_volume_attach_process.png" align="center" scale="70"/>
+                    <imagedata fileref="../images/nova_volume_attach_process.png" align="center" width="5.75in"/>
                 </imageobject>
                 <textobject>
                     <phrase>An logical diagram of the volume attach workflow between Nova &amp; Cinder</phrase>
@@ -86,7 +85,7 @@
         </figure>
         <orderedlist>
             <listitem>
-                Client issues request to attach volume through invoking Nova REST API (may use <literal>python-novaclient</literal> CLI utility).
+                Client issues request to attach volume through invoking Nova REST API (client may use <literal>python-novaclient</literal> CLI utility).
             </listitem>
             <listitem>
                 <literal>nova-api</literal> process validates request, user credentials; once validated, invokes Cinder API to get connection information for specified volume.
@@ -110,11 +109,8 @@
                 Nova creates the connection to the storage using the returned information from Cinder.
             </listitem>
             <listitem>
-                Nova passes the volume device/file to the hypervisor.
+                Nova passes the volume device/file to the hypervisor, who then attaches the volume device/file to the guest VM as an actual or virtualized block device (dependent on storage protocol).
             </listitem>
-            <listitem>
-                The hypervisor attaches the volume device or file to the guest virtual machine as an actual or virtualized block device (dependent on storage protocol).
-            </listitem>
-        </orderedlist>
+        </orderedlist> 
     </simplesect>
 </section>

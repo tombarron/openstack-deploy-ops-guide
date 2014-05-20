@@ -73,8 +73,8 @@
         <table rules="all" xml:id="cinder.api.snapshot_table">
             <caption>Cinder API Overview - Snapshot</caption>
             <col width="0.7in"/>
-            <col width="1.5in"/>
-            <col width="3.55in"/>
+            <col width="1.55in"/>
+            <col width="3.5in"/>
             <thead>
                 <tr>
                     <td>Operation</td>
