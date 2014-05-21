@@ -50,10 +50,10 @@ enabled_backends=myNfsBackend,myIscsiBackend,myESeriesBackend
                 The following lists all of the individual options and subsequent sections are intended to offer guidance on which configuration options ought to be employed given varying use cases:
             </para>
             <itemizedlist>
-                <listitem>NetApp clustered Data ONTAP with iSCSI</listitem><!-- TODO: make these references to the section -->
-                <listitem>NetApp clustered Data ONTAP with NFS</listitem>
-                <listitem>NetApp Data ONTAP operating in 7-Mode with iSCSI</listitem> 
-                <listitem>NetApp Data ONTAP operating in 7-Mode with NFS</listitem>
+                <listitem><xref linkend="cinder.cdot.iscsi.configuration">NetApp clustered Data ONTAP with iSCSI</xref></listitem>
+                <listitem><xref linkend="cinder.cdot.nfs.configuration">NetApp clustered Data ONTAP with NFS</xref></listitem>
+                <listitem><xref linkend="cinder.7mode.iscsi.configuration">NetApp Data ONTAP operating in 7-Mode with iSCSI</xref></listitem> 
+                <listitem><xref linkend="cinder.7mode.nfs.configuration">NetApp Data ONTAP operating in 7-Mode with NFS</xref></listitem>
             </itemizedlist>
         </simplesect>
     </section>

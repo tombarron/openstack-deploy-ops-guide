@@ -17,9 +17,6 @@ $ sudo cat /etc/glance/glance-api.conf|grep \
 filesystem_store_datadir|egrep -v "^#.*"
 filesystem_store_datadir=/var/lib/glance/images/
         </programlisting>
-        <para>
-            Glance config here
-        </para>
     </section>
     <section xml:id="glance.fas.configuration">
         <title>Configuration of Glance with NetApp FAS</title>
@@ -34,12 +31,9 @@ filesystem_store_datadir=/var/lib/glance/images/
 
         <tip>
             <para>
-                Be sure to refer to the <link xlink:href="http://www.netapp.com/us/system/pdf-reader.aspx?pdfuri=tcm:10-61288-16&amp;m=tr-4067.pdf">Clustered Data ONTAP NFS Best Practices and Implementation Guide</link> for information on how to optimally set up the NFS export for use with Glance. NEED DEDUP reference here too
+                Be sure to refer to the <link xlink:href="http://www.netapp.com/us/system/pdf-reader.aspx?pdfuri=tcm:10-61288-16&amp;m=tr-4067.pdf">Clustered Data ONTAP NFS Best Practices and Implementation Guide</link> for information on how to optimally set up the NFS export for use with Glance, and <link xlink:href="http://www.netapp.com/us/system/pdf-reader.aspx?pdfuri=tcm:10-60107-16&amp;m=tr-3958.pdf">NetApp Data Compression and Deduplication Deployment and Implementation Guide</link>.
             </para>
         </tip>
-        <para>
-            If a single FlexVol volume will contain Cinder volumes in addition to Glance images, be sure to set the <option>show_image_direct_url</option> configuration option to <literal>True</literal> in <filename>/etc/glance/glance-api.conf</filename>. This ensures that the appropriate metadata will be passed to Cinder so that it can attempt to rapidly clone the image directly on the controller, avoiding the HTTP transfer between Glance and Cinder. See ADD REF HERE for more information on the Enhanced Image Cloning capability.
-        </para>
     </section>
     <section xml:id="glance.eseries.configuration">
         <title>Configuration of Glance with NetApp E-Series and EF-Series</title>
