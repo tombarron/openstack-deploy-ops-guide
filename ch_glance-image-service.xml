@@ -8,6 +8,10 @@
   xmlns:ns3="http://www.w3.org/1998/Math/MathML"
   xmlns:ns="http://docbook.org/ns/docbook">
   <title>OpenStack Image Service (Glance)</title>
-  <xi:include href="glance/section_glance-fas.xml"/>
-  <xi:include href="glance/section_glance-e-series.xml"/>
+  <xi:include href="glance/section_glance-overview.xml"/>
+  <xi:include href="glance/section_glance-key-concepts.xml"/>
+  <xi:include href="glance/section_glance-deployment-choices.xml"/>
+  <xi:include href="glance/section_glance-configuration.xml"/>
+  <!--<xi:include href="glance/section_glance-fas.xml"/>
+  <xi:include href="glance/section_glance-e-series.xml"/> -->
 </chapter>

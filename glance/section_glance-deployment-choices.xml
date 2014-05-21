@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_glance-deployment-choices">
+    <title>Theory of Operation &amp; Deployment Choices</title>
+    <simplesect>
+        <title>Glance and Clustered Data ONTAP</title>
+        <formalpara>
+            <title>Image Formats - <option>raw</option> vs. <option>QCOW2</option></title>
+            <para>
+                As previously mentioned, Glance supports a variety of image formats; however <option>raw</option> and <option>QCOW2</option> are the most common. While <option>QCOW2</option> does provide some benefits (supports copy-on-write, snapshots, dynamic expansion) over the <option>raw</option> format, it should be noted that when images are copied into Cinder volumes, they are converted into the <option>raw</option> format once stored on a NetApp backend.
+            </para>
+        </formalpara>
+        <note>
+            <para>
+                Use of the <option>QCOW2</option> image format is recommended for ephemeral disks due to its inherent benefits when taking instance snapshots. Use of the <option>raw</option> image format can be advantageous when using Cinder volumes as persistent boot disks as a conversion from an alternate format to <option>raw</option> that would be performed by Cinder can be avoided. Both <option>raw</option> and <option>QCOW2</option> formats respond well to NetApp's deduplication technology which is often utilized with Glance deployments.
+            </para>
+        </note>
+        <formalpara>
+            <title>NFS with Deduplication</title>
+            <para>
+                Since there is a high probability of duplicate blocks in a repository of virtual machine images, it is highly recommended to enable deduplication on the FlexVol volume(s) where the images are stored. You can check the status of deduplication for a particular FlexVol volume by using the <command>volume efficiency show</command> command as seen below.  <programlisting>
+::> volume efficiency show -vserver demo-vserver -volume vol2 
+
+Vserver Name: demo-vserver
+Volume Name: vol2
+Volume Path: /vol/vol2
+State: Disabled
+Status: Idle
+Progress: Idle for 00:19:53
+Type: Regular
+Schedule: sun-sat@0
+Efficiency Policy Name: -
+Blocks Skipped Sharing: 0
+Last Operation State: Success
+Last Success Operation Begin: 
+Thu Nov 21 14:19:23 UTC 2013
+Last Success Operation End: 
+Thu Nov 21 14:20:40 UTC 2013
+Last Operation Begin: 
+Thu Nov 21 14:19:23 UTC 2013
+Last Operation End: 
+Thu Nov 21 14:20:40 UTC 2013
+Last Operation Size: 0B
+Last Operation Error: -
+Changelog Usage: 0%
+Logical Data Size: 224KB
+Logical Data Limit: 640TB
+Logical Data Percent: 0%
+Queued Job: -
+Stale Fingerprint Percentage: 0
+Compression: false
+Inline Compression: false
+Incompressible Data Detection: false
+Constituent Volume: false
+Compression Quick Check File Size: 524288000
+::> volume efficiency on -vserver demo-vserver -volume vol2
+Efficiency for volume "vol2" of Vserver "demo-vserver" is enabled.
+Already existing data could be processed by running 
+"volume efficiency start -vserver demo-vserver -volume vol2 
+-scan-old-data true". 
+</programlisting>
+            </para>
+        </formalpara>
+    </simplesect>
+    <simplesect xml:id="glance.rapid_cloning">
+        <title>Enhanced Instance Creation</title>
+        <para>
+            NetApp contributed a capability to enhance instance creation which focuses on booting tenant-requested VM instances by OpenStack Compute Service (Nova) using disk images in the shortest possible time and in the most storage capacity efficient manner possible. This Enhanced Persistent Instance Creation feature (sometimes referred to as Rapid Cloning) is achieved by:
+            <orderedlist>
+                <listitem>Copying the disk image from Glance to a Cinder volume whose backend leverages the NetApp NFS drivers (in either clustered Data ONTAP or Data ONTAP operating in 7-Mode) for the first boot request for a particular image</listitem>
+                <listitem>The copied image is cached in the storage backend using unutilized available storage</listitem>
+                <listitem>Upon subsequent requests to boot instances from this image on the same backend, an efficient controller-side clone is performed from the cache rather than re-downloading the image from Glance.</listitem>
+            </orderedlist>
+        </para>
+        <para>
+            Additionally, if the Glance image repository is using a file storage backend served by an NFS mount from the same NetApp FlexVol volume as the Cinder data store, then we are able to avoid the initial copy described in Step 1 above and perform an efficient controller-side copy which completes nearly instantaneously. Note that the <option>show_image_direct_url</option> configuration parameter must be to <option>True</option> in the Glance configuration file <filename>glance-api.conf</filename>. This ensures that the appropriate metadata will be passed to Cinder so that it can attempt to rapidly clone the image directly on the controller, avoiding the HTTP transfer between Glance and Cinder.
+        </para>
+        <para>
+            This strategy can significantly decrease the time elapsed when the Nova service is fulfilling image provisioning and boot requests.
+        </para>
+        <para>
+            Leveraging the “boot from image (creates a new volume)” option in Nova, you can leverage the enhanced instance creation capabilities described above. Normally volumes created as a result of this option are persistent beyond the life of the instance. However, you can select the “delete on terminate” option in combination with the “boot from image (creates a new volume)” option to create an ephemeral volume while still leveraging the enhanced instance creation capabilities described above. This can provide a significantly faster provisioning and boot sequence than the normal way that ephemeral disks are provisioned, where a copy of the disk image is made from Glance to local storage on the hypervisor node where the instance will reside.
+        </para>
+        <para>
+            There are three tunable parameters within the Cinder driver configuration that can affect the behavior of how often space utilized by the NFS image cache managed by the NetApp unified driver is reclaimed for other uses: namely, <option>thres_avl_size_perc_start</option>, <option>thres_avl_size_perc_stop</option>, and <option>expiry_thres_minutes</option>. For more information on these parameters, refer to <xref linkend="cinder.cdot.nfs.options"/>.
+        </para>
+    </simplesect>
+</section>

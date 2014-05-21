@@ -34,7 +34,7 @@ enabled_backends=cdot-iscsi,cdot-nfs,eseries-iscsi
 [cdot-iscsi] 
 volume_backend_name=cdot-iscsi
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
-netapp_server_hostname=10.63.40.143
+netapp_server_hostname=10.63.40.150
 netapp_server_port=80
 netapp_storage_protocol=iscsi
 netapp_storage_family=ontap_cluster
@@ -45,28 +45,41 @@ netapp_vserver=demo-iscsi-svm
 [cdot-nfs] 
 volume_backend_name=cdot-nfs
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
-netapp_server_hostname=10.63.40.143
+netapp_server_hostname=10.63.40.150
 netapp_server_port=80
 netapp_storage_protocol=nfs
 netapp_storage_family=ontap_cluster
 netapp_login=admin
 netapp_password=netapp123
 netapp_vserver=demo-nfs-svm
-nfs_shares_config=/etc/cinder/nfs.shares
+nfs_shares_config=/etc/cinder/nfs.shares<co id="nfs-shares-co" linkends="nfs-shares"/>
 
 [eseries-iscsi] 
 volume_backend_name=eseries-iscsi
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
-netapp_server_hostname=10.63.215.152
-netapp_server_port=80
+netapp_server_hostname=10.63.165.26
+netapp_server_port=8081
 netapp_storage_protocol=iscsi
 netapp_storage_family=eseries
 netapp_login=admin
 netapp_password=netapp123
 netapp_sa_password=password
 netapp_controller_ips=10.63.215.225,10.63.215.226
-netapp_storage_pools=pool1,pool2
+netapp_storage_pools=DDP
 </programlisting>
+<calloutlist>
+    <callout arearefs="nfs-shares-co" id="nfs-shares">
+        <para>
+            The content of <filename>/etc/cinder/nfs.shares</filename> is:
+<programlisting>
+10.63.40.153:/vol2_dedup
+10.63.40.153:/vol3_compressed
+10.63.40.153:/vol4_mirrored
+10.63.40.153:/vol5_plain
+</programlisting>
+        </para>
+    </callout>
+</calloutlist>
         </para>
     </section>
     <section xml:id="cinder.examples.cdot">
@@ -103,6 +116,9 @@ iqn.2013-01.com.csn:cinder-iscsi:10
 vserver export-policy rule create -vserver demo-iscsi-svm \
 -policyname default -clientmatch 0.0.0.0/0 -rorule any -rwrule \
 any -superuser any -anon 0
+
+volume create -vserver rcallawa-iscsi-vserver -volume vol1_plain \
+-aggregate aggr1 -size 10g
 
 # NFS setup
 nfs create -vserver demo-nfs-svm -access true
@@ -152,11 +168,431 @@ nfs modify -vserver demo-nfs-svm -v4.0 enabled -v4.1 enabled \
     </section>
     <section xml:id="cinder.examples.cinder_cli">
         <title>Cinder Command Line Interface (CLI)</title>
-        <itemizedlist>
-            <listitem>run cinder service-list to show multiple backends, strings, etc</listitem>
-            <listitem>examples of how to configure volume types and extra specs in Dashboard and via CLI and API; example of gold/silver/bronze</listitem>
-            <listitem>create a volume, show that it is placed in correct FlexVol</listitem>
-            <listitem>migrate a volume, show before and after </listitem>
-        </itemizedlist>
+        <simplesect>
+            <title>Cinder Service Verfification</title>
+            <para>In this section, we will use the Cinder CLI to verify that the configuration presented in <xref linkend="cinder.examples.cinder_conf"/> has been properly initialized by Cinder.
+                <programlisting><?db-font-size 60%?>
+vagrant@precise64:~/devstack$ cinder service-list
++------------------+--------------------------+------+---------+-------+------------------------+-----------------+
+|      Binary      |            Host          | Zone |  Status | State |         Updated_at     | Disabled Reason |
++------------------+--------------------------+------+---------+-------+------------------------+-----------------+
+| cinder-scheduler |         precise64        | nova | enabled |   up  | 2014-05-20T17:14:12.00 |       None      |
+|  cinder-volume   |   precise64@cdot-iscsi<co id="cdot-iscsi-bkend-co" linkends="cdot-iscsi-bkend"/> | nova | enabled |   up  | 2014-05-20T17:14:10.00 |       None      |
+|  cinder-volume   |    precise64@cdot-nfs <co id="cdot-nfs-bkend-co" linkends="cdot-nfs-bkend"/> | nova | enabled |   up  | 2014-05-20T17:14:11.00 |       None      |
+|  cinder-volume   | precise64@eseries-iscsi<co id="eseries-iscsi-bkend-co" linkends="eseries-iscsi-bkend"/>| nova | enabled |   up  | 2014-05-20T17:14:06.00 |       None      |
++------------------+--------------------------+------+---------+-------+------------------------+-----------------+
+                </programlisting>
+                <calloutlist>
+                    <callout arearefs="cdot-iscsi-bkend-co" id="cdot-iscsi-bkend">
+                        <para>
+                            This is the backend defined by the configuration stanza <option>[cdot-iscsi]</option>.
+                        </para>
+                    </callout>
+                    <callout arearefs="cdot-nfs-bkend-co" id="cdot-nfs-bkend">
+                        <para>
+                            This is the backend defined by the configuration stanza <option>[cdot-nfs]</option>.
+                        </para>
+                    </callout>
+                    <callout arearefs="eseries-iscsi-bkend-co" id="eseries-iscsi-bkend">
+                        <para>
+                            This is the backend defined by the configuration stanza <option>[eseries-iscsi]</option>.
+                        </para>
+                    </callout>
+                </calloutlist>
+            </para>
+        </simplesect>
+        <simplesect>
+            <title>Creating and Defining Cinder Volume Types</title>
+            <para>
+                In this section, we'll create a variety of Cinder Volume Types that leverage both the default capabilities of each driver, as well as the NetApp-specific extra specs described in <xref linkend="cinder.netapp.extra_specs"/>. 
+                <itemizedlist>
+                    <listitem>The <option>iscsi</option> type will provision Cinder volumes onto any backend that uses the iSCSI storage protocol (in this example, that would be <option>[cdot-iscsi]</option> and <option>[eseries-iscsi]</option>).</listitem>
+                    <listitem>The <option>nfs</option> type will provision Cinder volumes onto any backend that uses the NFS storage protocol (in this example, that would be <option>[cdot-nfs]</option>).</listitem>
+                    <listitem>The <option>gold</option> type will provision Cinder volumes onto any backend that has a SnapMirror relationship (in this example, that would be <option>[cdot-nfs]</option>, although only one of the four NFS exports defined in <filename>/etc/cinder/nfs_shares</filename> has this support).</listitem>
+                    <listitem>The <option>silver</option> type will provision Cinder volumes onto any backend that has deduplication enabled (in this example, that would be <option>[cdot-nfs]</option>, although only one of the four NFS exports defined in <filename>/etc/cinder/nfs_shares</filename> has this support).</listitem>
+                    <listitem>The <option>bronze</option> type will provision Cinder volumes onto any backend that has compression enabled (in this example, that would be <option>[cdot-nfs]</option>, although only one of the four NFS exports defined in <filename>/etc/cinder/nfs_shares</filename> has this support).</listitem>
+                    <listitem>The <option>analytics</option> type will provision Cinder volumes onto the <option>[eseries-iscsi]</option> backend.</listitem>
+                </itemizedlist>
+<programlisting><?db-font-size 90%?>
+vagrant@precise64:~/devstack$ cinder type-create iscsi
++--------------------------------------+-------+
+|                  ID                  |  Name |
++--------------------------------------+-------+
+| 46cecec0-a040-476c-9475-036ca5577e6a | iscsi |
++--------------------------------------+-------+
+
+vagrant@precise64:~/devstack$ cinder type-create nfs  
++--------------------------------------+------+
+|                  ID                  | Name |
++--------------------------------------+------+
+| 7564ec5c-a81b-4c62-8376-fdcab62037a2 | nfs  |
++--------------------------------------+------+
+
+vagrant@precise64:~/devstack$ cinder type-create gold
++--------------------------------------+------+
+|                  ID                  | Name |
++--------------------------------------+------+
+| 0ac5c001-d5fa-4fce-a9e3-e2cce7460027 | gold |
++--------------------------------------+------+
+
+vagrant@precise64:~/devstack$ cinder type-create silver
++--------------------------------------+--------+
+|                  ID                  |  Name  |
++--------------------------------------+--------+
+| f820211a-ee1c-47ff-8f70-2be45112826d | silver |
++--------------------------------------+--------+
+
+vagrant@precise64:~/devstack$ cinder type-create bronze
++--------------------------------------+--------+
+|                  ID                  |  Name  |
++--------------------------------------+--------+
+| ae110bfc-0f5a-4e93-abe1-1a31856c0ec7 | bronze |
++--------------------------------------+--------+
+
+vagrant@precise64:~/devstack$ cinder type-create analytics
++--------------------------------------+-----------+
+|                  ID                  |    Name   |
++--------------------------------------+-----------+
+| 66459c78-5cb5-4a15-a476-f1138a4022bc | analytics |
++--------------------------------------+-----------+
+</programlisting>
+<programlisting><?db-font-size 70%?>
+vagrant@precise64:~/devstack$ cinder type-key iscsi set storage_protocol=iSCSI
+vagrant@precise64:~/devstack$ cinder type-key nfs set storage_protocol=nfs
+vagrant@precise64:~/devstack$ cinder type-key gold set netapp_mirrored=true
+vagrant@precise64:~/devstack$ cinder type-key silver set netapp_dedup=true
+vagrant@precise64:~/devstack$ cinder type-key bronze set netapp_compression=true
+vagrant@precise64:~/devstack$ cinder type-key analytics set volume_backend_name=eseries-iscsi
+vagrant@precise64:~/devstack$ cinder extra-specs-list
++--------------------------------------+-----------+--------------------------------------------+
+|                  ID                  |    Name   |                extra_specs                 |
++--------------------------------------+-----------+--------------------------------------------+
+| 0ac5c001-d5fa-4fce-a9e3-e2cce7460027 |    gold   |       {u'netapp_mirrored': u'true'}        |
+| 46cecec0-a040-476c-9475-036ca5577e6a |   iscsi   |      {u'storage_protocol': u'iSCSI'}       |
+| 66459c78-5cb5-4a15-a476-f1138a4022bc | analytics | {u'volume_backend_name': u'eseries-iscsi'} |
+| 7564ec5c-a81b-4c62-8376-fdcab62037a2 |    nfs    |       {u'storage_protocol': u'nfs'}        |
+| ae110bfc-0f5a-4e93-abe1-1a31856c0ec7 |   bronze  |      {u'netapp_compression': u'true'}      |
+| f820211a-ee1c-47ff-8f70-2be45112826d |   silver  |         {u'netapp_dedup': u'true'}         |
++--------------------------------------+-----------+--------------------------------------------+
+                </programlisting>
+            </para>
+        </simplesect>
+        <simplesect>
+            <title>Creating Cinder Volumes with Volume Types</title>
+            <para>
+                In this section, we'll create volumes with no type, as well as each of the previously defined volume types.
+                <programlisting><?db-font-size 75%?>
+vagrant@precise64:~/devstack$ cinder create --name myGold --volume-type gold 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:23:57.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 3678281e-3924-4512-952a-5b89713fac4d |
+|            metadata            |                  {}                  |
+|              name              |                myGold                |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                 gold                 |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name mySilver --volume-type silver 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:24:12.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 6dd3e64d-ca02-4156-8532-24294db89329 |
+|            metadata            |                  {}                  |
+|              name              |               mySilver               |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                silver                |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name myBronze --volume-type bronze 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:24:28.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 459b388f-ae1d-49bf-9c1d-3fe3b18afad3 |
+|            metadata            |                  {}                  |
+|              name              |               myBronze               |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                bronze                |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name myISCSI --volume-type iscsi 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:25:42.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 93ef9627-ac75-46ae-820b-f722765d7828 |
+|            metadata            |                  {}                  |
+|              name              |               myISCSI                |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                iscsi                 |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name myNFS --volume-type nfs 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:26:03.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 4ccf1a4c-cfe0-4b35-8435-400547cabcdd |
+|            metadata            |                  {}                  |
+|              name              |                myNFS                 |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                 nfs                  |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name myAnalytics --volume-type analytics 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:26:17.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 55d0bbfa-6792-406d-8dc8-2bf1fb94b0dc |
+|            metadata            |                  {}                  |
+|              name              |             myAnalytics              |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |              analytics               |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:/opt/stack/data/cinder$ cinder create --name myGenericVol 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T18:01:02.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 12938589-3ca9-49a7-bcd7-003bbcd62895 |
+|            metadata            |                  {}                  |
+|              name              |             myGenericVol             |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                 None                 |
++--------------------------------+--------------------------------------+
+</programlisting>
+<programlisting><?db-font-size 60%?>
+vagrant@precise64:/opt/stack/data/cinder$ cinder list
++--------------------------------------+-----------+--------------+------+-------------+----------+-------------+
+|                  ID                  |   Status  |     Name     | Size | Volume Type | Bootable | Attached to |
++--------------------------------------+-----------+--------------+------+-------------+----------+-------------+
+| 12938589-3ca9-49a7-bcd7-003bbcd62895 | available | myGenericVol |  1   |     None    |  false   |             |
+| 1f71ccef-781b-4628-b0f7-44030acd8181 | available |   myISCSI    |  1   |    iscsi    |  false   |             |
+| 3678281e-3924-4512-952a-5b89713fac4d | available |    myGold    |  1   |     gold    |  false   |             |
+| 459b388f-ae1d-49bf-9c1d-3fe3b18afad3 | available |   myBronze   |  1   |    bronze   |  false   |             |
+| 4ccf1a4c-cfe0-4b35-8435-400547cabcdd | available |    myNFS     |  1   |     nfs     |  false   |             |
+| 55d0bbfa-6792-406d-8dc8-2bf1fb94b0dc | available | myAnalytics  |  1   |  analytics  |  false   |             |
+| 6dd3e64d-ca02-4156-8532-24294db89329 | available |   mySilver   |  1   |    silver   |  false   |             |
+| 93ef9627-ac75-46ae-820b-f722765d7828 | available |   myISCSI    |  1   |    iscsi    |  false   |             |
++--------------------------------------+-----------+--------------+------+-------------+----------+-------------+
+</programlisting>
+                We'll now look at the local NFS mounts that are present on the node that is running <command>cinder-volume</command> and look for the volumes that were created
+                on NFS backends. By mapping the mountpoints to the directories where the volume files exist, we are able to associate that the volumes were created in the appropriate FlexVol volume that had the NetApp-specific features enabled that matched the Cinder volume type definitions.
+                <programlisting><?db-font-size 70%?>
+vagrant@precise64:~/devstack$ mount |grep cinder
+10.63.40.153:/vol2_dedup on /opt/stack/data/cinder/mnt/6fbcc46d69a86a6be25f3df3e6ae55ba type nfs (rw,vers=4,addr=10.63.40.153,clientaddr=192.168.114.157)
+10.63.40.153:/vol3_compressed on /opt/stack/data/cinder/mnt/aac4e6312b50b1fd6ddaf25d8dec8aaa type nfs (rw,vers=4,addr=10.63.40.153,clientaddr=192.168.114.157)
+10.63.40.153:/vol4_mirrored on /opt/stack/data/cinder/mnt/89af08204a543dd0985fa11b16f3d22f type nfs (rw,vers=4,addr=10.63.40.153,clientaddr=192.168.114.157)
+10.63.40.153:/vol5_plain on /opt/stack/data/cinder/mnt/e15a92dcf98a7b3fdb3963e39ed0796f type nfs (rw,vers=4,addr=10.63.40.153,clientaddr=192.168.114.157)
+vagrant@precise64:~/devstack$ cd /opt/stack/data/cinder/
+vagrant@precise64:/opt/stack/data/cinder$ find . -name volume-\*
+./mnt/89af08204a543dd0985fa11b16f3d22f/volume-3678281e-3924-4512-952a-5b89713fac4d <co id="vol-gold-co" linkends="vol-gold"/>
+./mnt/aac4e6312b50b1fd6ddaf25d8dec8aaa/volume-459b388f-ae1d-49bf-9c1d-3fe3b18afad3 <co id="vol-bronze-co" linkends="vol-bronze"/>
+./mnt/6fbcc46d69a86a6be25f3df3e6ae55ba/volume-6dd3e64d-ca02-4156-8532-24294db89329 <co id="vol-silver-co" linkends="vol-silver"/>
+./mnt/6fbcc46d69a86a6be25f3df3e6ae55ba/volume-4ccf1a4c-cfe0-4b35-8435-400547cabcdd <co id="vol-nfs-co" linkends="vol-nfs"/>
+                </programlisting>
+<calloutlist>
+    <callout arearefs="vol-gold-co" id="vol-gold">
+        <para>
+            This is the volume of type <option>gold</option> which was placed on <option>10.63.40.153:/vol4_mirrored</option>.
+        </para>
+    </callout>
+    <callout arearefs="vol-bronze-co" id="vol-bronze">
+        <para>
+            This is the volume of type <option>bronze</option> which was placed on <option>10.63.40.153:/vol3_compressed</option>.
+        </para>
+    </callout>
+    <callout arearefs="vol-silver-co" id="vol-silver">
+        <para>
+            This is the volume of type <option>silver</option> which was placed on <option>10.63.40.153:/vol2_dedup</option>.
+        </para>
+    </callout>
+    <callout arearefs="vol-nfs-co" id="vol-nfs">
+        <para>
+            This is the volume of type <option>nfs</option> which was placed on <option>10.63.40.153:/vol2_dedup</option>. It could have been placed on <option>10.63.40.153:/vol3_compressed</option>, <option>10.63.40.153:/vol4_mirrored</option>, or <option>10.63.40.153:/vol5_plain</option> as any of those destinations would have fulfilled the volume type criteria of <option>storage_protocol=nfs</option>.
+        </para>
+    </callout>
+</calloutlist>
+            </para>
+            <note>
+                <para>
+                    Note that the volumes of type <option>analytics</option> and <option>iscsi</option>, as well as the volume created without a type did not appear under the NFS mount points because they were created as iSCSI LUNs within the E-Series and CDOT systems, respectively.
+                </para>
+            </note>
+        </simplesect>
+        <simplesect>
+            <title>Cinder Volume Migration</title>
+            <para>
+                In this section, we will issue a <command>cinder migrate</command> command to move a volume from one Cinder backend to another.
+                <programlisting><?db-font-size 70%?>
+vagrant@precise64:/opt/stack/data/cinder$ cinder show 93ef9627-ac75-46ae-820b-f722765d7828
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:25:42.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 93ef9627-ac75-46ae-820b-f722765d7828 |
+|            metadata            |                  {}                  |
+|              name              |               myISCSI                |
+|     os-vol-host-attr:host      |       precise64@eseries-iscsi        |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |              available               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                iscsi                 |
++--------------------------------+--------------------------------------+
+vagrant@precise64:/opt/stack/data/cinder$ cinder service-list
++------------------+-------------------------+------+---------+-------+----------------------------+-----------------+
+|      Binary      |           Host          | Zone |  Status | State |         Updated_at         | Disabled Reason |
++------------------+-------------------------+------+---------+-------+----------------------------+-----------------+
+| cinder-scheduler |        precise64        | nova | enabled |   up  | 2014-05-20T17:27:12.000000 |       None      |
+|  cinder-volume   |   precise64@cdot-iscsi  | nova | enabled |   up  | 2014-05-20T17:27:11.000000 |       None      |
+|  cinder-volume   |    precise64@cdot-nfs   | nova | enabled |   up  | 2014-05-20T17:27:12.000000 |       None      |
+|  cinder-volume   | precise64@eseries-iscsi | nova | enabled |   up  | 2014-05-20T17:27:16.000000 |       None      |
++------------------+-------------------------+------+---------+-------+----------------------------+-----------------+
+vagrant@precise64:/opt/stack/data/cinder$ cinder migrate 93ef9627-ac75-46ae-820b-f722765d7828 precise64@cdot-iscsi
+vagrant@precise64:/opt/stack/data/cinder$ cinder list
++--------------------------------------+-----------+-------------+------+-------------+----------+-------------+
+|                  ID                  |   Status  |     Name    | Size | Volume Type | Bootable | Attached to |
++--------------------------------------+-----------+-------------+------+-------------+----------+-------------+
+| 1f71ccef-781b-4628-b0f7-44030acd8181 | available |   myISCSI   |  1   |    iscsi    |  false   |             |
+| 3678281e-3924-4512-952a-5b89713fac4d | available |    myGold   |  1   |     gold    |  false   |             |
+| 459b388f-ae1d-49bf-9c1d-3fe3b18afad3 | available |   myBronze  |  1   |    bronze   |  false   |             |
+| 4ccf1a4c-cfe0-4b35-8435-400547cabcdd | available |    myNFS    |  1   |     nfs     |  false   |             |
+| 55d0bbfa-6792-406d-8dc8-2bf1fb94b0dc | available | myAnalytics |  1   |  analytics  |  false   |             |
+| 6dd3e64d-ca02-4156-8532-24294db89329 | available |   mySilver  |  1   |    silver   |  false   |             |
+| 93ef9627-ac75-46ae-820b-f722765d7828 | available |   myISCSI   |  1   |    iscsi    |  false   |             |
++--------------------------------------+-----------+-------------+------+-------------+----------+-------------+
+vagrant@precise64:/opt/stack/data/cinder$ cinder show 1f71ccef-781b-4628-b0f7-44030acd8181
++--------------------------------+---------------------------------------------+
+|            Property            |                    Value                    |
++--------------------------------+---------------------------------------------+
+|          attachments           |                      []                     |
+|       availability_zone        |                     nova                    |
+|            bootable            |                    false                    |
+|           created_at           |          2014-05-20T17:25:42.000000         |
+|          description           |                     None                    |
+|           encrypted            |                    False                    |
+|               id               |     1f71ccef-781b-4628-b0f7-44030acd8181    |
+|            metadata            |                      {}                     |
+|              name              |                   myISCSI                   |
+|     os-vol-host-attr:host      |             precise64@cdot-iscsi            |
+| os-vol-mig-status-attr:migstat | target:93ef9627-ac75-46ae-820b-f722765d7828 |
+| os-vol-mig-status-attr:name_id |                     None                    |
+|  os-vol-tenant-attr:tenant_id  |       f42d5597fb084480a9626c2ca844db3c      |
+|              size              |                      1                      |
+|          snapshot_id           |                     None                    |
+|          source_volid          |                     None                    |
+|             status             |                  available                  |
+|            user_id             |       a9ef3a9f935f4761861afb003986bdab      |
+|          volume_type           |                    iscsi                    |
++--------------------------------+---------------------------------------------+
+                </programlisting>
+            </para>
+        </simplesect>
     </section>
 </section>

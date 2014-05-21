@@ -15,7 +15,7 @@
             Cinder volumes can be identified uniquely through a UUID assigned by the Cinder service at the time of volume creation. A Cinder volume may also be optionally referred to by a human-readable name, though this string is not guaranteed to be unique within a single tenant or deployment of Cinder. 
         </para>
         <para>
-            The actual blocks provisioned in support of a Cinder volume reside on a single Cinder backend. Starting in the Havana release, a Cinder volume can be migrated from one storage backend to another within a deployment of the Cinder service. ADD REF TO MIGRATION EXAMPLE HERE
+            The actual blocks provisioned in support of a Cinder volume reside on a single Cinder backend. Starting in the Havana release, a Cinder volume can be migrated from one storage backend to another within a deployment of the Cinder service; refer to <xref linkend="cinder.examples.cinder_cli"/> for an example of volume migration.
         </para>
     </simplesect>
     <simplesect>
@@ -67,7 +67,7 @@
                     <listitem><literal>volume_backend_name</literal>: The name of the backend as defined in <filename>cinder.conf</filename></listitem>
                     <listitem><literal>vendor_name</literal>: The name of the vendor who has implemented the driver (e.g. <literal>NetApp</literal>)</listitem>
                     <listitem><literal>driver_version</literal>: The version of the driver (e.g. <literal>1.0</literal>)</listitem>
-                    <listitem><literal>storage_protocol</literal>: The protocol used by the backend to export block storage to clients (e.g. <literal>iscsi</literal> or <literal>nfs</literal>)</listitem>
+                    <listitem><literal>storage_protocol</literal>: The protocol used by the backend to export block storage to clients (e.g. <literal>iSCSI</literal> or <literal>nfs</literal>)</listitem>
                     <!--<listitem><literal>QoS_support</literal>: A boolean indicating whether the driver has support for QoS (NetApp currently doesn't support this)</listitem>-->
                 </itemizedlist>
                 <para>

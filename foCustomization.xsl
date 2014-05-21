@@ -23,6 +23,18 @@
         <xsl:attribute name="width">100%</xsl:attribute>
     </xsl:attribute-set>
 
+    <xsl:attribute-set name="monospace.verbatim.properties">
+        <xsl:attribute name="wrap-option">wrap</xsl:attribute>
+        <xsl:attribute name="font-size">
+            <xsl:choose>
+                <xsl:when test="processing-instruction('db-font-size')">
+                    <xsl:value-of select="processing-instruction('db-font-size')"/>
+                </xsl:when>
+                <xsl:otherwise>inherit</xsl:otherwise>
+            </xsl:choose>
+        </xsl:attribute>
+    </xsl:attribute-set>
+
     <xsl:template name="book.titlepage.verso"/>
     <xsl:template name="book.titlepage.before.verso"/>
     <xsl:template name="book.titlepage.recto">

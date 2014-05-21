@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="section_glance-configuration">
+    <title>Configuration</title>
+    <section xml:id="glance.configuration">
+        <title>Glance</title>
+        <para>
+            When using the file storage backend, the <option>filesystem_store_datadir</option> configuration option in <filename>glance-api.conf</filename> will declare the directory Glance will use to store images (relative to the node running the <command>glance-api</command> service). 
+        </para>
+        <programlisting lang="ini">
+$ #for RHEL/CentOS/Fedora derived distributions
+$ sudo openstack-config --get /etc/glance/glance-api.conf \
+DEFAULT filesystem_store_datadir 
+/var/lib/glance/images/
+
+$ #for Ubuntu derived distributions
+$ sudo cat /etc/glance/glance-api.conf|grep \
+filesystem_store_datadir|egrep -v "^#.*"
+filesystem_store_datadir=/var/lib/glance/images/
+        </programlisting>
+        <para>
+            Glance config here
+        </para>
+    </section>
+    <section xml:id="glance.fas.configuration">
+        <title>Configuration of Glance with NetApp FAS</title>
+        <para>
+            By specifying the value of <option>filesystem_store_datadir</option> to be a directory that is the mount point for an NFS share that is served from a NetApp FlexVol volume, you can have a single filesystem that can be mounted from one or more <command>glance-registry</command> servers. 
+        </para>
+        <warning>
+            <para>
+                The NFS mount for the <option>filesystem_store_datadir</option> is not managed by Glance; therefore, you must use the standard Linux mechanisms (e.g. <filename>/etc/fstab</filename> or NFS automounter) to ensure that the NFS mount exists before Glance starts.
+            </para>
+        </warning>
+
+        <tip>
+            <para>
+                Be sure to refer to the <link xlink:href="http://www.netapp.com/us/system/pdf-reader.aspx?pdfuri=tcm:10-61288-16&amp;m=tr-4067.pdf">Clustered Data ONTAP NFS Best Practices and Implementation Guide</link> for information on how to optimally set up the NFS export for use with Glance. NEED DEDUP reference here too
+            </para>
+        </tip>
+        <para>
+            If a single FlexVol volume will contain Cinder volumes in addition to Glance images, be sure to set the <option>show_image_direct_url</option> configuration option to <literal>True</literal> in <filename>/etc/glance/glance-api.conf</filename>. This ensures that the appropriate metadata will be passed to Cinder so that it can attempt to rapidly clone the image directly on the controller, avoiding the HTTP transfer between Glance and Cinder. See ADD REF HERE for more information on the Enhanced Image Cloning capability.
+        </para>
+    </section>
+    <section xml:id="glance.eseries.configuration">
+        <title>Configuration of Glance with NetApp E-Series and EF-Series</title>
+        <para>
+            E-Series and EF-Series storage systems can alternatively be used as the backing store for Glance images. An E-Series volume should be created (with SANtricity specifying the desired RAID level and capacity) and then mapped to the Glance node. After the volume is visible to the host it is formatted with a file system, mounted, and a directory structure created on it. This directory path can be specified as the <option>filesystem_store_datadir</option> in the Glance configuration file <filename>glance-api.conf</filename>.
+        </para>
+        <para>
+            Steps:
+        </para>
+        <orderedlist>
+            <listitem>
+                Create the LUN from a disk pool or volume group using SANtricity and map it to the host. Assuming that the volume has been mapped to <filename>/dev/sdc</filename> on the host, create a partition on the volume and then create a filesystem on the partition (e.g. ext4):
+                <programlisting>
+fdisk /dev/sdc
+mkfs.ext4 /dev/sdc1
+mount /dev/sdc1 /mnt/sdc1
+mkdir /mnt/sdc1/glanceImageStore
+                </programlisting>
+            </listitem>
+            <listitem>
+                Edit the Glance configuration file <filename>glance-api.conf</filename> so that it contains the <option>filesystem_store_datadir</option> option, and ensure the value refers to the Glance image store directory created in the previous step:
+                <programlisting>
+filesystem_store_datadir=/mnt/sdc1/glanceImageStore
+                </programlisting>
+            </listitem>
+        </orderedlist>
+    </section>
+</section>

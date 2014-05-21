@@ -712,7 +712,7 @@ netapp_password=<replaceable>admin_password</replaceable>
                     <listitem>Regardless of the storage protocol used, data LIFs must be created and assigned to SVMs before configuring Cinder.</listitem>
                     <listitem>If using NFS as the storage protocol:
                         <orderedlist>
-                            <listitem>Be sure to enable the desired version of the NFS protocol (e.g. <option>v4.0, v4.1, v4.1-pnfs</option>) on the SVM.</listitem>
+                            <listitem>Be sure to enable the desired version of the NFS protocol (e.g. <option>v4.0, v4.1-pnfs</option>) on the SVM.</listitem>
                             <listitem>Be sure to define junction paths from the FlexVol volumes and refer to them in the file referenced by the <option>nfs_shares_config</option> configuration option in <filename>cinder.conf</filename>.</listitem>
                         </orderedlist>
                     </listitem>
