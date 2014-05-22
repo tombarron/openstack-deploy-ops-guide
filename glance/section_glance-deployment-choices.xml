@@ -93,6 +93,11 @@ Already existing data could be processed by running
                 </textobject>
             </mediaobject>
         </figure>
+        <note>
+            <para>
+                In the second decision point in the flowchart described in <xref linkend="glance.rapid_cloning_flowchart"/>, Cinder determines if the source image from Glance and the destination volume will reside in the same FlexVol volume. This can be achieved by creating a directory structure within the NFS export to segment the Glance images from Cinder volumes, and appropriately setting the <option>filesystem_datastore_dir</option> and <option>nfs_shares_config</option>. This configuration could also be used in conjunction with a single NetApp InfiniVol volume.
+            </para>
+        </note>
         <para>
             In order to take advantage of the Enhanced Instance Creation feature, there are several configuration options that must be appropriately set in both Cinder and Glance.
         </para>

@@ -94,6 +94,9 @@
     <xi:include href="ch_netapp-storage.xml"/>
     <xi:include href="ch_cinder.xml"/>
     <xi:include href="ch_glance-image-service.xml"/>
+    <xi:include href="ch_nova.xml"/>
     <xi:include href="ch_swift.xml"/>
+    <xi:include href="ch_operations.xml"/>
+    <xi:include href="ch_appendices.xml"/>
     <xi:include href="ch_backpage.xml"/>
 </book>

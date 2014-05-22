@@ -12,7 +12,7 @@
     </para>
     <note>
         <para>
-            NetApp’s OpenStack Block Storage drivers operate against Data ONTAP and are abstract to the specific FAS platform. Any given hardware platform supported by a version of Data ONTAP that in turn is supported by a particular OpenStack Block Storage driver will function. Refer to <xref linkend="cinder.fas.configuration"/> for more information on prerequisites for Data ONTAP.
+            NetApp’s OpenStack Block Storage drivers interact directly with Data ONTAP and are abstract to the specific FAS platform. Any given hardware platform supported by a version of Data ONTAP that in turn is supported by a particular OpenStack Block Storage driver will function. Refer to <xref linkend="cinder.fas.configuration"/> for more information on prerequisites for Data ONTAP.
         </para>
     </note>
 </section>

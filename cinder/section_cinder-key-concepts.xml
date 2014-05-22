@@ -27,7 +27,7 @@
     <simplesect>
         <title>Backend</title>
         <para>
-            A Cinder backend is the configuration object that represents a single provider of block storage available for provisioning requests to be rendered against it. A Cinder backend communicates with the storage system through a Cinder driver. Cinder supports multiple backends to be simultaneously configured and managed (even using the same Cinder driver) as of the Grizzly release.
+            A Cinder backend is the configuration object that represents a single provider of block storage upon which provisioning requests may be fulfilled. A Cinder backend communicates with the storage system through a Cinder driver. Cinder supports multiple backends to be simultaneously configured and managed (even using the same Cinder driver) as of the Grizzly release.
         </para>
         <note>
             <para>

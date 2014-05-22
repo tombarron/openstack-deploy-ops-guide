@@ -25,7 +25,7 @@ filesystem_store_datadir=/var/lib/glance/images/
         </para>
         <warning>
             <para>
-                The NFS mount for the <option>filesystem_store_datadir</option> is not managed by Glance; therefore, you must use the standard Linux mechanisms (e.g. <filename>/etc/fstab</filename> or NFS automounter) to ensure that the NFS mount exists before Glance starts.
+                The NFS mount for the <option>filesystem_store_datadir</option> will not be managed by Glance; therefore, you must use the standard Linux mechanisms (e.g. <filename>/etc/fstab</filename> or NFS automounter) to ensure that the NFS mount exists before Glance starts.
             </para>
         </warning>
 

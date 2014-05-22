@@ -44,7 +44,7 @@
         <formalpara>
             <title>Cinder snapshots versus NetApp snapshots</title>
             <para>
-                A Snapshot copy is a point-in-time file system image. Low-overhead Snapshot copies are made possible by the unique features of the WAFL storage virtualization technology that is part of Data ONTAP. Up to 255 Snapshot copies can kept at any time for a FlexVol volume.
+                A NetApp snapshot copy is a point-in-time file system image. Low-overhead Snapshot copies are made possible by the unique features of the WAFL storage virtualization technology that is part of Data ONTAP. Up to 255 Snapshot copies can kept at any time for a FlexVol volume.
             </para>
         </formalpara>
         <para>
