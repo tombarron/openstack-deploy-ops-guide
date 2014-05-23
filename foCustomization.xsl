@@ -118,13 +118,13 @@
     <xsl:attribute-set name="toc.line.properties">
         <xsl:attribute name="font-weight">
             <xsl:choose>
-                <xsl:when test="self::d:chapter">bold</xsl:when>
+                <xsl:when test="self::d:chapter or self::d:appendix">bold</xsl:when>
                 <xsl:otherwise>normal</xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
         <xsl:attribute name="color">
             <xsl:choose>
-                <xsl:when test="self::d:chapter">#0067c5</xsl:when>
+                <xsl:when test="self::d:chapter or self::d:appendix">#0067c5</xsl:when>
                 <xsl:otherwise>#454545</xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>

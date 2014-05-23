@@ -96,7 +96,7 @@
     <xi:include href="ch_glance-image-service.xml"/>
     <xi:include href="ch_nova.xml"/>
     <xi:include href="ch_swift.xml"/>
-    <!--<xi:include href="ch_operations.xml"/>-->
+    <xi:include href="ch_operations.xml"/>
     <xi:include href="appendices/appendix_packaging.xml"/>
     <xi:include href="appendices/appendix_debug.xml"/>
     <xi:include href="ch_backpage.xml"/>
