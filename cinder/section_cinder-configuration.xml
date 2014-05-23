@@ -542,12 +542,22 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
         <para>
             The NetApp E-Series driver for Cinder was introduced in the Icehouse release as a new storage family supported within the NetApp unified driver framework. The E-Series driver provides OpenStack with access to NetApp E-Series controllers for provisioning and maintaining OpenStack block storage volumes using the iSCSI protocol.
         </para>
-        <!-- TODO: add deployment picture? -->
         <simplesect>
             <title>Deployment Topology</title>
             <para>
-                As described in <xref linkend="section_cinder-deployment-choices"/>, using Cinder with NetApp E-Series requires the use of the NetApp SANtricity Web Services Proxy server deployed as an intermediary between Cinder and the E-Series storage system. 
+                As described in <xref linkend="section_cinder-deployment-choices"/>, using Cinder with NetApp E-Series requires the use of the NetApp SANtricity Web Services Proxy server deployed as an intermediary between Cinder and the E-Series storage system. A common deployment topology with Cinder, Nova, and an E-Series controller with the SANtricity Web Services Proxy can be seen in <xref linkend="cinder.eseries.deployment_topology"/>.
             </para>
+            <figure xml:id="cinder.eseries.deployment_topology">
+                <title>Cinder &amp; E-Series Deployment Topology</title>
+                <mediaobject>
+                    <imageobject>
+                        <imagedata fileref="../images/cinder_eseries_deployment_topology.png" align="center" width="5.75in"/> 
+                    </imageobject>
+                    <textobject>
+                        <phrase>An logical diagram of the deployment topology with Cinder and NetApp's E-Series Storage Solutions</phrase>
+                    </textobject>
+                </mediaobject>
+            </figure>
             <!-- TODO: talk about HA deployment of proxy server -->
             <tip>
                 <para>

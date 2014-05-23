@@ -40,7 +40,7 @@
                 </dependencies>
                 <configuration>
                     <generateToc>
-                        appendix  toc,title
+                        appendix  title
                         article/appendix  nop
                         article   toc,title
                         book      toc,title,figure,table

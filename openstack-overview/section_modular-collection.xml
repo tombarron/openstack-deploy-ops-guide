@@ -4,6 +4,17 @@
     <para>
         The various OpenStack community projects and the services they implement are modular in nature and generally capable of being used independently. They are intended to knit together into a net capability greater than the sum of the individual parts.
     </para>
+    <figure xml:id="openstack.architecture">
+        <title>OpenStack High Level Architecture</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="../images/OpenStack Architecture.png" align="center" width="5.75in"/>
+            </imageobject>
+            <textobject>
+                <phrase>An logical diagram of the components comprising OpenStack</phrase>
+            </textobject>
+        </mediaobject>
+    </figure>
     <simplesect>
         <title>OpenStack Compute (project name: Nova)</title>
         <para>
