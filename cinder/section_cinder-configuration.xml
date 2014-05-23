@@ -44,7 +44,7 @@ enabled_backends=myNfsBackend,myIscsiBackend,myESeriesBackend
                 <listitem>iSCSI or NFS storage protocol</listitem>
             </itemizedlist>
             <para>
-                While there are multiple supported deployment options, since the Havana release there is a new, single NetApp unified driver that can be configured to achieve any of the desired deployments. In Grizzly and prior releases, there were multiple drivers segmented by storage family, protocol, and integration with additional NetApp management software. The previous drivers have all been deprecated since the Havana release; see INSERT REF HERE for more information on the deprecated capabilities. 
+                While there are multiple supported deployment options, since the Havana release there is a new, single NetApp unified driver that can be configured to achieve any of the desired deployments. In Grizzly and prior releases, there were multiple drivers segmented by storage family, protocol, and integration with additional NetApp management software. The previous drivers have all been deprecated since the Havana release; see <xref linkend="appendix.packaging.deprecation"/> for more information on the deprecated capabilities. 
             </para>
             <para>
                 The following lists all of the individual options and subsequent sections are intended to offer guidance on which configuration options ought to be employed given varying use cases:
