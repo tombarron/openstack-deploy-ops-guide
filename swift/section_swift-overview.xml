@@ -38,6 +38,11 @@
     <para>
         Compare this traditional system to the E-Series based cluster, shown on the right in <xref linkend="swift.swift_compare"/>. The E-Series cluster has identical controller and compute nodes as the traditional system. In the E-Series cluster the effective 80TB storage capacity of the traditional system can be obtained by using a single 4U storage subsystem. The dynamic disk pools (DDP) data reconstruction feature on E-Series replaces the data replication implementation of Swift. As mentioned above, this enables a 1U server (with similar memory and CPU resources as the traditional cluster object nodes) to be used in the E-Series stack. This results in 42% less rack footprint and approximately 55% in drive savings (120 drives vs. ~54 drives for an E-Series based cluster). Additionally the number of attached Swift object storage nodes attached to the E-Series can be increased if additional object storage processing capacity is required.
     </para>
+    <tip>
+        <para>
+            Swift may also be deployed in conjunction with NetApp's FAS product line, as an iSCSI LUN could be used as a block device to provide storage for object, container, or account data. This deployment may be used in situations where the scale of an object storage deployment is small, or if it is desirable to reuse existing FAS systems.
+        </para>
+    </tip>
     <simplesect>
         <title>DDP Reconstruction</title>
         <para>

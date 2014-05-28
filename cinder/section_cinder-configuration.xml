@@ -537,6 +537,63 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
             </table>
         </simplesect>
     </section>
+    <section xml:id="cinder.fas.configuration">
+        <title>Data ONTAP Configuration</title>
+        <simplesect>
+            <title>Data ONTAP Prerequisites</title>
+            <para>
+                The prerequisites for Data ONTAP (both clustered mode and 7-Mode) are:
+                <itemizedlist>
+                    <listitem>The driver requires a storage controller running Data ONTAP 8.1.1 or later.</listitem>
+                    <listitem>The storage system should have the following licenses applied:
+                        <itemizedlist>
+                            <listitem>Base</listitem>
+                            <listitem>NFS (if using NFS storage protocol)</listitem>
+                            <listitem>iSCSI (if using iSCSI storage protocol)</listitem>
+                            <listitem>FlexClone</listitem>
+                            <listitem>vStorage (if using NFS storage protocol with Copy Offload tool)</listitem>
+                            <listitem>MultiStore (if using vFilers with 7-Mode)</listitem>
+                        </itemizedlist>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </simplesect>
+        <simplesect>
+            <title>Storage Virtual Machine Considerations</title>
+            <para>
+                <orderedlist>
+                    <listitem>Ensure the appropriate licenses (as described previously) are enabled on the storage system for the desired use case.</listitem>
+                    <listitem>The SVM must be created (and associated with aggregates) before it can be utilized as a provisioning target for Cinder.</listitem>
+                    <listitem>FlexVol volumes must be created before the integration with Cinder is configured, as there is a many-to-one relationship between Cinder volumes and FlexVol volumes (see <xref linkend="section_cinder-deployment-choices"/> for more information).</listitem>
+                    <listitem>Regardless of the storage protocol used, data LIFs must be created and assigned to SVMs before configuring Cinder.</listitem>
+                    <listitem>If using NFS as the storage protocol:
+                        <orderedlist>
+                            <listitem>Be sure to enable the desired version of the NFS protocol (e.g. <option>v4.0, v4.1-pnfs</option>) on the SVM.</listitem>
+                            <listitem>Be sure to define junction paths from the FlexVol volumes and refer to them in the file referenced by the <option>nfs_shares_config</option> configuration option in <filename>cinder.conf</filename>.</listitem>
+                        </orderedlist>
+                    </listitem>
+                    <listitem>If using iSCSI as the storage protocol:
+                        <orderedlist>
+                            <listitem>Be sure to create an <option>igroup</option> for Linux that is associated correctly with the SVM.</listitem>
+                            <listitem>Please note that iSCSI LUNs will be created by Cinder; therefore, it is not necessary to create LUNs before configuring Cinder.</listitem>
+                        </orderedlist>
+                    </listitem>
+                    <listitem>Once FlexVol volumes have been created, be sure to configure the desired features (e.g. deduplication, compression, SnapMirror relationships, etc) before configuring Cinder. While Cinder will periodically poll Data ONTAP to discover changes in configuration and/or features, there is a delay in time between when changes are performed and when they are reflected within Cinder.</listitem>
+                    <listitem>The autogrow capability for FlexVol volumes within Data ONTAP is not recommended for use with a Cinder deployment.</listitem>
+                    <listitem>TODO: User permissions; cluster admin vs vserver admin</listitem>
+                </orderedlist>
+            </para>
+        </simplesect>
+        <simplesect>
+            <title>Storage Networking Considerations</title>
+            <para>
+                <orderedlist>
+                    <listitem>Ensure there is segmented network connectivity between the hypervisor nodes and the Data LIF interfaces from Data ONTAP.</listitem>
+                    <listitem>When NFS is used as the storage protocol with Cinder, the node running the <command>cinder-volume</command> process will attempt to mount the NFS shares listed in the file referred to within the <option>nfs_shares_config</option> configuration option in <filename>cinder.conf</filename>. Ensure that there is appropriate network connectivity between the <command>cinder-volume</command> node and the Data LIF interfaces, as well as the cluster/SVM management interfaces.</listitem>
+                </orderedlist>
+            </para>
+        </simplesect>
+    </section>
     <section xml:id="cinder.eseries.iscsi.configuration">
         <title>NetApp E-Series Driver for OpenStack Block Storage (Cinder)</title>
         <para>
@@ -689,63 +746,6 @@ netapp_password=<replaceable>admin_password</replaceable>
                     </tr>
                 </tbody>
             </table>
-        </simplesect>
-    </section>
-    <section xml:id="cinder.fas.configuration">
-        <title>Data ONTAP Configuration</title>
-        <simplesect>
-            <title>Data ONTAP Prerequisites</title>
-            <para>
-                The prerequisites for Data ONTAP (both clustered mode and 7-Mode) are:
-                <itemizedlist>
-                    <listitem>The driver requires a storage controller running Data ONTAP 8.1.1 or later.</listitem>
-                    <listitem>The storage system should have the following licenses applied:
-                        <itemizedlist>
-                            <listitem>Base</listitem>
-                            <listitem>NFS (if using NFS storage protocol)</listitem>
-                            <listitem>iSCSI (if using iSCSI storage protocol)</listitem>
-                            <listitem>FlexClone</listitem>
-                            <listitem>vStorage (if using NFS storage protocol with Copy Offload tool)</listitem>
-                            <listitem>MultiStore (if using vFilers with 7-Mode)</listitem>
-                        </itemizedlist>
-                    </listitem>
-                </itemizedlist>
-            </para>
-        </simplesect>
-        <simplesect>
-            <title>Storage Virtual Machine Considerations</title>
-            <para>
-                <orderedlist>
-                    <listitem>Ensure the appropriate licenses (as described previously) are enabled on the storage system for the desired use case.</listitem>
-                    <listitem>The SVM must be created (and associated with aggregates) before it can be utilized as a provisioning target for Cinder.</listitem>
-                    <listitem>FlexVol volumes must be created before the integration with Cinder is configured, as there is a many-to-one relationship between Cinder volumes and FlexVol volumes (see <xref linkend="section_cinder-deployment-choices"/> for more information).</listitem>
-                    <listitem>Regardless of the storage protocol used, data LIFs must be created and assigned to SVMs before configuring Cinder.</listitem>
-                    <listitem>If using NFS as the storage protocol:
-                        <orderedlist>
-                            <listitem>Be sure to enable the desired version of the NFS protocol (e.g. <option>v4.0, v4.1-pnfs</option>) on the SVM.</listitem>
-                            <listitem>Be sure to define junction paths from the FlexVol volumes and refer to them in the file referenced by the <option>nfs_shares_config</option> configuration option in <filename>cinder.conf</filename>.</listitem>
-                        </orderedlist>
-                    </listitem>
-                    <listitem>If using iSCSI as the storage protocol:
-                        <orderedlist>
-                            <listitem>Be sure to create an <option>igroup</option> for Linux that is associated correctly with the SVM.</listitem>
-                            <listitem>Please note that iSCSI LUNs will be created by Cinder; therefore, it is not necessary to create LUNs before configuring Cinder.</listitem>
-                        </orderedlist>
-                    </listitem>
-                    <listitem>Once FlexVol volumes have been created, be sure to configure the desired features (e.g. deduplication, compression, SnapMirror relationships, etc) before configuring Cinder. While Cinder will periodically poll Data ONTAP to discover changes in configuration and/or features, there is a delay in time between when changes are performed and when they are reflected within Cinder.</listitem>
-                    <listitem>The autogrow capability for FlexVol volumes within Data ONTAP is not recommended for use with a Cinder deployment.</listitem>
-                    <listitem>TODO: User permissions; cluster admin vs vserver admin</listitem>
-                </orderedlist>
-            </para>
-        </simplesect>
-        <simplesect>
-            <title>Storage Networking Considerations</title>
-            <para>
-                <orderedlist>
-                    <listitem>Ensure there is segmented network connectivity between the hypervisor nodes and the Data LIF interfaces from Data ONTAP.</listitem>
-                    <listitem>When NFS is used as the storage protocol with Cinder, the node running the <command>cinder-volume</command> process will attempt to mount the NFS shares listed in the file referred to within the <option>nfs_shares_config</option> configuration option in <filename>cinder.conf</filename>. Ensure that there is appropriate network connectivity between the <command>cinder-volume</command> node and the Data LIF interfaces, as well as the cluster/SVM management interfaces.</listitem>
-                </orderedlist>
-            </para>
         </simplesect>
     </section>
     <section xml:id="cinder.eseries.configuration">

@@ -8,7 +8,7 @@
         A suite of NetApp drivers for OpenStack Block Storage (aka Cinder) are built into the Icehouse release of OpenStack available from <link xlink:href="http://www.openstack.org/software/start/">http://www.openstack.org/software/start/</link>.
     </para>
     <para>
-        NetApp has provided enhancements to the OpenStack Compute Service (Nova) and OpenStack Image Service (Glance) projects to enhance instance creation and storage efficiency as well.
+        NetApp has provided enhancements to the OpenStack Compute Service (Nova) and OpenStack Image Service (Glance) projects to enhance instance creation and storage efficiency as well. NetApp has also published a reference architecture for deploying OpenStack Object Storage (Swift) on top of NetApp's E-Series storage solutions that reduces the overall deployment footprint and replication overhead.
     </para>
     <para>
         NetApp additionally leads a development effort within the OpenStack community to introduce a new core storage service developed under the project name “Manila.” It adds a shared file system service to the existing block and object storage services, addressing a critical gap in OpenStack’s storage services coverage and enabling a new category of on-demand file storage based on Infrastructure as a Service (IaaS).
