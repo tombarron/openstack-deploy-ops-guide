@@ -83,6 +83,24 @@
             OpenStack Orchestration implements a service to orchestrate multiple composite cloud applications using the Amazon Web Services (AWS) CloudFormation template format, through both an OpenStack-native and CloudFormation-compatible API. It is intended, in part, to facilitate movement of workloads from AWS to OpenStack deployments. Heat was promoted from incubation status to an integrated component of OpenStack in the Grizzly (April 2013) release.
         </para>
     </simplesect>
+    <simplesect>
+        <title>OpenStack Database as a Service (project name: Trove)</title>
+        <para>
+            OpenStack Database as a Service allows users to quickly and easily utilize the features of a relational database without the burden of handling complex administrative tasks. Cloud users and database administrators can provision and manage multiple database instances as needed.  Initially, the service focuses on providing resource isolation at high performance while automating complex administrative tasks including deployment, configuration, patching, backups, restores, and monitoring. Trove was promoted from incubation status to an integrated component of OpenStack in the Icehouse (April 2014) release.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack Hadoop as a Service (project name: Sahara)</title>
+        <para>
+            The OpenStack Hadoop as a Service project aims to provide users with simple means to provision a Hadoop cluster by specifying several parameters like Hadoop version, cluster topology, nodes' hardware details, etc. Sahara was promoted from incubation status to an integrated component of OpenStack in the Icehouse (April 2014) release.
+        </para>
+    </simplesect>
+    <simplesect>
+        <title>OpenStack File Share Service (project name: Manila)</title>
+        <para>
+            OpenStack File Share Service provides coordinated access to shared or distributed file systems. While the primary consumption of file shares would be across OpenStack Compute instances, the service is also intended to be accessible as an independent capability in line with the modular design established by other OpenStack services. The design and prototype implementation provide extensibility for multiple backends (to support vendor or file system specific nuances / capabilities) but is intended to be sufficiently abstract to accommodate any of a variety of shared or distributed file system types. Manila will likely be officially denoted as an incubated OpenStack project during the Juno release cycle.
+        </para>
+    </simplesect>
     <note>
         <para>
             The OpenStack Foundation regularly evaluates new project contributions for eventual inclusion as officially integrated. As such, the list above is expected to grow over time.

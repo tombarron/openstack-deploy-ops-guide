@@ -34,4 +34,10 @@
             </itemizedlist>
         </para>
     </simplesect>
+    <simplesect xml:id="ops.nfs">
+        <title>NFS Best Practices</title>
+        <para>
+            Be sure to refer to the <link xlink:href="http://www.netapp.com/us/system/pdf-reader.aspx?pdfuri=tcm:10-61288-16&amp;m=tr-4067.pdf">Clustered Data ONTAP NFS Best Practices and Implementation Guide</link> for information on how to optimally set up NFS exports for use with the various OpenStack services described in this guide.
+        </para>
+    </simplesect>
 </section>

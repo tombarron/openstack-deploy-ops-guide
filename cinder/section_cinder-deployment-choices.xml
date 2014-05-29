@@ -140,6 +140,7 @@
             <itemizedlist>
                 <listitem>The maximum number of files in a single FlexVol volume exported through NFS is dependent on the size of the FlexVol volume; a 1TB FlexVol can have 33,554,432 files (assuming 32k inodes). The theoretical maximum of files is roughly two billion.</listitem>
                 <listitem>NFS drivers require support from the hypervisor to virtualize files and present them as block devices to an instance.</listitem>
+                <listitem>As of the Icehouse release, the use of parallel NFS (pNFS) is supported with the NetApp unified driver, providing enhanced performance and scalability characteristics.</listitem>
                 <!-- refer to CDOT NFS BP guide? http://www.netapp.com/us/system/pdf-reader.aspx?m=tr-4067.pdf -->
             </itemizedlist>
         </formalpara>
