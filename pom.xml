@@ -227,6 +227,7 @@
                             <replacefilter token="Rackspace Documentation" value="NetApp Documentation"/>
                             <replacefilter token="http://docs.rackspace.com/api/" value="http://www.netapp.com/openstack"/>
                             <replacefilter token="http://www.rackspace.com" value="http://www.netapp.com"/>
+                            <replacefilter token="width=&quot;157&quot; height=&quot;47&quot;" value=""/>
                         </replace>
                     </postProcess>
                 </configuration>

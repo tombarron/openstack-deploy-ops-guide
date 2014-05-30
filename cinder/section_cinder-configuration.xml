@@ -590,7 +590,7 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
             </para>
             <table rules="all" width="100%" xml:id="cinder.cdot.permissions">
                 <caption>Access Level Permissions Required with SVM Administrative Account</caption>
-                <col width="0.95in"/>
+                <col width="1.95in"/>
                 <col width="0.95in"/>
                 <col width="2.55in"/>
                 <thead>
@@ -649,17 +649,17 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
                     <tr>
                         <td><option>volume file clone create</option></td>
                         <td><option>all</option></td>
-                        <td>Create file clones for use with Cinder provisioning and snapshots</td>
+                        <td>Create file clones for use with Cinder provisioning and snapshots (NFS only)</td>
                     </tr>
                     <tr>
                         <td><option>volume file modify</option></td>
                         <td><option>all</option></td>
-                        <td>Support for Cinder volume extend capability</td>
+                        <td>Support for Cinder volume extend capability (NFS only)</td>
                     </tr>
                     <tr>
                         <td><option>volume file show-disk-usage</option></td>
                         <td><option>readonly</option></td>
-                        <td>Determine available and consumed space</td>
+                        <td>Determine available and consumed space (NFS only)</td>
                     </tr>
                     <tr>
                         <td><option>vserver</option></td>
