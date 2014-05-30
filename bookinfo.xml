@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<products xmlns:xlink="http://www.w3.org/1999/xlink">
+   <latestpdf>bk-deployment-ops-guide-latest.pdf</latestpdf>
+   <pdfoutname>bk-deployment-ops-guide-20140530.pdf</pdfoutname>
+   <docname>OpenStack Deployment and Operations Guide</docname>
+   <productname>OpenStack</productname>
+   <webappname>bk-deployment-ops-guide</webappname>
+   <pominfo>
+      <groupid>com.netapp.openstack.docs</groupid>
+      <artifactid>pom</artifactid>
+      <version>Icehouse</version>
+      <pomname>NetApp and OpenStack: Deployment and Operations Guide -</pomname>
+   </pominfo>
+   <emails>
+      <email>
+         <name>CDT Publication Events</name>
+         <to>cdt-publication-events@lists.rackspace.com</to>
+         <from>clouddoctoolsteam@lists.rackspace.com</from>
+      </email>
+   </emails>
+</products>

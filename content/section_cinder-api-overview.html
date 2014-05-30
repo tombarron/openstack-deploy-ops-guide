@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:exsl="http://exslt.org/common" xmlns:ng="http://docbook.org/docbook-ng" xmlns:fb="http://ogp.me/ns/fb#"><head>
+
+<title>API Overview - OpenStack Deployment and Operations Guide
+   - Version 3.0</title><meta name="generator" content="DocBook XSL-NS Stylesheets V1.76.1"/><meta name="mavenGroupId" content="com.netapp.openstack.docs"/><meta name="mavenArtifactId" content="pom"/><meta name="mavenVersionId" content="Icehouse"/><link rel="home" href="index.html" title="OpenStack Deployment and Operations Guide"/><link rel="up" href="ch_cinder.html" title="Chapter 4. OpenStack Block Storage Service (Cinder)"/><link rel="prev" href="section_cinder-processes.html" title="Process Structure"/><link rel="next" href="section_cinder-deployment-choices.html" title="Theory of Operation &amp; Deployment Choices"/><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="git-sha" content="e01e8177faa07d17a8fb6a5d1d4f01d2d5cda4dd"/><meta name="buildTime" content="2014-05-30T10:06:05-04:00"/><script type="text/javascript">
+            //The id for tree cookie
+            var treeCookieId = "treeview-bk-deployment-ops-guide";
+            var language = "en";
+            var w = new Object();
+            //Localization
+            txt_filesfound = 'Results';
+            txt_enter_at_least_1_char = "You must enter at least one character.";
+            txt_browser_not_supported = "Your browser is not supported. Use of Mozilla Firefox is recommended.";
+            txt_please_wait = "Please wait. Search in progress...";
+            txt_results_for = "Results for: ";
+        </script><style type="text/css">
+            input {
+            margin-bottom: 5px;
+            margin-top: 2px;
+            }
+
+            .folder {
+            display: block;
+            height: 22px;
+            padding-left: 20px;
+            background: transparent url(../common/jquery/treeview/images/folder.gif) 0 0px no-repeat;
+            }
+            
+        </style><link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/><link rel="stylesheet" type="text/css" href="../common/css/positioning.css"/><link rel="stylesheet" type="text/css" href="../common/css/custom.css"/><!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="../common/css/ie.css"/>
+	<![endif]--><link rel="stylesheet" type="text/css" href="../common/jquery/theme-redmond/jquery-ui-1.8.2.custom.css"/><link rel="stylesheet" type="text/css" href="../common/jquery/treeview/jquery.treeview.css"/><script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"><!----></script><script type="text/javascript" src="../common/jquery/jquery-ui-1.8.2.custom.min.js"><!----></script><script type="text/javascript" src="../common/jquery/jquery.cookie.js"><!----></script><script type="text/javascript" src="../common/jquery/treeview/jquery.treeview.min.js"><!----></script><link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/qtip2/2.2.0/jquery.qtip.min.css"/><script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"><!--jQuery plugin for glossary popups. --></script><script type="text/javascript" src="search/htmlFileList.js"><!----></script><script type="text/javascript" src="search/htmlFileInfoList.js"><!----></script><script type="text/javascript" src="search/nwSearchFnt.js"><!----></script><script type="text/javascript" src="search/stemmers/en_stemmer.js"><!--//make this scalable to other languages as well.--></script><script type="text/javascript" src="search/index-1.js"><!----></script><script type="text/javascript" src="search/index-2.js"><!----></script><script type="text/javascript" src="search/index-3.js"><!----></script></head><body><div id="header"><a onclick="_gaq.push(['_trackEvent', 'Header', 'logo', 'click', 1]);" target="_blank" href="http://www.netapp.com"><img src="../common/images/netapp-logo.png" alt="NetApp Documentation" width="157" height="47"/></a><h1>API Overview</h1><div id="navheader" align="right"><!----><table class="navLinks"><tr><td><a id="showHideButton" onclick="showHideToc(); _gaq.push(['_trackEvent', 'Header', 'show/hide', 'click', 1]);" class="pointLeft" title="Hide TOC tree">Sidebar
+                            </a></td><td><a accesskey="p" class="navLinkPrevious" onclick="_gaq.push(['_trackEvent', 'Header', 'prevLink', 'click', 1]);" tabindex="5" href="section_cinder-processes.html">Prev</a>
+				      |
+                                        <a accesskey="u" class="navLinkUp" onclick="_gaq.push(['_trackEvent', 'Header', 'upLink', 'click', 1]);" tabindex="5" href="ch_cinder.html">Up</a>
+				  |
+                                    <a accesskey="n" class="navLinkNext" onclick="_gaq.push(['_trackEvent', 'Header', 'nextLink', 'click', 1]);" tabindex="5" href="section_cinder-deployment-choices.html">Next</a></td></tr></table></div></div><div id="toolbar" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"><div id="toolbar-left"><p class="breadcrumbs"><a href="http://www.netapp.com/openstack">OpenStack @ NetApp</a><a href="index.html">OpenStack Deployment and Operations Guide
+   - Version 3.0</a></p></div></div><div id="content"><div class="section"><div xmlns="" class="titlepage"><div><div><h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="section_cinder-api-overview"> </a>API Overview</h2></div></div></div><p>
+        This section describes some of the most commonly used Cinder API calls and their corresponding CLI commands. It is not meant to be a comprehensive list that is representative of all functionality present in Cinder; for more information, please refer to the <a class="link" href="http://docs.openstack.org/icehouse/config-reference/content/config_overview.html" target="_top">OpenStack Configuration Reference.</a>
+    </p><div class="simplesect"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d6e428"> </a>Volume API</h3></div></div></div><p>
+            <a class="xref" href="section_cinder-api-overview.html#cinder.api.volume_table" title="Table 4.1. Cinder API Overview - Volume">Table 4.1, “Cinder API Overview - Volume”</a> specifies the valid operations that can be performed on Cinder volumes. Please note that Cinder volumes are identified as CLI command arguments by either their names or UUID.
+        </p><table rules="all" width="100%" id="cinder.api.volume_table"><caption>Table 4.1. Cinder API Overview - Volume</caption><col width="1in"/><col width="1.4in"/><col width="3.35in"/><thead><tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr></thead><tbody><tr>
+                    <td>Create</td>
+                    <td><span class="command"><strong>cinder create</strong></span></td>
+                    <td>Create a Cinder volume of specified size; optional name, availability zone, volume type</td>
+                </tr><tr>
+                    <td>Delete</td>
+                    <td><span class="command"><strong>cinder delete</strong></span></td>
+                    <td>Delete an existing Cinder volume; the <span class="command"><strong>cinder force-delete</strong></span> command may be required if the Cinder volume is in an error state</td>
+                </tr><tr>
+                    <td>Edit</td>
+                    <td><span class="command"><strong>cinder metadata</strong></span></td>
+                    <td>Set or unset metadata on a Cinder volume</td>
+                </tr><tr>
+                    <td>Extend</td>
+                    <td><span class="command"><strong>cinder extend</strong></span></td>
+                    <td>Increase the capacity of a Cinder volume to the specified size</td>
+                </tr><tr>
+                    <td>List</td>
+                    <td><span class="command"><strong>cinder list</strong></span></td>
+                    <td>List all Cinder volumes</td>
+                </tr><tr>
+                    <td>Migrate</td>
+                    <td><span class="command"><strong>cinder migrate</strong></span></td>
+                    <td>Move a Cinder volume to a new Cinder backend (specified by name)</td>
+                </tr><tr>
+                    <td>Show</td>
+                    <td><span class="command"><strong>cinder show</strong></span></td>
+                    <td>Show details about a Cinder volume</td>
+                </tr><tr>
+                    <td>Upload as image</td>
+                    <td><span class="command"><strong>cinder upload-to-image</strong></span></td>
+                    <td>Upload a Cinder volume to the OpenStack Image Service</td>
+                </tr></tbody></table></div><div class="simplesect"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d6e484"> </a>Snapshot API</h3></div></div></div><p>
+            <a class="xref" href="section_cinder-api-overview.html#cinder.api.snapshot_table" title="Table 4.2. Cinder API Overview - Snapshot">Table 4.2, “Cinder API Overview - Snapshot”</a> specifies the valid operations that can be performed on Cinder snapshots. Please note that Cinder snapshots are identified as CLI command arguments by either their display name or UUID.
+        </p><table rules="all" width="100%" id="cinder.api.snapshot_table"><caption>Table 4.2. Cinder API Overview - Snapshot</caption><col width="0.7in"/><col width="1.55in"/><col width="3.5in"/><thead><tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr></thead><tbody><tr>
+                    <td>Create</td>
+                    <td><span class="command"><strong>cinder snapshot-create</strong></span></td>
+                    <td>Create a Cinder snapshot of a specific Cinder volume</td>
+                </tr><tr>
+                    <td>Delete</td>
+                    <td><span class="command"><strong>cinder snapshot-delete</strong></span></td>
+                    <td>Delete a Cinder snapshot</td>
+                </tr><tr>
+                    <td>Edit</td>
+                    <td><span class="command"><strong>cinder snapshot-metadata</strong></span></td>
+                    <td>Set or unset metadata on a Cinder snapshot</td>
+                </tr><tr>
+                    <td>List</td>
+                    <td><span class="command"><strong>cinder snapshot-list</strong></span></td>
+                    <td>List all Cinder snapshots</td>
+                </tr><tr>
+                    <td>Rename</td>
+                    <td><span class="command"><strong>cinder snapshot-rename</strong></span></td>
+                    <td>Change the display-name of a Cinder snapshot</td>
+                </tr><tr>
+                    <td>Reset State</td>
+                    <td><span class="command"><strong>cinder snapshot-reset-state</strong></span></td>
+                    <td>Reset the state of a Cinder snapshot</td>
+                </tr><tr>
+                    <td>Show</td>
+                    <td><span class="command"><strong>cinder snapshot-show</strong></span></td>
+                    <td>Show details about a Cinder snapshot</td>
+                </tr></tbody></table></div><div class="simplesect"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d6e534"> </a>Volume Type API</h3></div></div></div><p>
+            <a class="xref" href="section_cinder-api-overview.html#cinder.api.volume_type_table" title="Table 4.3. Cinder API Overview - Volume Type">Table 4.3, “Cinder API Overview - Volume Type”</a> specifies the valid operations that can be performed on Cinder volume types. Please note that Cinder volume types are identified as CLI command arguments by either their display name or UUID.
+        </p><table rules="all" width="100%" id="cinder.api.volume_type_table"><caption>Table 4.3. Cinder API Overview - Volume Type</caption><col width="1in"/><col width="1.5in"/><col width="3.25in"/><thead><tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr></thead><tbody><tr>
+                    <td>Create</td>
+                    <td><span class="command"><strong>cinder type-create</strong></span></td>
+                    <td>Create a Cinder volume type</td>
+                </tr><tr>
+                    <td>Delete</td>
+                    <td><span class="command"><strong>cinder type-delete</strong></span></td>
+                    <td>Delete a Cinder volume type</td>
+                </tr><tr>
+                    <td>List</td>
+                    <td><span class="command"><strong>cinder type-list</strong></span></td>
+                    <td>List existing Cinder volume type</td>
+                </tr></tbody></table></div><div class="simplesect"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d6e564"> </a>Volume Type Extra Specs API</h3></div></div></div><p>
+            <a class="xref" href="section_cinder-api-overview.html#cinder.api.volume_type_extra_specs_table" title="Table 4.4. Cinder API Overview - Volume Type Extra Specs">Table 4.4, “Cinder API Overview - Volume Type Extra Specs”</a> specifies the valid operations that can be performed on Cinder volume type extra specs. Please note that Cinder volume type extra specs are properties of Cinder volume types and are identified by their parent object.
+        </p><table rules="all" width="100%" id="cinder.api.volume_type_extra_specs_table"><caption>Table 4.4. Cinder API Overview - Volume Type Extra Specs</caption><col width="1.25in"/><col width="2in"/><col width="2.5in"/><thead><tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr></thead><tbody><tr>
+                    <td>Set extra specs</td>
+                    <td><span class="command"><strong>cinder type-key <em class="replaceable"><code>vtype</code></em> set</strong></span></td>
+                    <td>Assign extra specs to Cinder volume type</td>
+                </tr><tr>
+                    <td>Unset extra specs</td>
+                    <td><span class="command"><strong>cinder type-key <em class="replaceable"><code>vtype</code></em> unset</strong></span></td>
+                    <td>Remove extra specs from Cinder volume type</td>
+                </tr></tbody></table></div><div class="simplesect"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d6e591"> </a>Volume Type QoS Specs API</h3></div></div></div><p>
+            <a class="xref" href="section_cinder-api-overview.html#cinder.api.volume_type_qos_specs_table" title="Table 4.5. Cinder API Overview - Volume Type QoS Specs">Table 4.5, “Cinder API Overview - Volume Type QoS Specs”</a> specifies the valid operations that can be performed on Cinder volume type QoS specs. Please note that Cinder volume type QoS specs are created independently of Cinder volume types and are subsequently associated with a Cinder volume type.
+        </p><table rules="all" width="100%" id="cinder.api.volume_type_qos_specs_table"><caption>Table 4.5. Cinder API Overview - Volume Type QoS Specs</caption><col width="1.4in"/><col width="1.5in"/><col width="2.85in"/><thead><tr>
+                    <td>Operation</td>
+                    <td>CLI Command</td>
+                    <td>Description</td>
+                </tr></thead><tbody><tr>
+                    <td>Create QoS specs</td>
+                    <td><span class="command"><strong>cinder qos-create</strong></span></td>
+                    <td>Create a Cinder QoS Spec</td>
+                </tr><tr>
+                    <td>Delete QoS specs</td>
+                    <td><span class="command"><strong>cinder qos-delete</strong></span></td>
+                    <td>Delete a Cinder QoS Spec</td>
+                </tr><tr>
+                    <td>List QoS specs</td>
+                    <td><span class="command"><strong>cinder qos-list</strong></span></td>
+                    <td>List existing Cinder QoS Specs</td>
+                </tr><tr>
+                    <td>Show</td>
+                    <td><span class="command"><strong>cinder qos-show</strong></span></td>
+                    <td>Show details about a Cinder QoS Spec</td>
+                </tr><tr>
+                    <td>Associate QoS specs</td>
+                    <td><span class="command"><strong>cinder qos-associate</strong></span></td>
+                    <td>Associate a Cinder QoS Spec with a Cinder volume type</td>
+                </tr><tr>
+                    <td>Disassociate QoS specs</td>
+                    <td><span class="command"><strong>cinder qos-disassociate</strong></span></td>
+                    <td>Disassociate a Cinder QoS Spec from a Cinder volume type</td>
+                </tr><tr>
+                    <td>Edit QoS spec</td>
+                    <td><span class="command"><strong>cinder qos-key</strong></span></td>
+                    <td>Set or unset specifications for a Cinder QoS Spec</td>
+                </tr></tbody></table></div></div><script type="text/javascript" src="../common/main.js"><!----></script><hr/><div id="disqus_thread"><script type="text/javascript">
+	      if(window.location.protocol.substring(0,4) == 'http'){
+	        var disqus_shortname = '';
+	      
+	        var disqus_identifier = 'bk-deployment-ops-guidesection_cinder-api-overview';
+	      
+	      }
+	    </script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><script type="text/javascript" src="../common/comments.js"><!----></script></div><hr/><div class="legal"><a href="index.html">Legal notices</a></div></div><div><div id="leftnavigation" style="padding-top:3px; background-color:white;"><div id="tabs"><ul><li><a href="#treeDiv" tabindex="1"><span class="contentsTab">Contents</span></a></li><li><a href="#searchDiv" tabindex="1"><span class="searchTab">Search</span></a></li></ul><div id="treeDiv"><img src="../common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;"/><div id="ulTreeDiv" style="display:none" class="thisisthat"><ul id="tree" class="filetree"><li tabindex="2"><span class="file"><a href="ch_executive-summary.html">1. Executive Summary</a></span><ul><li tabindex="2"><span class="file"><a href="authors-and-contributors.html">Authors and Contributors</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_openstack-overview.html">2. OpenStack Overview</a></span><ul><li tabindex="2"><span class="file"><a href="section_openstack-foundation.html">OpenStack Foundation</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html">OpenStack - A Modular Collection of Cloud Services</a></span><ul><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e96">OpenStack Compute (project name: Nova)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e99">OpenStack Block Storage (project name: Cinder)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e102">OpenStack Object Storage (project name: Swift)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e105">OpenStack Dashboard (project name: Horizon)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e108">OpenStack Identity (project name: Keystone)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e116">OpenStack Image Service (project name: Glance)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e119">OpenStack Network Service (project name: Neutron)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e122">OpenStack Telemetry (project name: Ceilometer)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e125">OpenStack Orchestration (project name: Heat)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e128">OpenStack Database as a Service (project name: Trove)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e131">OpenStack Hadoop as a Service (project name: Sahara)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e134">OpenStack File Share Service (project name: Manila)</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_releases-distributions.html">OpenStack Releases and Distributions</a></span></li><li tabindex="2"><span class="file"><a href="section_contributions.html">NetApp's Contributions To OpenStack</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_netapp-storage.html">3. About NetApp Storage Systems and Software</a></span><ul><li tabindex="2"><span class="file"><a href="section_data-ontap.html">Description of Data ONTAP</a></span><ul><li tabindex="2"><span class="file"><a href="section_data-ontap.html#d6e199">Clustered Data ONTAP</a></span></li><li tabindex="2"><span class="file"><a href="section_data-ontap.html#d6e239">Data ONTAP operating in 7-Mode</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_fas-systems.html">Description of FAS Systems</a></span></li><li tabindex="2"><span class="file"><a href="section_e-ef-series.html">Description of E-Series and EF-Series Systems</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_cinder.html">4. OpenStack Block Storage Service (Cinder)</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-overview.html">Overview</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html">Key Concepts</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e286">Volume</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e294">Snapshot</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e298">Backend</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e308">Driver</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e313">Volume Type</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_cinder-processes.html">Process Structure</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-processes.html#d6e368">Volume Creation Workflow</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-processes.html#d6e396">Volume Attach Workflow</a></span></li></ul></li><li tabindex="2" id="webhelp-currentid"><span class="file"><a href="section_cinder-api-overview.html">API Overview</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e428">Volume API</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e484">Snapshot API</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e534">Volume Type API</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e564">Volume Type Extra Specs API</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e591">Volume Type QoS Specs API</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html">Theory of Operation &amp; Deployment Choices</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e643">Construct Mappings between Cinder and Data ONTAP</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e673">Deployment Choice: Direct versus Intermediated</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e691">Deployment Choice: FAS vs E-Series</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e701">Deployment Choice: Clustered Data ONTAP vs Data ONTAP operating in 7-Mode</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e708">Deployment Choice: NFS versus iSCSI</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#cinder.volume_types">Using Cinder Volume Types to Create a Storage Service Catalog</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_cinder-configuration.html">Configuration</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.configuration.html">Cinder</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.configuration.html#d6e841">cinder.conf</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.netapp.drivers.html">NetApp Data ONTAP Drivers for OpenStack Block Storage (Cinder)</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.netapp.drivers.html#d6e862">Where to Obtain the Drivers</a></span></li><li tabindex="2"><span class="file"><a href="cinder.netapp.drivers.html#d6e870">Multiple Deployment Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.cdot.iscsi.configuration.html">NetApp Unified Driver for Clustered Data ONTAP with iSCSI</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.cdot.iscsi.configuration.html#d6e891">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.cdot.nfs.configuration.html">NetApp Unified Driver for Clustered Data ONTAP with NFS</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.cdot.nfs.configuration.html#d6e1002">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.7mode.iscsi.configuration.html">NetApp Unified Driver for Data ONTAP operating in 7-Mode with iSCSI</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.7mode.iscsi.configuration.html#d6e1138">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.7mode.nfs.configuration.html">NetApp Unified Driver for Data ONTAP operating in 7-Mode with NFS</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.7mode.nfs.configuration.html#d6e1257">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.fas.configuration.html">Data ONTAP Configuration</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.fas.configuration.html#d6e1381">Data ONTAP Prerequisites</a></span></li><li tabindex="2"><span class="file"><a href="cinder.fas.configuration.html#d6e1394">Storage Virtual Machine Considerations</a></span></li><li tabindex="2"><span class="file"><a href="cinder.fas.configuration.html#d6e1418">Storage Networking Considerations</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.eseries.iscsi.configuration.html">NetApp E-Series Driver for OpenStack Block Storage (Cinder)</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.eseries.iscsi.configuration.html#d6e1431">Deployment Topology</a></span></li><li tabindex="2"><span class="file"><a href="cinder.eseries.iscsi.configuration.html#d6e1452">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.eseries.configuration.html">E-Series Configuration</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.eseries.configuration.html#d6e1581">E-Series Prerequisites</a></span></li><li tabindex="2"><span class="file"><a href="cinder.eseries.configuration.html#d6e1587">Storage Networking Considerations</a></span></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="section_cinder-examples.html">Examples</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.examples.cinder_conf.html">cinder.conf</a></span></li><li tabindex="2"><span class="file"><a href="cinder.examples.cdot.html">Clustered Data ONTAP</a></span></li><li tabindex="2"><span class="file"><a href="cinder.examples.cinder_cli.html">Cinder Command Line Interface (CLI)</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.examples.cinder_cli.html#d6e1619">Cinder Service Verfification</a></span></li><li tabindex="2"><span class="file"><a href="cinder.examples.cinder_cli.html#d6e1637">Creating and Defining Cinder Volume Types</a></span></li><li tabindex="2"><span class="file"><a href="cinder.examples.cinder_cli.html#d6e1666">Creating Cinder Volumes with Volume Types</a></span></li></ul></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="ch_glance-image-service.html">5. OpenStack Image Service (Glance)</a></span><ul><li tabindex="2"><span class="file"><a href="section_glance-overview.html">Overview</a></span></li><li tabindex="2"><span class="file"><a href="section_glance-key-concepts.html">Key Concepts</a></span><ul><li tabindex="2"><span class="file"><a href="section_glance-key-concepts.html#d6e1710">Image</a></span></li><li tabindex="2"><span class="file"><a href="section_glance-key-concepts.html#d6e1715">Store</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_glance-deployment-choices.html">Theory of Operation &amp; Deployment Choices</a></span><ul><li tabindex="2"><span class="file"><a href="section_glance-deployment-choices.html#d6e1738">Glance and Clustered Data ONTAP</a></span></li><li tabindex="2"><span class="file"><a href="section_glance-deployment-choices.html#glance.rapid_cloning">Enhanced Instance Creation</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_glance-configuration.html">Configuration</a></span><ul><li tabindex="2"><span class="file"><a href="glance.configuration.html">Glance</a></span></li><li tabindex="2"><span class="file"><a href="glance.fas.configuration.html">Configuration of Glance with NetApp FAS</a></span></li><li tabindex="2"><span class="file"><a href="glance.eseries.configuration.html">Configuration of Glance with NetApp E-Series and EF-Series</a></span></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="ch_nova.html">6. OpenStack Compute Service (Nova)</a></span><ul><li tabindex="2"><span class="file"><a href="section_nova-overview.html">Overview</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-key-concepts.html">Key Concepts</a></span><ul><li tabindex="2"><span class="file"><a href="section_nova-key-concepts.html#d6e1869">Instance</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-key-concepts.html#d6e1876">Flavor</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-key-concepts.html#d6e1880">Root (and ephemeral) disks</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_nova-deployment-choices.html">Theory of Operation &amp; Deployment Choices</a></span><ul><li tabindex="2"><span class="file"><a href="section_nova-deployment-choices.html#nova.boot.options">Root Disk Choices When Booting Nova Instances</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-deployment-choices.html#nova.instance.snapshots">Instance Snapshots vs. Cinder Snapshots</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-deployment-choices.html#nova.instance.storage">Instance Storage Options at the Hypervisor</a></span></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="ch_swift.html">7. OpenStack Object Storage Service (Swift)</a></span><ul><li tabindex="2"><span class="file"><a href="section_swift-overview.html">Overview</a></span><ul><li tabindex="2"><span class="file"><a href="section_swift-overview.html#d6e1951">DDP Reconstruction</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_swift-e-series.html">Swift Zones and NetApp E-Series Storage</a></span></li><li tabindex="2"><span class="file"><a href="section_swift-disk-pools.html">Disk Pools, Volumes, and Mapping</a></span></li><li tabindex="2"><span class="file"><a href="section_swift-partitioning.html">Partitioning and File System Considerations</a></span><ul><li tabindex="2"><span class="file"><a href="section_swift-partitioning.html#d6e2005">Partitioning with Multipath</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_swift-ring-considerations.html">Swift Ring Considerations with DDP</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_operations.html">8. Operational Concerns</a></span><ul><li tabindex="2"><span class="file"><a href="section_cdot-ops.html">Operational Concerns with Data ONTAP</a></span><ul><li tabindex="2"><span class="file"><a href="section_cdot-ops.html#ops.thin_provisioning">Considerations for using thin provisioning with FlexVol volumes</a></span></li><li tabindex="2"><span class="file"><a href="section_cdot-ops.html#ops.nfs">NFS Best Practices</a></span></li><li tabindex="2"><span class="file"><a href="section_cdot-ops.html#ops.volume.migration">Volume Migration</a></span></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="appendix_packaging.html">A. Packaging</a></span><ul><li tabindex="2"><span class="file"><a href="appendix.packaging.requirements.html">Packaging and Downloading Requirements</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.install.html">Installation and Uninstallation</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.upgrading.html">Upgrading and Reverting</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.licensing.html">Licensing</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.versioning.html">Versioning</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.deprecation.html">Deprecated Drivers</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="appendix_debug.html">B. Troubleshooting</a></span><ul><li tabindex="2"><span class="file"><a href="appendix.debug.common_problems.html">Common Problems</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html">Triage and Data Collection</a></span><ul><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html#d6e2279">Cinder processes</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html#d6e2285">Nova processes</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html#d6e2291">Glance processes</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html#d6e2296">Swift processes</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="appendix.debug.references.html">References</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.support.html">Support</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_backpage.html">About NetApp</a></span></li></ul></div></div><div id="searchDiv"><div id="search"><form onsubmit="Verifie(ditaSearch_Form);return false" name="ditaSearch_Form" class="searchForm"><fieldset class="searchFieldSet"><legend>Search</legend><center><input id="textToSearch" name="textToSearch" type="text" class="searchText"/> &nbsp; <input onclick="Verifie(ditaSearch_Form)" type="button" class="searchButton" value="Go" id="doSearch"/></center></fieldset></form></div><div id="searchResults"><center/></div><p class="searchHighlight"><a href="#" onclick="toggleHighlight()">Search Highlighter (On/Off)</a></p></div></div></div></div></body></html>

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:exsl="http://exslt.org/common" xmlns:ng="http://docbook.org/docbook-ng" xmlns:fb="http://ogp.me/ns/fb#"><head>
+
+<title>Cinder Command Line Interface (CLI) - OpenStack Deployment and Operations Guide
+   - Version 3.0</title><meta name="generator" content="DocBook XSL-NS Stylesheets V1.76.1"/><meta name="mavenGroupId" content="com.netapp.openstack.docs"/><meta name="mavenArtifactId" content="pom"/><meta name="mavenVersionId" content="Icehouse"/><link rel="home" href="index.html" title="OpenStack Deployment and Operations Guide"/><link rel="up" href="section_cinder-examples.html" title="Examples"/><link rel="prev" href="cinder.examples.cdot.html" title="Clustered Data ONTAP"/><link rel="next" href="ch_glance-image-service.html" title="Chapter 5. OpenStack Image Service (Glance)"/><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="git-sha" content="e01e8177faa07d17a8fb6a5d1d4f01d2d5cda4dd"/><meta name="buildTime" content="2014-05-30T10:06:06-04:00"/><script type="text/javascript">
+            //The id for tree cookie
+            var treeCookieId = "treeview-bk-deployment-ops-guide";
+            var language = "en";
+            var w = new Object();
+            //Localization
+            txt_filesfound = 'Results';
+            txt_enter_at_least_1_char = "You must enter at least one character.";
+            txt_browser_not_supported = "Your browser is not supported. Use of Mozilla Firefox is recommended.";
+            txt_please_wait = "Please wait. Search in progress...";
+            txt_results_for = "Results for: ";
+        </script><style type="text/css">
+            input {
+            margin-bottom: 5px;
+            margin-top: 2px;
+            }
+
+            .folder {
+            display: block;
+            height: 22px;
+            padding-left: 20px;
+            background: transparent url(../common/jquery/treeview/images/folder.gif) 0 0px no-repeat;
+            }
+            
+        </style><link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/><link rel="stylesheet" type="text/css" href="../common/css/positioning.css"/><link rel="stylesheet" type="text/css" href="../common/css/custom.css"/><!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="../common/css/ie.css"/>
+	<![endif]--><link rel="stylesheet" type="text/css" href="../common/jquery/theme-redmond/jquery-ui-1.8.2.custom.css"/><link rel="stylesheet" type="text/css" href="../common/jquery/treeview/jquery.treeview.css"/><script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"><!----></script><script type="text/javascript" src="../common/jquery/jquery-ui-1.8.2.custom.min.js"><!----></script><script type="text/javascript" src="../common/jquery/jquery.cookie.js"><!----></script><script type="text/javascript" src="../common/jquery/treeview/jquery.treeview.min.js"><!----></script><link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/qtip2/2.2.0/jquery.qtip.min.css"/><script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"><!--jQuery plugin for glossary popups. --></script><script type="text/javascript" src="search/htmlFileList.js"><!----></script><script type="text/javascript" src="search/htmlFileInfoList.js"><!----></script><script type="text/javascript" src="search/nwSearchFnt.js"><!----></script><script type="text/javascript" src="search/stemmers/en_stemmer.js"><!--//make this scalable to other languages as well.--></script><script type="text/javascript" src="search/index-1.js"><!----></script><script type="text/javascript" src="search/index-2.js"><!----></script><script type="text/javascript" src="search/index-3.js"><!----></script></head><body><div id="header"><a onclick="_gaq.push(['_trackEvent', 'Header', 'logo', 'click', 1]);" target="_blank" href="http://www.netapp.com"><img src="../common/images/netapp-logo.png" alt="NetApp Documentation" width="157" height="47"/></a><h1>Cinder Command Line Interface (CLI)</h1><div id="navheader" align="right"><!----><table class="navLinks"><tr><td><a id="showHideButton" onclick="showHideToc(); _gaq.push(['_trackEvent', 'Header', 'show/hide', 'click', 1]);" class="pointLeft" title="Hide TOC tree">Sidebar
+                            </a></td><td><a accesskey="p" class="navLinkPrevious" onclick="_gaq.push(['_trackEvent', 'Header', 'prevLink', 'click', 1]);" tabindex="5" href="cinder.examples.cdot.html">Prev</a>
+				      |
+                                        <a accesskey="u" class="navLinkUp" onclick="_gaq.push(['_trackEvent', 'Header', 'upLink', 'click', 1]);" tabindex="5" href="section_cinder-examples.html">Up</a>
+				  |
+                                    <a accesskey="n" class="navLinkNext" onclick="_gaq.push(['_trackEvent', 'Header', 'nextLink', 'click', 1]);" tabindex="5" href="ch_glance-image-service.html">Next</a></td></tr></table></div></div><div id="toolbar" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"><div id="toolbar-left"><p class="breadcrumbs"><a href="http://www.netapp.com/openstack">OpenStack @ NetApp</a><a href="index.html">OpenStack Deployment and Operations Guide
+   - Version 3.0</a></p></div></div><div id="content"><div class="section"><div xmlns="" class="titlepage"><div><div><h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="cinder.examples.cinder_cli"> </a>Cinder Command Line Interface (CLI)</h3></div></div></div><div class="simplesect"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d6e1619"> </a>Cinder Service Verfification</h4></div></div></div><p>In this section, we will use the Cinder CLI to verify that the configuration presented in <a class="xref" href="cinder.examples.cinder_conf.html" title="cinder.conf">the section called “<code class="filename">cinder.conf</code>”</a> has been properly initialized by Cinder.
+                </p><pre class="programlisting">
+vagrant@precise64:~/devstack$ cinder service-list
++------------------+--------------------------+------+---------+-------+------------------------+-----------------+
+|      Binary      |            Host          | Zone |  Status | State |         Updated_at     | Disabled Reason |
++------------------+--------------------------+------+---------+-------+------------------------+-----------------+
+| cinder-scheduler |         precise64        | nova | enabled |   up  | 2014-05-20T17:14:12.00 |       None      |
+|  cinder-volume   |   precise64@cdot-iscsi<a class="co" id="cdot-iscsi-bkend-co" href="cinder.examples.cinder_cli.html#cdot-iscsi-bkend"><img src="../common/images/callouts/1.png" alt="1" border="0"/></a> | nova | enabled |   up  | 2014-05-20T17:14:10.00 |       None      |
+|  cinder-volume   |    precise64@cdot-nfs <a class="co" id="cdot-nfs-bkend-co" href="cinder.examples.cinder_cli.html#cdot-nfs-bkend"><img src="../common/images/callouts/2.png" alt="2" border="0"/></a> | nova | enabled |   up  | 2014-05-20T17:14:11.00 |       None      |
+|  cinder-volume   | precise64@eseries-iscsi<a class="co" id="eseries-iscsi-bkend-co" href="cinder.examples.cinder_cli.html#eseries-iscsi-bkend"><img src="../common/images/callouts/3.png" alt="3" border="0"/></a>| nova | enabled |   up  | 2014-05-20T17:14:06.00 |       None      |
++------------------+--------------------------+------+---------+-------+------------------------+-----------------+
+                </pre><p>
+                </p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a id="cdot-iscsi-bkend"> </a><a href="#cdot-iscsi-bkend-co"><img src="../common/images/callouts/1.png" alt="1" border="0"/></a> </p></td><td valign="top" align="left"><p>
+                            This is the backend defined by the configuration stanza <code class="option">[cdot-iscsi]</code>.
+                        </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a id="cdot-nfs-bkend"> </a><a href="#cdot-nfs-bkend-co"><img src="../common/images/callouts/2.png" alt="2" border="0"/></a> </p></td><td valign="top" align="left"><p>
+                            This is the backend defined by the configuration stanza <code class="option">[cdot-nfs]</code>.
+                        </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a id="eseries-iscsi-bkend"> </a><a href="#eseries-iscsi-bkend-co"><img src="../common/images/callouts/3.png" alt="3" border="0"/></a> </p></td><td valign="top" align="left"><p>
+                            This is the backend defined by the configuration stanza <code class="option">[eseries-iscsi]</code>.
+                        </p></td></tr></table></div><p>
+            </p></div><div class="simplesect"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d6e1637"> </a>Creating and Defining Cinder Volume Types</h4></div></div></div><p>
+                In this section, we'll create a variety of Cinder Volume Types that leverage both the default capabilities of each driver, as well as the NetApp-specific extra specs described in <a class="xref" href="section_cinder-deployment-choices.html#cinder.netapp.extra_specs" title="Table 4.6. NetApp-supported Extra Specs for use with Cinder Volume Types">Table 4.6, “NetApp-supported Extra Specs for use with Cinder Volume Types”</a>. 
+                </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">The <code class="option">iscsi</code> type will provision Cinder volumes onto any backend that uses the iSCSI storage protocol (in this example, that would be <code class="option">[cdot-iscsi]</code> and <code class="option">[eseries-iscsi]</code>).</li><li class="listitem">The <code class="option">nfs</code> type will provision Cinder volumes onto any backend that uses the NFS storage protocol (in this example, that would be <code class="option">[cdot-nfs]</code>).</li><li class="listitem">The <code class="option">gold</code> type will provision Cinder volumes onto any backend that has a SnapMirror relationship (in this example, that would be <code class="option">[cdot-nfs]</code>, although only one of the four NFS exports defined in <code class="filename">/etc/cinder/nfs_shares</code> has this support).</li><li class="listitem">The <code class="option">silver</code> type will provision Cinder volumes onto any backend that has deduplication enabled (in this example, that would be <code class="option">[cdot-nfs]</code>, although only one of the four NFS exports defined in <code class="filename">/etc/cinder/nfs_shares</code> has this support).</li><li class="listitem">The <code class="option">bronze</code> type will provision Cinder volumes onto any backend that has compression enabled (in this example, that would be <code class="option">[cdot-nfs]</code>, although only one of the four NFS exports defined in <code class="filename">/etc/cinder/nfs_shares</code> has this support).</li><li class="listitem">The <code class="option">analytics</code> type will provision Cinder volumes onto the <code class="option">[eseries-iscsi]</code> backend.</li></ul></div><p>
+</p><pre class="programlisting">
+vagrant@precise64:~/devstack$ cinder type-create iscsi
++--------------------------------------+-------+
+|                  ID                  |  Name |
++--------------------------------------+-------+
+| 46cecec0-a040-476c-9475-036ca5577e6a | iscsi |
++--------------------------------------+-------+
+
+vagrant@precise64:~/devstack$ cinder type-create nfs  
++--------------------------------------+------+
+|                  ID                  | Name |
++--------------------------------------+------+
+| 7564ec5c-a81b-4c62-8376-fdcab62037a2 | nfs  |
++--------------------------------------+------+
+
+vagrant@precise64:~/devstack$ cinder type-create gold
++--------------------------------------+------+
+|                  ID                  | Name |
++--------------------------------------+------+
+| 0ac5c001-d5fa-4fce-a9e3-e2cce7460027 | gold |
++--------------------------------------+------+
+
+vagrant@precise64:~/devstack$ cinder type-create silver
++--------------------------------------+--------+
+|                  ID                  |  Name  |
++--------------------------------------+--------+
+| f820211a-ee1c-47ff-8f70-2be45112826d | silver |
++--------------------------------------+--------+
+
+vagrant@precise64:~/devstack$ cinder type-create bronze
++--------------------------------------+--------+
+|                  ID                  |  Name  |
++--------------------------------------+--------+
+| ae110bfc-0f5a-4e93-abe1-1a31856c0ec7 | bronze |
++--------------------------------------+--------+
+
+vagrant@precise64:~/devstack$ cinder type-create analytics
++--------------------------------------+-----------+
+|                  ID                  |    Name   |
++--------------------------------------+-----------+
+| 66459c78-5cb5-4a15-a476-f1138a4022bc | analytics |
++--------------------------------------+-----------+
+</pre><p>
+</p><pre class="programlisting">
+vagrant@precise64:~/devstack$ cinder type-key iscsi set storage_protocol=iSCSI
+vagrant@precise64:~/devstack$ cinder type-key nfs set storage_protocol=nfs
+vagrant@precise64:~/devstack$ cinder type-key gold set netapp_mirrored=true
+vagrant@precise64:~/devstack$ cinder type-key silver set netapp_dedup=true
+vagrant@precise64:~/devstack$ cinder type-key bronze set netapp_compression=true
+vagrant@precise64:~/devstack$ cinder type-key analytics set volume_backend_name=eseries-iscsi
+vagrant@precise64:~/devstack$ cinder extra-specs-list
++--------------------------------------+-----------+--------------------------------------------+
+|                  ID                  |    Name   |                extra_specs                 |
++--------------------------------------+-----------+--------------------------------------------+
+| 0ac5c001-d5fa-4fce-a9e3-e2cce7460027 |    gold   |       {u'netapp_mirrored': u'true'}        |
+| 46cecec0-a040-476c-9475-036ca5577e6a |   iscsi   |      {u'storage_protocol': u'iSCSI'}       |
+| 66459c78-5cb5-4a15-a476-f1138a4022bc | analytics | {u'volume_backend_name': u'eseries-iscsi'} |
+| 7564ec5c-a81b-4c62-8376-fdcab62037a2 |    nfs    |       {u'storage_protocol': u'nfs'}        |
+| ae110bfc-0f5a-4e93-abe1-1a31856c0ec7 |   bronze  |      {u'netapp_compression': u'true'}      |
+| f820211a-ee1c-47ff-8f70-2be45112826d |   silver  |         {u'netapp_dedup': u'true'}         |
++--------------------------------------+-----------+--------------------------------------------+
+                </pre><p>
+            </p></div><div class="simplesect"><div xmlns="" class="titlepage"><div><div><h4 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d6e1666"> </a>Creating Cinder Volumes with Volume Types</h4></div></div></div><p>
+                In this section, we'll create volumes with no type, as well as each of the previously defined volume types.
+                </p><pre class="programlisting">
+vagrant@precise64:~/devstack$ cinder create --name myGold --volume-type gold 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:23:57.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 3678281e-3924-4512-952a-5b89713fac4d |
+|            metadata            |                  {}                  |
+|              name              |                myGold                |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                 gold                 |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name mySilver --volume-type silver 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:24:12.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 6dd3e64d-ca02-4156-8532-24294db89329 |
+|            metadata            |                  {}                  |
+|              name              |               mySilver               |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                silver                |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name myBronze --volume-type bronze 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:24:28.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 459b388f-ae1d-49bf-9c1d-3fe3b18afad3 |
+|            metadata            |                  {}                  |
+|              name              |               myBronze               |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                bronze                |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name myISCSI --volume-type iscsi 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:25:42.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 93ef9627-ac75-46ae-820b-f722765d7828 |
+|            metadata            |                  {}                  |
+|              name              |               myISCSI                |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                iscsi                 |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name myNFS --volume-type nfs 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:26:03.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 4ccf1a4c-cfe0-4b35-8435-400547cabcdd |
+|            metadata            |                  {}                  |
+|              name              |                myNFS                 |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                 nfs                  |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:~/devstack$ cinder create --name myAnalytics --volume-type analytics 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T17:26:17.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 55d0bbfa-6792-406d-8dc8-2bf1fb94b0dc |
+|            metadata            |                  {}                  |
+|              name              |             myAnalytics              |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |              analytics               |
++--------------------------------+--------------------------------------+
+
+vagrant@precise64:/opt/stack/data/cinder$ cinder create --name myGenericVol 1
++--------------------------------+--------------------------------------+
+|            Property            |                Value                 |
++--------------------------------+--------------------------------------+
+|          attachments           |                  []                  |
+|       availability_zone        |                 nova                 |
+|            bootable            |                false                 |
+|           created_at           |      2014-05-20T18:01:02.000000      |
+|          description           |                 None                 |
+|           encrypted            |                False                 |
+|               id               | 12938589-3ca9-49a7-bcd7-003bbcd62895 |
+|            metadata            |                  {}                  |
+|              name              |             myGenericVol             |
+|     os-vol-host-attr:host      |                 None                 |
+| os-vol-mig-status-attr:migstat |                 None                 |
+| os-vol-mig-status-attr:name_id |                 None                 |
+|  os-vol-tenant-attr:tenant_id  |   f42d5597fb084480a9626c2ca844db3c   |
+|              size              |                  1                   |
+|          snapshot_id           |                 None                 |
+|          source_volid          |                 None                 |
+|             status             |               creating               |
+|            user_id             |   a9ef3a9f935f4761861afb003986bdab   |
+|          volume_type           |                 None                 |
++--------------------------------+--------------------------------------+
+</pre><p>
+</p><pre class="programlisting">
+vagrant@precise64:/opt/stack/data/cinder$ cinder list
++--------------------------------------+-----------+--------------+------+-------------+----------+-------------+
+|                  ID                  |   Status  |     Name     | Size | Volume Type | Bootable | Attached to |
++--------------------------------------+-----------+--------------+------+-------------+----------+-------------+
+| 12938589-3ca9-49a7-bcd7-003bbcd62895 | available | myGenericVol |  1   |     None    |  false   |             |
+| 1f71ccef-781b-4628-b0f7-44030acd8181 | available |   myISCSI    |  1   |    iscsi    |  false   |             |
+| 3678281e-3924-4512-952a-5b89713fac4d | available |    myGold    |  1   |     gold    |  false   |             |
+| 459b388f-ae1d-49bf-9c1d-3fe3b18afad3 | available |   myBronze   |  1   |    bronze   |  false   |             |
+| 4ccf1a4c-cfe0-4b35-8435-400547cabcdd | available |    myNFS     |  1   |     nfs     |  false   |             |
+| 55d0bbfa-6792-406d-8dc8-2bf1fb94b0dc | available | myAnalytics  |  1   |  analytics  |  false   |             |
+| 6dd3e64d-ca02-4156-8532-24294db89329 | available |   mySilver   |  1   |    silver   |  false   |             |
+| 93ef9627-ac75-46ae-820b-f722765d7828 | available |   myISCSI    |  1   |    iscsi    |  false   |             |
++--------------------------------------+-----------+--------------+------+-------------+----------+-------------+
+</pre><p>
+                We'll now look at the local NFS mounts that are present on the node that is running <span class="command"><strong>cinder-volume</strong></span> and look for the volumes that were created
+                on NFS backends. By mapping the mountpoints to the directories where the volume files exist, we are able to associate that the volumes were created in the appropriate FlexVol volume that had the NetApp-specific features enabled that matched the Cinder volume type definitions.
+                </p><pre class="programlisting">
+vagrant@precise64:~/devstack$ mount |grep cinder
+10.63.40.153:/vol2_dedup on /opt/stack/data/cinder/mnt/6fbcc46d69a86a6be25f3df3e6ae55ba type nfs (rw,vers=4,addr=10.63.40.153,clientaddr=192.168.114.157)
+10.63.40.153:/vol3_compressed on /opt/stack/data/cinder/mnt/aac4e6312b50b1fd6ddaf25d8dec8aaa type nfs (rw,vers=4,addr=10.63.40.153,clientaddr=192.168.114.157)
+10.63.40.153:/vol4_mirrored on /opt/stack/data/cinder/mnt/89af08204a543dd0985fa11b16f3d22f type nfs (rw,vers=4,addr=10.63.40.153,clientaddr=192.168.114.157)
+10.63.40.153:/vol5_plain on /opt/stack/data/cinder/mnt/e15a92dcf98a7b3fdb3963e39ed0796f type nfs (rw,vers=4,addr=10.63.40.153,clientaddr=192.168.114.157)
+vagrant@precise64:~/devstack$ cd /opt/stack/data/cinder/
+vagrant@precise64:/opt/stack/data/cinder$ find . -name volume-\*
+./mnt/89af08204a543dd0985fa11b16f3d22f/volume-3678281e-3924-4512-952a-5b89713fac4d <a class="co" id="vol-gold-co" href="cinder.examples.cinder_cli.html#vol-gold"><img src="../common/images/callouts/1.png" alt="1" border="0"/></a>
+./mnt/aac4e6312b50b1fd6ddaf25d8dec8aaa/volume-459b388f-ae1d-49bf-9c1d-3fe3b18afad3 <a class="co" id="vol-bronze-co" href="cinder.examples.cinder_cli.html#vol-bronze"><img src="../common/images/callouts/2.png" alt="2" border="0"/></a>
+./mnt/6fbcc46d69a86a6be25f3df3e6ae55ba/volume-6dd3e64d-ca02-4156-8532-24294db89329 <a class="co" id="vol-silver-co" href="cinder.examples.cinder_cli.html#vol-silver"><img src="../common/images/callouts/3.png" alt="3" border="0"/></a>
+./mnt/6fbcc46d69a86a6be25f3df3e6ae55ba/volume-4ccf1a4c-cfe0-4b35-8435-400547cabcdd <a class="co" id="vol-nfs-co" href="cinder.examples.cinder_cli.html#vol-nfs"><img src="../common/images/callouts/4.png" alt="4" border="0"/></a>
+                </pre><p>
+</p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a id="vol-gold"> </a><a href="#vol-gold-co"><img src="../common/images/callouts/1.png" alt="1" border="0"/></a> </p></td><td valign="top" align="left"><p>
+            This is the volume of type <code class="option">gold</code> which was placed on <code class="option">10.63.40.153:/vol4_mirrored</code>.
+        </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a id="vol-bronze"> </a><a href="#vol-bronze-co"><img src="../common/images/callouts/2.png" alt="2" border="0"/></a> </p></td><td valign="top" align="left"><p>
+            This is the volume of type <code class="option">bronze</code> which was placed on <code class="option">10.63.40.153:/vol3_compressed</code>.
+        </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a id="vol-silver"> </a><a href="#vol-silver-co"><img src="../common/images/callouts/3.png" alt="3" border="0"/></a> </p></td><td valign="top" align="left"><p>
+            This is the volume of type <code class="option">silver</code> which was placed on <code class="option">10.63.40.153:/vol2_dedup</code>.
+        </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a id="vol-nfs"> </a><a href="#vol-nfs-co"><img src="../common/images/callouts/4.png" alt="4" border="0"/></a> </p></td><td valign="top" align="left"><p>
+            This is the volume of type <code class="option">nfs</code> which was placed on <code class="option">10.63.40.153:/vol2_dedup</code>. It could have been placed on <code class="option">10.63.40.153:/vol3_compressed</code>, <code class="option">10.63.40.153:/vol4_mirrored</code>, or <code class="option">10.63.40.153:/vol5_plain</code> as any of those destinations would have fulfilled the volume type criteria of <code class="option">storage_protocol=nfs</code>.
+        </p></td></tr></table></div><p>
+            </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../common/images/admon/note.png"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>
+                    Note that the volumes of type <code class="option">analytics</code> and <code class="option">iscsi</code>, as well as the volume created without a type did not appear under the NFS mount points because they were created as iSCSI LUNs within the E-Series and CDOT systems, respectively.
+                </p></td></tr></table></div></div></div><script type="text/javascript" src="../common/main.js"><!----></script><hr/><div id="disqus_thread"><script type="text/javascript">
+	      if(window.location.protocol.substring(0,4) == 'http'){
+	        var disqus_shortname = '';
+	      
+	        var disqus_identifier = 'bk-deployment-ops-guidecinder.examples.cinder_cli';
+	      
+	      }
+	    </script><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript><script type="text/javascript" src="../common/comments.js"><!----></script></div><hr/><div class="legal"><a href="index.html">Legal notices</a></div></div><div><div id="leftnavigation" style="padding-top:3px; background-color:white;"><div id="tabs"><ul><li><a href="#treeDiv" tabindex="1"><span class="contentsTab">Contents</span></a></li><li><a href="#searchDiv" tabindex="1"><span class="searchTab">Search</span></a></li></ul><div id="treeDiv"><img src="../common/images/loading.gif" alt="loading table of contents..." id="tocLoading" style="display:block;"/><div id="ulTreeDiv" style="display:none" class="thisisthat"><ul id="tree" class="filetree"><li tabindex="2"><span class="file"><a href="ch_executive-summary.html">1. Executive Summary</a></span><ul><li tabindex="2"><span class="file"><a href="authors-and-contributors.html">Authors and Contributors</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_openstack-overview.html">2. OpenStack Overview</a></span><ul><li tabindex="2"><span class="file"><a href="section_openstack-foundation.html">OpenStack Foundation</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html">OpenStack - A Modular Collection of Cloud Services</a></span><ul><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e96">OpenStack Compute (project name: Nova)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e99">OpenStack Block Storage (project name: Cinder)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e102">OpenStack Object Storage (project name: Swift)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e105">OpenStack Dashboard (project name: Horizon)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e108">OpenStack Identity (project name: Keystone)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e116">OpenStack Image Service (project name: Glance)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e119">OpenStack Network Service (project name: Neutron)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e122">OpenStack Telemetry (project name: Ceilometer)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e125">OpenStack Orchestration (project name: Heat)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e128">OpenStack Database as a Service (project name: Trove)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e131">OpenStack Hadoop as a Service (project name: Sahara)</a></span></li><li tabindex="2"><span class="file"><a href="section_modular-collection.html#d6e134">OpenStack File Share Service (project name: Manila)</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_releases-distributions.html">OpenStack Releases and Distributions</a></span></li><li tabindex="2"><span class="file"><a href="section_contributions.html">NetApp's Contributions To OpenStack</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_netapp-storage.html">3. About NetApp Storage Systems and Software</a></span><ul><li tabindex="2"><span class="file"><a href="section_data-ontap.html">Description of Data ONTAP</a></span><ul><li tabindex="2"><span class="file"><a href="section_data-ontap.html#d6e199">Clustered Data ONTAP</a></span></li><li tabindex="2"><span class="file"><a href="section_data-ontap.html#d6e239">Data ONTAP operating in 7-Mode</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_fas-systems.html">Description of FAS Systems</a></span></li><li tabindex="2"><span class="file"><a href="section_e-ef-series.html">Description of E-Series and EF-Series Systems</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_cinder.html">4. OpenStack Block Storage Service (Cinder)</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-overview.html">Overview</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html">Key Concepts</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e286">Volume</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e294">Snapshot</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e298">Backend</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e308">Driver</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-key-concepts.html#d6e313">Volume Type</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_cinder-processes.html">Process Structure</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-processes.html#d6e368">Volume Creation Workflow</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-processes.html#d6e396">Volume Attach Workflow</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html">API Overview</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e428">Volume API</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e484">Snapshot API</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e534">Volume Type API</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e564">Volume Type Extra Specs API</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-api-overview.html#d6e591">Volume Type QoS Specs API</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html">Theory of Operation &amp; Deployment Choices</a></span><ul><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e643">Construct Mappings between Cinder and Data ONTAP</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e673">Deployment Choice: Direct versus Intermediated</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e691">Deployment Choice: FAS vs E-Series</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e701">Deployment Choice: Clustered Data ONTAP vs Data ONTAP operating in 7-Mode</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#d6e708">Deployment Choice: NFS versus iSCSI</a></span></li><li tabindex="2"><span class="file"><a href="section_cinder-deployment-choices.html#cinder.volume_types">Using Cinder Volume Types to Create a Storage Service Catalog</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_cinder-configuration.html">Configuration</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.configuration.html">Cinder</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.configuration.html#d6e841">cinder.conf</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.netapp.drivers.html">NetApp Data ONTAP Drivers for OpenStack Block Storage (Cinder)</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.netapp.drivers.html#d6e862">Where to Obtain the Drivers</a></span></li><li tabindex="2"><span class="file"><a href="cinder.netapp.drivers.html#d6e870">Multiple Deployment Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.cdot.iscsi.configuration.html">NetApp Unified Driver for Clustered Data ONTAP with iSCSI</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.cdot.iscsi.configuration.html#d6e891">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.cdot.nfs.configuration.html">NetApp Unified Driver for Clustered Data ONTAP with NFS</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.cdot.nfs.configuration.html#d6e1002">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.7mode.iscsi.configuration.html">NetApp Unified Driver for Data ONTAP operating in 7-Mode with iSCSI</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.7mode.iscsi.configuration.html#d6e1138">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.7mode.nfs.configuration.html">NetApp Unified Driver for Data ONTAP operating in 7-Mode with NFS</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.7mode.nfs.configuration.html#d6e1257">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.fas.configuration.html">Data ONTAP Configuration</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.fas.configuration.html#d6e1381">Data ONTAP Prerequisites</a></span></li><li tabindex="2"><span class="file"><a href="cinder.fas.configuration.html#d6e1394">Storage Virtual Machine Considerations</a></span></li><li tabindex="2"><span class="file"><a href="cinder.fas.configuration.html#d6e1418">Storage Networking Considerations</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.eseries.iscsi.configuration.html">NetApp E-Series Driver for OpenStack Block Storage (Cinder)</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.eseries.iscsi.configuration.html#d6e1431">Deployment Topology</a></span></li><li tabindex="2"><span class="file"><a href="cinder.eseries.iscsi.configuration.html#d6e1452">Configuration Options</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="cinder.eseries.configuration.html">E-Series Configuration</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.eseries.configuration.html#d6e1581">E-Series Prerequisites</a></span></li><li tabindex="2"><span class="file"><a href="cinder.eseries.configuration.html#d6e1587">Storage Networking Considerations</a></span></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="section_cinder-examples.html">Examples</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.examples.cinder_conf.html">cinder.conf</a></span></li><li tabindex="2"><span class="file"><a href="cinder.examples.cdot.html">Clustered Data ONTAP</a></span></li><li tabindex="2" id="webhelp-currentid"><span class="file"><a href="cinder.examples.cinder_cli.html">Cinder Command Line Interface (CLI)</a></span><ul><li tabindex="2"><span class="file"><a href="cinder.examples.cinder_cli.html#d6e1619">Cinder Service Verfification</a></span></li><li tabindex="2"><span class="file"><a href="cinder.examples.cinder_cli.html#d6e1637">Creating and Defining Cinder Volume Types</a></span></li><li tabindex="2"><span class="file"><a href="cinder.examples.cinder_cli.html#d6e1666">Creating Cinder Volumes with Volume Types</a></span></li></ul></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="ch_glance-image-service.html">5. OpenStack Image Service (Glance)</a></span><ul><li tabindex="2"><span class="file"><a href="section_glance-overview.html">Overview</a></span></li><li tabindex="2"><span class="file"><a href="section_glance-key-concepts.html">Key Concepts</a></span><ul><li tabindex="2"><span class="file"><a href="section_glance-key-concepts.html#d6e1710">Image</a></span></li><li tabindex="2"><span class="file"><a href="section_glance-key-concepts.html#d6e1715">Store</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_glance-deployment-choices.html">Theory of Operation &amp; Deployment Choices</a></span><ul><li tabindex="2"><span class="file"><a href="section_glance-deployment-choices.html#d6e1738">Glance and Clustered Data ONTAP</a></span></li><li tabindex="2"><span class="file"><a href="section_glance-deployment-choices.html#glance.rapid_cloning">Enhanced Instance Creation</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_glance-configuration.html">Configuration</a></span><ul><li tabindex="2"><span class="file"><a href="glance.configuration.html">Glance</a></span></li><li tabindex="2"><span class="file"><a href="glance.fas.configuration.html">Configuration of Glance with NetApp FAS</a></span></li><li tabindex="2"><span class="file"><a href="glance.eseries.configuration.html">Configuration of Glance with NetApp E-Series and EF-Series</a></span></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="ch_nova.html">6. OpenStack Compute Service (Nova)</a></span><ul><li tabindex="2"><span class="file"><a href="section_nova-overview.html">Overview</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-key-concepts.html">Key Concepts</a></span><ul><li tabindex="2"><span class="file"><a href="section_nova-key-concepts.html#d6e1869">Instance</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-key-concepts.html#d6e1876">Flavor</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-key-concepts.html#d6e1880">Root (and ephemeral) disks</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_nova-deployment-choices.html">Theory of Operation &amp; Deployment Choices</a></span><ul><li tabindex="2"><span class="file"><a href="section_nova-deployment-choices.html#nova.boot.options">Root Disk Choices When Booting Nova Instances</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-deployment-choices.html#nova.instance.snapshots">Instance Snapshots vs. Cinder Snapshots</a></span></li><li tabindex="2"><span class="file"><a href="section_nova-deployment-choices.html#nova.instance.storage">Instance Storage Options at the Hypervisor</a></span></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="ch_swift.html">7. OpenStack Object Storage Service (Swift)</a></span><ul><li tabindex="2"><span class="file"><a href="section_swift-overview.html">Overview</a></span><ul><li tabindex="2"><span class="file"><a href="section_swift-overview.html#d6e1951">DDP Reconstruction</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_swift-e-series.html">Swift Zones and NetApp E-Series Storage</a></span></li><li tabindex="2"><span class="file"><a href="section_swift-disk-pools.html">Disk Pools, Volumes, and Mapping</a></span></li><li tabindex="2"><span class="file"><a href="section_swift-partitioning.html">Partitioning and File System Considerations</a></span><ul><li tabindex="2"><span class="file"><a href="section_swift-partitioning.html#d6e2005">Partitioning with Multipath</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="section_swift-ring-considerations.html">Swift Ring Considerations with DDP</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_operations.html">8. Operational Concerns</a></span><ul><li tabindex="2"><span class="file"><a href="section_cdot-ops.html">Operational Concerns with Data ONTAP</a></span><ul><li tabindex="2"><span class="file"><a href="section_cdot-ops.html#ops.thin_provisioning">Considerations for using thin provisioning with FlexVol volumes</a></span></li><li tabindex="2"><span class="file"><a href="section_cdot-ops.html#ops.nfs">NFS Best Practices</a></span></li><li tabindex="2"><span class="file"><a href="section_cdot-ops.html#ops.volume.migration">Volume Migration</a></span></li></ul></li></ul></li><li tabindex="2"><span class="file"><a href="appendix_packaging.html">A. Packaging</a></span><ul><li tabindex="2"><span class="file"><a href="appendix.packaging.requirements.html">Packaging and Downloading Requirements</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.install.html">Installation and Uninstallation</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.upgrading.html">Upgrading and Reverting</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.licensing.html">Licensing</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.versioning.html">Versioning</a></span></li><li tabindex="2"><span class="file"><a href="appendix.packaging.deprecation.html">Deprecated Drivers</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="appendix_debug.html">B. Troubleshooting</a></span><ul><li tabindex="2"><span class="file"><a href="appendix.debug.common_problems.html">Common Problems</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html">Triage and Data Collection</a></span><ul><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html#d6e2279">Cinder processes</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html#d6e2285">Nova processes</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html#d6e2291">Glance processes</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.triage.html#d6e2296">Swift processes</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="appendix.debug.references.html">References</a></span></li><li tabindex="2"><span class="file"><a href="appendix.debug.support.html">Support</a></span></li></ul></li><li tabindex="2"><span class="file"><a href="ch_backpage.html">About NetApp</a></span></li></ul></div></div><div id="searchDiv"><div id="search"><form onsubmit="Verifie(ditaSearch_Form);return false" name="ditaSearch_Form" class="searchForm"><fieldset class="searchFieldSet"><legend>Search</legend><center><input id="textToSearch" name="textToSearch" type="text" class="searchText"/> &nbsp; <input onclick="Verifie(ditaSearch_Form)" type="button" class="searchButton" value="Go" id="doSearch"/></center></fieldset></form></div><div id="searchResults"><center/></div><p class="searchHighlight"><a href="#" onclick="toggleHighlight()">Search Highlighter (On/Off)</a></p></div></div></div></div></body></html>
