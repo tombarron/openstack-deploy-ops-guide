@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_cdot-ops">
     <title>Operational Concerns with Data ONTAP</title>
-    <!--
-    <simplesect xml:id="ops.volume.migration">
-        <title>Volume Migration</title>
-        <para>
-            Cinder migration vs FlexVol migration?
-        </para>
-    </simplesect>
-    -->
     <simplesect xml:id="ops.thin_provisioning">
         <title>Considerations for using thin provisioning with FlexVol volumes</title>
         <para>
@@ -38,6 +30,57 @@
         <title>NFS Best Practices</title>
         <para>
             Be sure to refer to the <link xlink:href="http://www.netapp.com/us/system/pdf-reader.aspx?pdfuri=tcm:10-61288-16&amp;m=tr-4067.pdf">Clustered Data ONTAP NFS Best Practices and Implementation Guide</link> for information on how to optimally set up NFS exports for use with the various OpenStack services described in this guide.
+        </para>
+    </simplesect>
+    <simplesect xml:id="ops.volume.migration">
+        <title>Volume Migration</title>
+        <para>
+            Volume migration is a new feature added to the OpenStack Block Storage service in the Havana release. Volume migration allows the movement of data associated with a Cinder volume from one storage backend to another, completely transparent to any instances that may have the volume attached. Volume migration is agnostic to the storage protocol used to access the volume, and can be utilized to switch from leveraging iSCSI to NFS, or vice versa, even on the same physical NetApp system.
+        </para>
+        <para>
+            Please be aware of the following caveats:
+            <orderedlist>
+                <listitem>Volume migrations can only be performed by a cloud administrator, not a tenant or user.</listitem>
+                <listitem>Migration of volumes that have existing snapshots is not currently allowed. If it is important to retain the data stored in a snapshot for a volume you wish to migrate, one option is to create another Cinder volume from the snapshot (which creates a copy of the snapshot), and then delete the snapshot that is associated with the volume you wish to migrate.</listitem>
+                <listitem>Transparent migration of volumes that are attached to Nova instances are only supported when the Nova instances are running on a hypervisor that supports live migration. NetApp has qualified live migrations with the KVM hypervisor on Ubuntu 13.04 with the Havana release; note that earlier versions of Ubuntu (including 12.04 LTS) are known to not support migration of attached volumes.</listitem>
+            </orderedlist>
+        </para>
+        <formalpara>
+            <title>Migrating from Data ONTAP operating in 7-Mode to clustered Data ONTAP</title>
+            <para>
+            The volume migration feature of the OpenStack Block Storage service can be used to aid in the transition from Data ONTAP operating in 7-Mode to clustered Data ONTAP seamlessly. If you have volumes managed by Cinder on a Data ONTAP operating in 7-Mode storage system, you can configure the clustered Data ONTAP instance as a new backend in the Cinder configuration and leverage the migration feature to move existing volumes to the new backend and then retire the Data ONTAP operating in 7-Mode system, if desired. 
+        </para>
+    </formalpara>
+        <para>
+            Once you have configured both the storage systems to operate with Cinder, you can verify both backends have been enabled successfully and are ready to support the migration process.
+            <programlisting><?db-font-size 75%?>
+$ cinder service list
++------------------+-------------------+------+---------+-------+--------------------------+
+|      Binary      |       Host        | Zone |  Status | State |        Updated_at        |
++------------------+-------------------+------+---------+-------+--------------------------+
+| cinder-scheduler |     openstack1    | nova | enabled |   up  | 2013-1-1T19:01:26.000000 |
+|  cinder-volume   |  openstack1@7mode | nova | enabled |   up  | 2013-1-1T19:01:18.000000 |
+|  cinder-volume   |  openstack1@cDOT  | nova | enabled |   up  | 2013-1-1T19:01:27.000000 |
++------------------+-------------------+------+---------+-------+--------------------------+
+</programlisting>
+The host openstack1@7mode represents the backend representing the Data ONTAP operating in 7-Mode system, and openstack1@cDOT represents the backend representing the clustered Data ONTAP system.
+Volumes can be migrated individually to the new backend, using the cinder migrate CLI command. For example, suppose we have a volume with ID 781501e1-af79-4d3e-be90-f332a5841f5e on the openstack1@7mode storage backend. We can move it to the openstack1@cDOT backend with the following CLI command:
+            <programlisting>
+cinder migrate 781501e1-af79-4d3e-be90-f332a5841f5e openstack1@cDOT
+        </programlisting>
+            The command is asynchronous and will complete in the background. You can check the status of the migration with the show command:
+            <programlisting>
+cinder show 781501e1-af79-4d3e-be90-f332a5841f5e
+        </programlisting>
+        </para>
+        <para>
+            While a volume migration is in progress, Cinder commands from tenants that involve operations on the volume (such as attach/detach, snapshot, clone, etc) will fail.
+        </para>
+        <para>
+            During this process, the data is copied inefficiently through the cinder-volume node. This compares unfavorably to data-efficient migration techniques, but has the significant advantage that it can be completely non-disruptive (if live migration is supported) and it can be done in small increments of one Cinder volume at a time, so the operations can be distributed over periods when load is minimal.
+        </para>
+        <para>
+            If you are utilizing a hypervisor that does not support live migration of volumes and the volume is currently attached, it will be necessary to detach the volume from the Nova instance before performing the migration. If the volume is the boot volume or otherwise critical to the operation of the instance, you will need to shutdown the Nova instance before performing the migration. 
         </para>
     </simplesect>
 </section>

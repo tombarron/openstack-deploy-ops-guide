@@ -20,7 +20,7 @@ lrwxrwxrwx 1 root root       7 May  5 15:20 360080e50003222300000019053450e18 ->
 crw------- 1 root root 10, 236 May  5 15:20 control
             </programlisting>
             Now we will use the <command>parted</command> command to partition the mapped devices:
-            <programlisting>
+            <programlisting><?db-font-size 70%?>
 root@stlrx300s7-102:/dev/mapper# luns=`ls|grep -v control`
 root@stlrx300s7-102:/dev/mapper# for i in $luns
 > do
@@ -75,7 +75,7 @@ crw------- 1 root root 10, 236 May  5 15:20 control
         </para>
     </tip>
         You can verify that the underlying filesystem has the correct values for stripe unit and stripe width by using the <command>xfs_info</command> command:
-    <programlisting>
+        <programlisting><?db-font-size 75%?>
 mount -t xfs -o nobarrier,noatime,nodiratime,inode64 /dev/mapper/360080e50003220a80000017353450e3f-part1 /disk1
 # xfs_info /disk1
 meta-data=/dev/mapper/360080e50003220a80000017353450e3f-part1 isize=1024   agcount=4, agsize=83623808 blks

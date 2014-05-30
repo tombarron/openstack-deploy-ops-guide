@@ -42,7 +42,7 @@
     <simplesect>
         <title>OpenStack Identity (project name: Keystone)</title>
         <para>
-            OpenStack Identity provides a central directory of users mapped to the OpenStack services they can access. It acts as a common authentication system across the cloud operating system and can integrate with existing backend directory services (for example, for example, LDAP). It supports multiple forms of authentication including standard user name and password credentials, token-based systems and AWS-style logins. Additionally, the catalog provides a list of all of the services deployed in an OpenStack cloud in that can be queried in a single registry. Users and third-party tools can programmatically determine which resources they can access. OpenStack Identity enables:
+            OpenStack Identity provides a central directory of users mapped to the OpenStack services they can access. It acts as a common authentication system across the cloud operating system and can integrate with existing backend directory services (for example, LDAP). It supports multiple forms of authentication including standard user name and password credentials, token-based systems and AWS-style logins. Additionally, the catalog provides a list of all of the services deployed in an OpenStack cloud in that can be queried in a single registry. Users and third-party tools can programmatically determine which resources they can access. OpenStack Identity enables:
         </para>
         <itemizedlist>
             <listitem>

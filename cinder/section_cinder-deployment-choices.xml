@@ -44,11 +44,11 @@
         <formalpara>
             <title>Cinder snapshots versus NetApp snapshots</title>
             <para>
-                A NetApp snapshot copy is a point-in-time file system image. Low-overhead Snapshot copies are made possible by the unique features of the WAFL storage virtualization technology that is part of Data ONTAP. Up to 255 Snapshot copies can kept at any time for a FlexVol volume.
+                A NetApp snapshot copy is a point-in-time file system image. Low-overhead Snapshot copies are made possible by the unique features of the WAFL storage virtualization technology that is part of Data ONTAP. The high performance of the NetApp Snapshot makes it highly scalable.  A NetApp Snapshot takes only a few seconds to create — typically less than one second, regardless of the size of the volume or the level of activity on the NetApp storage system. After a Snapshot copy has been created, changes to data objects are reflected in updates to the current version of the objects, as if Snapshot copies did not exist. Meanwhile, the Snapshot version of the data remains completely stable. A NetApp Snapshot incurs no performance overhead; users can comfortably store up to 255 Snapshot copies per FlexVol volume, all of which are accessible as read-only and online versions of the data.
             </para>
         </formalpara>
         <para>
-             Since NetApp Snapshots are taken at the FlexVol level, they can not be directly leveraged within an OpenStack context, as a user of Cinder requests a snapshot be taken of a particular Cinder volume (not the containing FlexVol volume). As a Cinder volume is represented as either a file on NFS or an iSCSI LUN, the way that Cinder snapshots are created is through use of NetApp's FlexClone technology.  
+             Since NetApp Snapshots are taken at the FlexVol level, they can not be directly leveraged within an OpenStack context, as a user of Cinder requests a snapshot be taken of a particular Cinder volume (not the containing FlexVol volume). As a Cinder volume is represented as either a file on NFS or an iSCSI LUN, the way that Cinder snapshots are created is through use of NetApp's FlexClone technology. By leveraging the FlexClone technology to provide Cinder snapshots, it is possible to create thousands of Cinder snapshots for a single Cinder volume.
         </para>
         <para>
             FlexClone files or FlexClone LUNs and their parent files or LUNs that are present in the FlexClone volume continue to share blocks the same way they do in the parent FlexVol volume. In fact, all the FlexClone entities and their parents share the same underlying physical data blocks, minimizing physical disk space usage. 
@@ -177,7 +177,7 @@
         <para>
             Extra specs are associated with Cinder volume types, so that when users request volumes of a particular volume type, they will be created on storage backends that meet the list of requirements (e.g. available space, extra specs, etc). You can use the specs in <xref linkend="cinder.netapp.extra_specs"/> later in this section when defining Cinder volume types using the <command>cinder type-key</command> command.
         </para>
-        <table rules="all" xml:id="cinder.netapp.extra_specs">
+        <table rules="all" width="100%" xml:id="cinder.netapp.extra_specs">
             <caption>NetApp-supported Extra Specs for use with Cinder Volume Types</caption>
             <col width="1.75in"/>
             <col width="0.65in"/>

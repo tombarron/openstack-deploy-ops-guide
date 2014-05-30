@@ -3,6 +3,7 @@
     <title>OpenStack Deployment and Operations Guide</title>
     <titleabbrev>Deployment and Operations Guide</titleabbrev>
     <info>
+        <legalnotice>All rights reserved. No portions of this document may be reproduced without prior written consent of NetApp, Inc. Specifications are subject to change without notice. NetApp, the NetApp logo, Go further, faster, DataFabric, Data ONTAP, FlexClone, MultiStore, OnCommand, ONTAPI, and vFiler are trademarks or registered trademarks of NetApp, Inc. in the United States and/or other countries. Windows is a registered trademark of Microsoft Corporation. Linux is a registered trademark of Linus Torvalds. Java is a registered trademark of Oracle Corporation. All other brands or products are trademarks or registered trademarks of their respective holders and should be treated as such.</legalnotice>
         <authorgroup>
             <author>
                 <personname>

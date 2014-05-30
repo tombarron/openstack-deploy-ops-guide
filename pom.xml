@@ -115,6 +115,122 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.rackspace.cloud.api</groupId>
+                <artifactId>clouddocs-maven-plugin</artifactId>
+                <version>2.0.3</version>
+                <executions>
+                    <execution>
+                        <id>generate-webhelp</id>
+                        <goals>
+                            <goal>generate-webhelp</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <enableDisqus>false</enableDisqus>
+                            <generateToc>
+                                appendix  toc,title
+                                article/appendix  nop
+                                article   toc,title
+                                book      toc,title,figure,table,example,equation
+                                chapter   toc,title
+                                section   toc
+                                part      toc,title
+                                qandadiv  toc
+                                qandaset  toc
+                                reference toc,title
+                                set       toc,title
+                            </generateToc>
+                            <sectionAutolabel>0</sectionAutolabel>
+                            <tocSectionDepth>1</tocSectionDepth>
+                            <sectionLabelIncludesComponentLabel>0</sectionLabelIncludesComponentLabel>
+                            <!--<webhelpDirname>${release.path.name}/config-reference</webhelpDirname>
+                            <pdfFilenameBase>config-reference-${release.path.name}</pdfFilenameBase>-->
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <bodyFontFamily>Arial</bodyFontFamily>
+                    <fonts>
+                        <font>
+                            <name>Arial</name>
+                            <style>normal</style>
+                            <weight>normal</weight>
+                            <embedFile>${basedir}/src/fonts/Arial.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/Arial-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>Arial</name>
+                            <style>italic</style>
+                            <weight>normal</weight>
+                            <embedFile>${basedir}/src/fonts/Arial-Italic.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/Arial-Italic-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>Arial</name>
+                            <style>normal</style>
+                            <weight>bold</weight>
+                            <embedFile>${basedir}/src/fonts/Arial-Bold.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/Arial-Bold-metrics.xml</metricsFile>
+                        </font>
+                        <font>
+                            <name>Arial</name>
+                            <style>italic</style>
+                            <weight>bold</weight>
+                            <embedFile>${basedir}/src/fonts/Arial-Bold-Italic.ttf</embedFile>
+                            <metricsFile>${basedir}/target/fonts/Arial-Bold-Italic-metrics.xml</metricsFile>
+                        </font>
+                    </fonts>
+                    <foCustomization>foCustomization.xsl</foCustomization>
+                    <hyphenate>false</hyphenate>
+                    <headerRule>0</headerRule>
+                    <footerRule>0</footerRule>
+                    <!-- The following elements sets the autonumbering of sections in output for chapter numbers but no numbered sections-->
+                    <sectionAutolabel>1</sectionAutolabel>
+                    <tocSectionDepth>1</tocSectionDepth>
+                    <sectionLabelIncludesComponentLabel>1</sectionLabelIncludesComponentLabel>
+                    <xincludeSupported>true</xincludeSupported>
+                    <sourceDirectory>.</sourceDirectory>
+                    <includes>bk-deployment-ops-guide.xml</includes>
+                    <showXslMessages>true</showXslMessages>
+                    <linenumberingExtension>true</linenumberingExtension>
+                    <calloutGraphicsExtension>.png</calloutGraphicsExtension>
+                    <calloutGraphicsNumberLimit>15</calloutGraphicsNumberLimit>
+                    <branding>netapp</branding>
+                    <makePdf>false</makePdf>
+                    <highlightSource>true</highlightSource>
+                    <failOnValidationError>no</failOnValidationError>
+                    <preProcess>
+                        <copy todir="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide/content/images">
+                            <fileset dir="${basedir}/images">
+                                <include name="na_logo_hrz_2c_rgb.png"/>
+                                <include name="favicon-netapp.ico"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide/common/">
+                            <fileset dir="${basedir}/src">
+                                <include name="**/*.js"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide/common/css">
+                            <fileset dir="${basedir}/src">
+                                <include name="**/*.css"/>
+                            </fileset>
+                        </copy>
+                        <move file="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide/content/images/na_logo_hrz_2c_rgb.png" tofile="target/docbkx/webhelp/bk-deployment-ops-guide/common/images/netapp-logo.png" failonerror="false"/>
+                        <move file="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide/content/images/favicon-netapp.ico" tofile="target/docbkx/webhelp/bk-deployment-ops-guide/common/images/favicon-netapp.ico" failonerror="false"/>
+                    </preProcess>
+                    <postProcess>
+                        <replace dir="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide-external/content">
+                            <include name="**/*.html"/>
+                            <replacefilter token="Rackspace Manuals" value="OpenStack @ NetApp"/>
+                            <replacefilter token="Rackspace Documentation" value="NetApp Documentation"/>
+                            <replacefilter token="http://docs.rackspace.com/api/" value="http://www.netapp.com/openstack"/>
+                            <replacefilter token="http://www.rackspace.com" value="http://www.netapp.com"/>
+                        </replace>
+                    </postProcess>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

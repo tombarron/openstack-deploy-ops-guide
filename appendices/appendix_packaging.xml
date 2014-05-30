@@ -16,7 +16,7 @@
             Refer to the following link for documentation on the E-Series SANtricity software: <link xlink:href="http://support.netapp.com/documentation/productlibrary/index.html?productID=61197"/>
         </para>
         <para>
-            Refer to the following link for documentation on configuring dm-multipath on Linux: <link xlink:href="https://library.netapp.com/ecmdocs/ECMP1217221/html/GUID-34FA2578-0A83-4ED3-B4B3-8401703D65A6.html"/>
+            Refer to the following link for documentation on configuring <command>dm-multipath</command> on Linux: <link xlink:href="https://library.netapp.com/ecmdocs/ECMP1217221/html/GUID-34FA2578-0A83-4ED3-B4B3-8401703D65A6.html"/>
         </para>
     </section>
     <section xml:id="appendix.packaging.upgrading">

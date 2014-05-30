@@ -4,7 +4,7 @@
     <para>
         OpenStack’s major release cadence switched from every three months to 6 months starting with the Essex release. The Juno release date is tentative as of the date of this writing. Successive releases are alphabetically incremented. Hence, the release intended for April of 2015, by convention, will start with the letter “K.”
     </para>
-    <table rules="all">
+    <table rules="all" width="100%">
         <caption>OpenStack Releases to Date</caption>
         <col width="1.5in"/>
         <col width="2in"/>
@@ -61,7 +61,7 @@
         Additionally, for each major version a stable branch is maintained. These branches represent a centralized effort to maintain bugfixes and security vulnerability patches for released OpenStack project versions in a ready-to-deploy form.
     </para>
     <para>
-        OpenStack is often consumed through one of a variety of prepackaged methods (for example: Red Hat’s RHEL-OSP, Rackspace Private Cloud Software, Canonical’s Ubuntu, SUSE Cloud, StackOps, MetaCloud Carbon OS and a growing variety of other options). Additional distributions or packaged appliances (for example, for example, Nebula One) from leading technology vendors are currently under development or are in preview, and are expected to be released in the coming months.
+        OpenStack is often consumed through one of a variety of prepackaged methods (for example: Red Hat’s RHEL-OSP, Rackspace Private Cloud Software, Canonical’s Ubuntu, SUSE Cloud, StackOps, MetaCloud Carbon OS and a growing variety of other options). Additional distributions or packaged appliances (for example, Nebula One) from leading technology vendors are currently under development or are in preview, and are expected to be released in the coming months.
     </para>
     <para>
         This document is intended to be broadly applicable to deployment with distributions meeting the OpenStack Foundation’s requirements for a compliant software distribution.

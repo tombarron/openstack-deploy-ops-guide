@@ -9,7 +9,7 @@
         <para>
             <xref linkend="cinder.api.volume_table"/> specifies the valid operations that can be performed on Cinder volumes. Please note that Cinder volumes are identified as CLI command arguments by either their names or UUID.
         </para>
-        <table rules="all" xml:id="cinder.api.volume_table">
+        <table rules="all" width="100%" xml:id="cinder.api.volume_table">
             <caption>Cinder API Overview - Volume</caption>
             <col width="1in"/>
             <col width="1.4in"/>
@@ -70,7 +70,7 @@
         <para>
             <xref linkend="cinder.api.snapshot_table"/> specifies the valid operations that can be performed on Cinder snapshots. Please note that Cinder snapshots are identified as CLI command arguments by either their display name or UUID.
         </para>
-        <table rules="all" xml:id="cinder.api.snapshot_table">
+        <table rules="all" width="100%" xml:id="cinder.api.snapshot_table">
             <caption>Cinder API Overview - Snapshot</caption>
             <col width="0.7in"/>
             <col width="1.55in"/>
@@ -127,7 +127,7 @@
     <para>
         <xref linkend="cinder.api.backup_table"/> specifies the valid operations that can be performed on Cinder backups. Please note that Cinder backups are identified as CLI command arguments by either their display name or UUID.
     </para>
-    <table rules="all" xml:id="cinder.api.backup_table">
+    <table rules="all" width="100%" xml:id="cinder.api.backup_table">
         <caption>Cinder API Overview - Backup</caption>
         <col width="0.75in"/>
         <col width="1.75in"/>
@@ -174,7 +174,7 @@
         <para>
             <xref linkend="cinder.api.volume_type_table"/> specifies the valid operations that can be performed on Cinder volume types. Please note that Cinder volume types are identified as CLI command arguments by either their display name or UUID.
         </para>
-        <table rules="all" xml:id="cinder.api.volume_type_table">
+        <table rules="all" width="100%" xml:id="cinder.api.volume_type_table">
             <caption>Cinder API Overview - Volume Type</caption>
             <col width="1in"/>
             <col width="1.5in"/>
@@ -210,7 +210,7 @@
         <para>
             <xref linkend="cinder.api.volume_type_extra_specs_table"/> specifies the valid operations that can be performed on Cinder volume type extra specs. Please note that Cinder volume type extra specs are properties of Cinder volume types and are identified by their parent object.
         </para>
-        <table rules="all" xml:id="cinder.api.volume_type_extra_specs_table">
+        <table rules="all" width="100%" xml:id="cinder.api.volume_type_extra_specs_table">
             <caption>Cinder API Overview - Volume Type Extra Specs</caption>
             <col width="1.25in"/>
             <col width="2in"/>
@@ -241,7 +241,7 @@
         <para>
             <xref linkend="cinder.api.volume_type_qos_specs_table"/> specifies the valid operations that can be performed on Cinder volume type QoS specs. Please note that Cinder volume type QoS specs are created independently of Cinder volume types and are subsequently associated with a Cinder volume type.
         </para>
-        <table rules="all" xml:id="cinder.api.volume_type_qos_specs_table">
+        <table rules="all" width="100%" xml:id="cinder.api.volume_type_qos_specs_table">
             <caption>Cinder API Overview - Volume Type QoS Specs</caption>
             <col width="1.4in"/>
             <col width="1.5in"/>
