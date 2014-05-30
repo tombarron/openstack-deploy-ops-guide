@@ -163,7 +163,7 @@ netapp_vserver=<replaceable>svm_name</replaceable>
             </table>
             <caution>
                 <para>
-                    If you specify an account in the <option>netapp_login</option> option that only has Vserver administration privileges (rather than cluster administration privileges), some advanced features of the NetApp unified driver will not work and you may see warnings in the Cinder logs.
+                    If you specify an account in the <option>netapp_login</option> option that only has SVM administration privileges (rather than cluster administration privileges), some advanced features of the NetApp unified driver will not work and you may see warnings in the Cinder logs. See <xref linkend="cinder.cdot.account_permissions"/> for more details on the required access level permissions for an SVM admin account.
                 </para>
             </caution>
         </simplesect>
@@ -298,7 +298,7 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
             </table>
             <caution>
                 <para>
-                    If you specify an account in the <option>netapp_login</option> option that only has Vserver administration privileges (rather than cluster administration privileges), some advanced features of the NetApp unified driver will not work and you may see warnings in the Cinder logs.
+                    If you specify an account in the <option>netapp_login</option> option that only has SVM administration privileges (rather than cluster administration privileges), some advanced features of the NetApp unified driver will not work and you may see warnings in the Cinder logs. See <xref linkend="cinder.cdot.account_permissions"/> for more details on the required access level permissions for an SVM admin account.
                 </para>
             </caution>
         </simplesect>
@@ -580,9 +580,99 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
                     </listitem>
                     <listitem>Once FlexVol volumes have been created, be sure to configure the desired features (e.g. deduplication, compression, SnapMirror relationships, etc) before configuring Cinder. While Cinder will periodically poll Data ONTAP to discover changes in configuration and/or features, there is a delay in time between when changes are performed and when they are reflected within Cinder.</listitem>
                     <listitem>The autogrow capability for FlexVol volumes within Data ONTAP is not recommended for use with a Cinder deployment.</listitem>
-                    <listitem>TODO: User permissions; cluster admin vs vserver admin</listitem>
                 </orderedlist>
             </para>
+        </simplesect>
+        <simplesect xml:id="cinder.cdot.account_permissions">
+            <title>Account Permission Considerations</title>
+            <para>
+                When configuring the NetApp unified driver to interact with a clustered Data ONTAP instance, you must specify the administrative account to use when operations are invoked by the Cinder driver. While an account with cluster-level administrative permissions is normally utilized, it is possible to use an account with SVM-level scope. In order to use an SVM-scoped account with the Cinder driver and clustered Data ONTAP and have access to the full set of features (including Cinder Volume Type Extra Specs support) availed by the Cinder driver, be sure to add the access levels for the commands shown in <xref linkend="cinder.cdot.permissions"/>.
+            </para>
+            <table rules="all" width="100%" xml:id="cinder.cdot.permissions">
+                <caption>Access Level Permissions Required with SVM Administrative Account</caption>
+                <col width="0.95in"/>
+                <col width="0.95in"/>
+                <col width="2.55in"/>
+                <thead>
+                    <tr>
+                        <td>Command</td>
+                        <td>Access Level</td>
+                        <td>Description</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><option>event</option></td>
+                        <td><option>all</option></td>
+                        <td>Permits submission of ASUP events</td>
+                    </tr>
+                    <tr>
+                        <td><option>network interface</option></td>
+                        <td><option>readonly</option></td>
+                        <td>Read network configuration of SVM</td>
+                    </tr>
+                    <tr>
+                        <td><option>security</option></td>
+                        <td><option>readonly</option></td>
+                        <td>Read security settings from SVM</td>
+                    </tr>
+                    <tr>
+                        <td><option>snapmirror</option></td>
+                        <td><option>readonly</option></td>
+                        <td>Determine presence of SnapMirror relationships</td>
+                    </tr>
+                    <tr>
+                        <td><option>storage aggregate</option></td>
+                        <td><option>readonly</option></td>
+                        <td>Determine disk and RAID types of aggregates</td>
+                    </tr>
+                    <tr>
+                        <td><option>storage disk</option></td>
+                        <td><option>readonly</option></td>
+                        <td>Determine disk and RAID types of aggregates</td>
+                    </tr>
+                    <tr>
+                        <td><option>version</option></td>
+                        <td><option>all</option></td>
+                        <td>Determine version of ONTAP</td>
+                    </tr>
+                    <tr>
+                        <td><option>volume</option></td>
+                        <td><option>readonly</option></td>
+                        <td>Determine volume metadata (space, QoS, etc.)</td>
+                    </tr>
+                    <tr>
+                        <td><option>volume efficiency</option></td>
+                        <td><option>readonly</option></td>
+                        <td>Determine deduplication and compression configuration</td>
+                    </tr>
+                    <tr>
+                        <td><option>volume file clone create</option></td>
+                        <td><option>all</option></td>
+                        <td>Create file clones for use with Cinder provisioning and snapshots</td>
+                    </tr>
+                    <tr>
+                        <td><option>volume file modify</option></td>
+                        <td><option>all</option></td>
+                        <td>Support for Cinder volume extend capability</td>
+                    </tr>
+                    <tr>
+                        <td><option>volume file show-disk-usage</option></td>
+                        <td><option>readonly</option></td>
+                        <td>Determine available and consumed space</td>
+                    </tr>
+                    <tr>
+                        <td><option>vserver</option></td>
+                        <td><option>readonly</option></td>
+                        <td>Determine configuration of SVM</td>
+                    </tr>
+                </tbody>
+            </table>
+            <tip>
+                <para>
+                    For more information on how to grant these access level permissions to a role, and then assign the role to an SVM administrative account, please refer to the <link xlink:href="http://support.netapp.com">System Administration Guide for Cluster Administrators</link> document in the Clustered DATA ONTAP documentation.
+                </para>
+            </tip>
         </simplesect>
         <simplesect>
             <title>Storage Networking Considerations</title>
