@@ -1,3 +1,4 @@
+markdown: kramdown
 # Project
 project: NetApp OpenStack Deployment and Operations Guide
 lead: "A guide for deploying OpenStack with NetApp"
