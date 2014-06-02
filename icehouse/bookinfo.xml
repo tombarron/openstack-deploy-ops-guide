@@ -8,7 +8,7 @@
    <pominfo>
       <groupid>com.netapp.openstack.docs</groupid>
       <artifactid>pom</artifactid>
-      <version>Icehouse</version>
+      <version>icehouse</version>
       <pomname>NetApp and OpenStack: Deployment and Operations Guide -</pomname>
    </pominfo>
    <emails>
