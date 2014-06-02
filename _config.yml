@@ -9,6 +9,7 @@ repo: http://github.com/netapp/openstack-deploy-ops-guide
 # Company
 www: http://www.netapp.com
 ntapos: http://www.netapp.com/openstack
+docs: http://docs.openstack.org
 blog: http://blog.softlayer.com
 
 # Social
