@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<chapter version="5.0" xml:id="ch_operations" xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:ns="http://docbook.org/ns/docbook">
-  <title>Operational Concerns</title>
-  <xi:include href="operations/section_cdot-ops.xml"/>
-</chapter>
