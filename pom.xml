@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <groupId>com.netapp.openstack.docs</groupId>
     <artifactId>pom</artifactId>
-    <version>Icehouse</version>
+    <version>icehouse</version>
     <modelVersion>4.0.0</modelVersion>
     <name>NetApp and OpenStack: Deployment and Operations Guide - </name>
     <!-- ################################################## -->
@@ -144,8 +144,6 @@
                             <sectionAutolabel>0</sectionAutolabel>
                             <tocSectionDepth>1</tocSectionDepth>
                             <sectionLabelIncludesComponentLabel>0</sectionLabelIncludesComponentLabel>
-                            <!--<webhelpDirname>${release.path.name}/config-reference</webhelpDirname>
-                            <pdfFilenameBase>config-reference-${release.path.name}</pdfFilenameBase>-->
                         </configuration>
                     </execution>
                 </executions>
@@ -198,6 +196,7 @@
                     <calloutGraphicsNumberLimit>15</calloutGraphicsNumberLimit>
                     <branding>netapp</branding>
                     <makePdf>false</makePdf>
+                    <pdfUrl>http://netapp.github.com/openstack-deploy-ops-guide/${project.version}/openstack-deployment-ops-guide.pdf</pdfUrl>
                     <highlightSource>true</highlightSource>
                     <failOnValidationError>no</failOnValidationError>
                     <preProcess>
@@ -221,6 +220,12 @@
                         <move file="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide/content/images/favicon-netapp.ico" tofile="target/docbkx/webhelp/bk-deployment-ops-guide/common/images/favicon-netapp.ico" failonerror="false"/>
                     </preProcess>
                     <postProcess>
+                        <copy todir="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide-external/">
+                            <fileset dir="${basedir}/target/docbkx/pdf">
+                                <include name="**/*.pdf"/>
+                            </fileset>
+                        </copy>
+                        <move file="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide-external/bk-deployment-ops-guide.pdf" tofile="target/docbkx/webhelp/bk-deployment-ops-guide-external/openstack-deployment-ops-guide.pdf" failonerror="false"/>
                         <replace dir="${basedir}/target/docbkx/webhelp/bk-deployment-ops-guide-external/content">
                             <include name="**/*.html"/>
                             <replacefilter token="Rackspace Manuals" value="OpenStack @ NetApp"/>
