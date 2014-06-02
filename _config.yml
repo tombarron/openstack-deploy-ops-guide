@@ -1,0 +1,26 @@
+# Project
+project: NetApp OpenStack Deployment and Operations Guide
+lead: "A guide for deploying OpenStack with NetApp"
+public_url: http://netapp.github.io/openstack-deploy-ops-guide
+
+# GitHub
+repo: http://github.com/netapp/openstack-deploy-ops-guide
+
+# Company
+www: http://www.netapp.com
+ntapos: http://www.netapp.com/openstack
+blog: http://blog.softlayer.com
+
+# Social
+github: http://github.com/netapp
+twitter: http://twitter.com/openstacknetapp
+
+# Server
+permalink: pretty
+exclude: [".gitignore", "README.md", "LICENSE"]
+pygments: true
+safe: false
+
+# Google Analytics
+#ga_tracking_id: UA-40037365-2
+#ga_tracking_domain: softlayer.github.io

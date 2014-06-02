@@ -1,0 +1,24 @@
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="openstack, jumpgate, IBM, innovation, sldn, softlayer, open source, api, github, openstack compatibility api, python">
+		<meta name="description" content="Founded in 2005, SoftLayer is a cloud infrastructure provider.">
+		<meta name="author" content="SoftLayer, an IBM Company">
+
+    <!-- CSS -->
+    <link type="text/css" href="{{ page.baseurl }}css/bootstrap.css" rel="stylesheet">
+    <link type="text/css" href="{{ page.baseurl }}css/font-awesome.css" rel="stylesheet">
+    <link type="text/css" href="{{ page.baseurl }}css/pages.css" rel="stylesheet">
+    {% if page.slug != "landing" %}<link type="text/css" href="{{ page.baseurl }}css/syntax.css" rel="stylesheet">
+    {% elsif page.slug == "landing" %}<link type="text/css" href="{{ page.baseurl }}css/landing.css" rel="stylesheet">{% endif %}
+
+    <!-- Icon -->
+    <link type="image/png" href="{{ page.baseurl }}images/favicon.png" rel="icon">
+
+		<title>
+  	{% if page.title == "Jumpgate" %}
+    	{{ page.title }} &middot; In-Flight Project Page
+  	{% else %}
+    	{{ page.title }} &middot; Jumpgate
+  	{% endif %}
+		</title>
