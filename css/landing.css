@@ -202,7 +202,7 @@ p {
   margin-bottom: 1.5em;
   font-family: "jaf-bernino-sans", "Lucida Grande", sans-serif;
   font-size: 12px;
-  color: #262125;
+  color: #0067c5;
   text-rendering: optimizeLegibility;
   text-shadow: none;
   text-transform: uppercase;
@@ -220,7 +220,7 @@ p {
   margin-bottom: 1.5em;
   font-family: "jaf-bernino-sans", "Lucida Grande", sans-serif;
   font-size: 12px;
-  color: #262125;
+  color: #0067c5;
   text-rendering: optimizeLegibility;
   text-shadow: none;
   text-transform: uppercase;
@@ -232,7 +232,7 @@ p {
 }
 
 .btn-primary {
-  color: #262125;
+  color: #0067c5;
   background-color: #fff;
   border-color: #fff;
 }
@@ -246,7 +246,7 @@ p {
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-  color: #262125;
+  color: #0067c5;
   background-color: #fff;
   border: 1px solid #aaa;
 }
@@ -270,7 +270,7 @@ p {
 }
 
 a#menu-toggle.btn.btn-primary.btn-lg.toggle {
-  color: #262125;
+  color: #0067c5;
 }
 
 @media (min-width: 768px) {
