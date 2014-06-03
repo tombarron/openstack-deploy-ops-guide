@@ -1,8 +1,10 @@
     <a id="menu-toggle" href="#" class="btn btn-primary btn-lg toggle"><i class="fa fa-reorder"></i></a>
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-            <li class="active"><i class="fa fa-share-alt"></i>OpenStack Releases</li>
-            <span id="releaseList"/>
+          <li {% if page.slug == "learn-more" %} class="active" {% endif %}>
+            <i class="fa fa-share-alt"></i>OpenStack Releases</li>
+            <li {% if page.slug == "learn-more" %} class="active" {% endif %}>
+            <span id="releaseList"/></li>
           <li {% if page.slug == "learn-more" %} class="active" {% endif %}>
               <a href="{{ site.ntapos }}"><i class="fa fa-book"></i>NetApp OpenStack Community</a></li>
           <li><a href="{{ site.www }}"><i class="fa fa-book"></i>Learn More</a></li>
