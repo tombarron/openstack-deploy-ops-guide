@@ -11,7 +11,6 @@ repo: http://github.com/netapp/openstack-deploy-ops-guide
 www: http://www.netapp.com
 ntapos: http://www.netapp.com/openstack
 docs: http://docs.openstack.org
-blog: http://blog.softlayer.com
 
 # Social
 github: http://github.com/netapp
@@ -24,5 +23,3 @@ pygments: true
 safe: false
 
 # Google Analytics
-#ga_tracking_id: UA-40037365-2
-#ga_tracking_domain: softlayer.github.io
