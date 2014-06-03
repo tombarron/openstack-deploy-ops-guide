@@ -36,16 +36,12 @@ a:focus {
 .docs-home {
   color: #fff;
   background: transparent;
-  background-color: #1f1b1e;
-}
-
-.gradient {
-    background-image:
-    radial-gradient(
-        circle,
-        #0067c5,
-        black
-    );
+  background-image:
+  radial-gradient(
+    circle,
+    #0067c5,
+    black
+  );
 }
 
 /*@media (min-width: 768px) {
