@@ -26,7 +26,7 @@ $.ajax({
             var releases = "";
             for (var i = 0; i < tagArray.length; i++ ) {
                 var displayName = tagArray[i].charAt(0).toUpperCase() + tagArray[i].slice(1);
-                releases += "<li><i class=\"fa fa-share\"></i><a href=\"" + baseUrl  + tagArray[i] + '/' +  "\">" + displayName + "</a></li>";
+                releases += "<i class=\"fa fa-share\"></i><a href=\"" + baseUrl  + tagArray[i] + '/' +  "\">" + displayName + "</a>";
             }
             document.getElementById("releaseList").innerHTML = releases;
         }
