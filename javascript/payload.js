@@ -17,8 +17,8 @@ $.ajax({
             tagArray.reverse();
 
             $('mtitle').text(tagArray[0].charAt(0).toUpperCase() + tagArray[0].slice(1));
-            var currentVal = $('latestLink').text();
-            $('latestLink').text(currentVal + tagArray[0] + '/');
+            var currentVal = $('latestLink').attr("href");
+            $('latestLink').attr("href",currentVal + tagArray[0] + '/');
         }
     }
 });
