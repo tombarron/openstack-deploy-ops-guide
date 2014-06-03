@@ -1,5 +1,5 @@
-// Milestones
-// Fetch date and title of last milestone closed
+// Tags
+// Fetch greatest tag (sorted lexigraphically); must correspond to directory name in repo
 
 $.ajax({
     url: "https://api.github.com/repos/netapp/openstack-deploy-ops-guide/tags?", 
@@ -16,9 +16,10 @@ $.ajax({
             tagArray.sort();
             tagArray.reverse();
 
-            $('mtitle').text(tagArray[0].charAt(0).toUpperCase() + tagArray[0].slice(1));
+            $('#mtitle').text(tagArray[0].charAt(0).toUpperCase() + tagArray[0].slice(1));
             var currentVal = $('#latestLink').attr("href");
             $('#latestLink').attr("href",currentVal + tagArray[0] + '/');
+            $('#latestLink2').attr("href",currentVal + tagArray[0] + '/');
         }
     }
 });
