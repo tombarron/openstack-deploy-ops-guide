@@ -17,10 +17,18 @@ $.ajax({
             tagArray.reverse();
 
             $('#mtitle').text(tagArray[0].charAt(0).toUpperCase() + tagArray[0].slice(1));
-            var currentVal = $('#latestLink').attr("href");
-            $('#latestLink').attr("href",currentVal + tagArray[0] + '/');
-            $('#latestLink2').attr("href",currentVal + tagArray[0] + '/');
-            $('#get-started').attr("href",currentVal + tagArray[0] + '/');
+            var baseUrl = $('#latestLink').attr("href");
+            latestUrl = baseUrl + tagArray[0] + '/';
+            $('#latestLink').attr("href",latestUrl);
+            $('#latestLink2').attr("href",latestUrl);
+            $('#get-started').attr("href",latestUrl);
+
+            var releases;
+            for (var i = 0; i < tagArray.length; i++ ) {
+                var displayName = tagArray[i].charAt(0).toUpperCase() + tagArray[i].slice(1);
+                releases += "<li><a href=\"" + baseUrl  + tagArray[i] + '/' +  "\">" + displayName + "</a></li>";
+            }
+            document.getElementById("releaseList").innerHTML = releases;
         }
     }
 });
