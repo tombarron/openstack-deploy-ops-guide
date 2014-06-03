@@ -39,7 +39,16 @@ a:focus {
   background-color: #1f1b1e;
 }
 
-@media (min-width: 768px) {
+.gradient {
+    background-image:
+    radial-gradient(
+        circle,
+        #0067c5,
+        black
+    );
+}
+
+/*@media (min-width: 768px) {
   .docs-home {
     background: -webkit-linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url("../images/bg2.jpg");
     background: -moz-linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url("../images/bg2.jpg");
@@ -51,6 +60,7 @@ a:focus {
             background-size: cover;
   }
 }
+    */
 
 /*-- Navigation: Navbar --*/
 
