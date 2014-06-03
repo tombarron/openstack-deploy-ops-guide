@@ -5,9 +5,8 @@ $.ajax({
     url: "https://api.github.com/repos/netapp/openstack-deploy-ops-guide/tags?", 
     dataType: 'jsonp',
     success: function (json) {
-        var tagArray;
+        var tagArray = [];
         var k;
-        alert(json.data);
         for (k = 0; k < json.data.length; ++k) 
         { 
             tagArray.push(json.data[k].name);
