@@ -23,11 +23,12 @@ $.ajax({
             $('#latestLink2').attr("href",latestUrl);
             $('#get-started').attr("href",latestUrl);
 
-            var releases = "";
+            var releases = "<ul class=\"active\">";
             for (var i = 0; i < tagArray.length; i++ ) {
                 var displayName = tagArray[i].charAt(0).toUpperCase() + tagArray[i].slice(1);
                 releases += "<i class=\"fa fa-share\"></i><a href=\"" + baseUrl  + tagArray[i] + '/' +  "\">" + displayName + "</a>";
             }
+            releases +="</ul>"
             document.getElementById("releaseList").innerHTML = releases;
         }
     }
