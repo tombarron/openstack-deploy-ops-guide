@@ -20,6 +20,7 @@ $.ajax({
             var currentVal = $('#latestLink').attr("href");
             $('#latestLink').attr("href",currentVal + tagArray[0] + '/');
             $('#latestLink2').attr("href",currentVal + tagArray[0] + '/');
+            $('#get-started').attr("href",currentVal + tagArray[0] + '/');
         }
     }
 });
