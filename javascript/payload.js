@@ -7,6 +7,7 @@ $.ajax({
     success: function (json) {
         var tagArray;
         var k;
+        alert(json);
         for (k = 0; k < json.length; ++k) 
         { 
             tagArray.push(json[k].name);
