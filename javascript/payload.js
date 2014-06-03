@@ -7,10 +7,10 @@ $.ajax({
     success: function (json) {
         var tagArray;
         var k;
-        alert(json);
-        for (k = 0; k < json.length; ++k) 
+        alert(json.data);
+        for (k = 0; k < json.data.length; ++k) 
         { 
-            tagArray.push(json[k].name);
+            tagArray.push(json.data[k].name);
         }
         if (tagArray.length > 0)
         {
