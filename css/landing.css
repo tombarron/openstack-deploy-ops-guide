@@ -89,7 +89,6 @@ a:focus {
   margin-right: -18em;
   overflow-y: auto;
   background-color: #454545;
-  background: none repeat scroll 0 0 #777;
   -webkit-transition: all .6s ease 0;
      -moz-transition: all .6s ease 0;
       -ms-transition: all .6s ease 0;
