@@ -40,7 +40,7 @@ a:focus {
   radial-gradient(
     circle,
     #0067c5,
-    #454545
+    black
   );
 }
 
@@ -88,6 +88,7 @@ a:focus {
   margin-top: 7px;
   margin-right: -18em;
   overflow-y: auto;
+  background-color: #454545;
   background: none repeat scroll 0 0 #777;
   -webkit-transition: all .6s ease 0;
      -moz-transition: all .6s ease 0;
