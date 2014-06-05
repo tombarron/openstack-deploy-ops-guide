@@ -196,7 +196,7 @@
                     <calloutGraphicsNumberLimit>15</calloutGraphicsNumberLimit>
                     <branding>netapp</branding>
                     <makePdf>false</makePdf>
-                    <pdfUrl>http://netapp.github.com/openstack-deploy-ops-guide/${project.version}/openstack-deployment-ops-guide.pdf</pdfUrl>
+                    <pdfUrl>http://netapp.github.io/openstack-deploy-ops-guide/${project.version}/openstack-deployment-ops-guide.pdf</pdfUrl>
                     <highlightSource>true</highlightSource>
                     <failOnValidationError>no</failOnValidationError>
                     <preProcess>
