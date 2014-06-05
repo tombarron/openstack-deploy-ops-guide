@@ -23,3 +23,5 @@ pygments: true
 safe: false
 
 # Google Analytics
+ga_tracking_id: UA-51693000-1
+ga_tracking_domain: netapp.github.io
