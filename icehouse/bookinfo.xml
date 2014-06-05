@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <products xmlns:xlink="http://www.w3.org/1999/xlink">
    <latestpdf>bk-deployment-ops-guide-latest.pdf</latestpdf>
-   <pdfoutname>bk-deployment-ops-guide-20140603.pdf</pdfoutname>
+   <pdfoutname>bk-deployment-ops-guide-20140605.pdf</pdfoutname>
    <docname>OpenStack Deployment and Operations Guide</docname>
    <productname>OpenStack</productname>
    <webappname>bk-deployment-ops-guide</webappname>
