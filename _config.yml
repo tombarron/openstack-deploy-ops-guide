@@ -1,6 +1,6 @@
 markdown: kramdown
 # Project
-project: NetApp OpenStack Deployment and Operations Guide
+project: OpenStack Deployment and Operations Guide
 lead: "A guide for deploying OpenStack with NetApp"
 public_url: http://netapp.github.io/openstack-deploy-ops-guide
 
