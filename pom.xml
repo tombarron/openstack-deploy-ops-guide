@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <groupId>com.netapp.openstack.docs</groupId>
     <artifactId>pom</artifactId>
-    <version>icehouse</version>
+    <version>juno</version>
     <modelVersion>4.0.0</modelVersion>
     <name>NetApp and OpenStack: Deployment and Operations Guide - </name>
     <!-- ################################################## -->
@@ -196,7 +196,7 @@
                     <calloutGraphicsNumberLimit>15</calloutGraphicsNumberLimit>
                     <branding>netapp</branding>
                     <makePdf>false</makePdf>
-                    <pdfUrl>http://netapp.github.com/openstack-deploy-ops-guide/${project.version}/openstack-deployment-ops-guide.pdf</pdfUrl>
+                    <pdfUrl>http://netapp.github.io/openstack-deploy-ops-guide/${project.version}/openstack-deployment-ops-guide.pdf</pdfUrl>
                     <highlightSource>true</highlightSource>
                     <failOnValidationError>no</failOnValidationError>
                     <preProcess>

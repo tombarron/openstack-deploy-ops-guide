@@ -29,12 +29,12 @@
             <holder>NetApp, Inc.</holder>
         </copyright>
         <productname>OpenStack</productname>
-        <releaseinfo>Version 3.0</releaseinfo>
+        <releaseinfo>Version 4.0</releaseinfo>
         <pubdate><?dbtimestamp format="B Y"?></pubdate>
         <abstract>
             <title>Abstract</title>
             <para>
-                This guide is intended to detail design considerations, configuration, deployment and ongoing operational practices for the successful implementation of OpenStack services atop or in concert with NetApp technologies. Please note that this version of the guide applies to the Icehouse (Spring 2014) release of OpenStack. The Havana release and prior are documented in version 2.3 available at <link xlink:href="http://www.netapp.com/openstack">http://www.netapp.com/openstack</link>.
+                This guide is intended to detail design considerations, configuration, deployment and ongoing operational practices for the successful implementation of OpenStack services atop or in concert with NetApp technologies. Please note that this version of the guide applies to the Juno (Fall 2014) release of OpenStack. The Icehouse release and prior are documented in version 3.0 available at <link xlink:href="http://www.netapp.com/openstack">http://www.netapp.com/openstack</link>.
             </para>
         </abstract>
         <revhistory>
@@ -86,6 +86,13 @@
                 <date>June 2014</date>
                 <revremark>
                     Major revision for Icehouse release; theory of operation and concept discussion for Cinder, Glance, Nova, Swift; expanded configuration examples and deployment advice.
+                </revremark>
+            </revision>
+            <revision>
+                <revnumber>4.0</revnumber>
+                <date>November 2014</date>
+                <revremark>
+                    Update for Juno release; 
                 </revremark>
             </revision>
         </revhistory>
