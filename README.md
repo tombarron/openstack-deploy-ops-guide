@@ -10,10 +10,9 @@ If successful, the PDF output will be in target/docbkx/pdf/bk-deployment-ops-gui
 
 TODO:
 
+- fix validation errors, enable build failure if doc isn't RELAX-NG valid
 - add spell check as part of build process
-- post resulting PDF to destination site
-- post resulting HTML to destination site
-- add instructions to rev version number of document
+- automate post resulting HTML, PDF to destination site
 
 ## updating this doc for a new openstack release
 
@@ -24,6 +23,5 @@ TODO:
 5. Update the version element in pom.xml to contain the release name (e.g. juno) in all lowercase characters
 6. Make all text changes required
 7. Once you're ready to "cut the release branch":
-
-1. Create a new annotated git tag with the name of the release (e.g. juno) in all lowercase characters (this is used to dynamically generate lists and info on the landing page)
-2. Make a new branch from 'master' with the name 'stable/juno' (where juno is the name of the release)
+ 1. Create a new annotated git tag with the name of the release (e.g. juno) in all lowercase characters (this is used to dynamically generate lists and info on the landing page)
+ 2. Make a new branch from 'master' with the name 'stable/juno' (where juno is the name of the release)
