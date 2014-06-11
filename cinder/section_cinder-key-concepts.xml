@@ -27,11 +27,11 @@
     <simplesect>
         <title>Backend</title>
         <para>
-            A Cinder backend is the configuration object that represents a single provider of block storage upon which provisioning requests may be fulfilled. A Cinder backend communicates with the storage system through a Cinder driver. Cinder supports multiple backends to be simultaneously configured and managed (even using the same Cinder driver) as of the Grizzly release.
+            A Cinder backend is the configuration object that represents a single provider of block storage upon which provisioning requests may be fulfilled. A Cinder backend communicates with the storage system through a Cinder driver. Cinder supports multiple backends to be simultaneously configured and managed (even with the same Cinder driver) as of the Grizzly release.
         </para>
         <note>
             <para>
-                A Cinder backend may be defined in the <literal>[DEFAULT]</literal> stanza of <filename>cinder.conf</filename>; however, this is not the recommended way to configure backends within Cinder. It is recommended that the <option>enabled_backends</option> configuration option be set to a comma-separated list of backend names, and each backend name have its own configuration stanza with the same name as listed in the <option>enabled_backends</option> option. Refer to <xref linkend="cinder.configuration"/> for an example of the use of this option.
+                A single Cinder backend may be defined in the <literal>[DEFAULT]</literal> stanza of <filename>cinder.conf</filename>; however, NetApp recommends that the <option>enabled_backends</option> configuration option be set to a comma-separated list of backend names, and each backend name have its own configuration stanza with the same name as listed in the <option>enabled_backends</option> option. Refer to <xref linkend="cinder.configuration"/> for an example of the use of this option.
             </para>
         </note>
     </simplesect>
@@ -71,7 +71,7 @@
                     <!--<listitem><literal>QoS_support</literal>: A boolean indicating whether the driver has support for QoS (NetApp currently doesn't support this)</listitem>-->
                 </itemizedlist>
                 <para>
-                    For a table of NetApp-supported extra specs, please refer to <xref linkend="cinder.netapp.extra_specs"/>.
+                    For a table of NetApp supported extra specs, refer to <xref linkend="cinder.netapp.extra_specs"/>.
                 </para>
             </note>
         </formalpara>
@@ -82,7 +82,7 @@
             </para>
             <note>
                 <para>
-                    The NetApp Cinder drivers do not currently support any back-end QoS specs; however, the NetApp construct of QoS policy groups can be assigned to Cinder volumes managed through a clustered Data ONTAP backend using the NFS storage protocol. For more information, please see <xref linkend="cinder.netapp.extra_specs"/>.
+                    The NetApp Cinder drivers do not currently support any back-end QoS specs; however, the NetApp construct of QoS policy groups can be assigned to Cinder volumes managed through a clustered Data ONTAP backend that uses the NFS storage protocol. For more information, see <xref linkend="cinder.netapp.extra_specs"/>.
                 </para>
             </note>
                 <!--

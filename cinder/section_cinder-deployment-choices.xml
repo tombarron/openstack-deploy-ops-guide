@@ -17,13 +17,13 @@
         </para>
         <important>
             <para>
-                When deploying Cinder with clustered Data ONTAP, the recommended mapping is to have each Cinder backend refer to a single SVM within a cluster using the <option>netapp_vserver</option> configuration option. While the driver can operate without the explicit declaration of a mapping between a backend and an SVM, a variety of advanced functionality (e.g. volume type extra-specs) will be disabled.
+                When deploying Cinder with clustered Data ONTAP, NetApp recommends that each Cinder backend refer to a single SVM within a cluster through the use of the <option>netapp_vserver</option> configuration option. While the driver can operate without the explicit declaration of a mapping between a backend and an SVM, a variety of advanced functionality (e.g. volume type extra-specs) will be disabled.
             </para>
         </important>
         <formalpara>
             <title>Cinder volumes and FlexVol volumes</title>
             <para>
-                Data ONTAP FlexVol volumes (commonly referred to as volumes) and OpenStack Block Storage volumes (commonly referred to as Cinder volumes) are not semantically analogous. A FlexVol volume is a container of logical data elements (for example: files, Snapshot copies, clones, LUNs, et cetera) that is abstracted from physical elements (for example: individual disks, and RAID groups). A Cinder volume is a block device. Most commonly, these block devices are made available to OpenStack Compute instances. NetApp’s various driver options for deployment of FAS as a provider of Cinder storage place Cinder volumes, snapshots copies, and clones within FlexVol volumes. 
+                Data ONTAP FlexVol volumes (commonly referred to as volumes) and OpenStack Block Storage volumes (commonly referred to as Cinder volumes) are not semantically analogous. A FlexVol volume is a container of logical data elements (for example: files, <trademark class="trade">Snapshot</trademark> copies, clones, LUNs, et cetera) that is abstracted from physical elements (for example: individual disks, and RAID groups). A Cinder volume is a block device. Most commonly, these block devices are made available to OpenStack Compute instances. NetApp’s various driver options for deployment of FAS as a provider of Cinder storage place Cinder volumes, snapshot copies, and clones within FlexVol volumes. 
             </para>
             <important>
                 <para>
@@ -44,11 +44,11 @@
         <formalpara>
             <title>Cinder snapshots versus NetApp snapshots</title>
             <para>
-                A NetApp snapshot copy is a point-in-time file system image. Low-overhead Snapshot copies are made possible by the unique features of the WAFL storage virtualization technology that is part of Data ONTAP. The high performance of the NetApp Snapshot makes it highly scalable.  A NetApp Snapshot takes only a few seconds to create — typically less than one second, regardless of the size of the volume or the level of activity on the NetApp storage system. After a Snapshot copy has been created, changes to data objects are reflected in updates to the current version of the objects, as if Snapshot copies did not exist. Meanwhile, the Snapshot version of the data remains completely stable. A NetApp Snapshot incurs no performance overhead; users can comfortably store up to 255 Snapshot copies per FlexVol volume, all of which are accessible as read-only and online versions of the data.
+                A NetApp Snapshot copy is a point-in-time file system image. Low-overhead NetApp Snapshot copies are made possible by the unique features of the WAFL storage virtualization technology that is part of Data ONTAP. The high performance of the NetApp Snapshot makes it highly scalable.  A NetApp Snapshot takes only a few seconds to create — typically less than one second, regardless of the size of the volume or the level of activity on the NetApp storage system. After a Snapshot copy has been created, changes to data objects are reflected in updates to the current version of the objects, as if NetApp Snapshot copies did not exist. Meanwhile, the NetApp Snapshot version of the data remains completely stable. A NetApp Snapshot incurs no performance overhead; users can comfortably store up to 255 NetApp Snapshot copies per FlexVol volume, all of which are accessible as read-only and online versions of the data.
             </para>
         </formalpara>
         <para>
-             Since NetApp Snapshots are taken at the FlexVol level, they can not be directly leveraged within an OpenStack context, as a user of Cinder requests a snapshot be taken of a particular Cinder volume (not the containing FlexVol volume). As a Cinder volume is represented as either a file on NFS or an iSCSI LUN, the way that Cinder snapshots are created is through use of NetApp's FlexClone technology. By leveraging the FlexClone technology to provide Cinder snapshots, it is possible to create thousands of Cinder snapshots for a single Cinder volume.
+             Since NetApp Snapshots are taken at the FlexVol level, they can not be directly leveraged within an OpenStack context, as a user of Cinder requests a snapshot be taken of a particular Cinder volume (not the containing FlexVol volume). As a Cinder volume is represented as either a file on NFS or an iSCSI LUN, the way that Cinder snapshots are created is through use of NetApp FlexClone technology. By leveraging the FlexClone technology to provide Cinder snapshots, it is possible to create thousands of Cinder snapshots for a single Cinder volume.
         </para>
         <para>
             FlexClone files or FlexClone LUNs and their parent files or LUNs that are present in the FlexClone volume continue to share blocks the same way they do in the parent FlexVol volume. In fact, all the FlexClone entities and their parents share the same underlying physical data blocks, minimizing physical disk space usage. 
@@ -62,27 +62,27 @@
     <simplesect>
         <title>Deployment Choice: Direct versus Intermediated</title>
         <para>
-            NetApp's Cinder driver can operate in two independent modes: a <emphasis>direct</emphasis> mode where the Cinder processes directly interact with NetApp FAS storage systems, and an <emphasis>intermediated</emphasis> mode where the Cinder processes interact with an additional software entity that issues provisioning and management requests on behalf of Cinder.
+            The NetApp Cinder driver can operate in two independent modes: a <emphasis>direct</emphasis> mode where the Cinder processes directly interact with NetApp FAS storage systems, and an <emphasis>intermediated</emphasis> mode where the Cinder processes interact with an additional software entity that issues provisioning and management requests on behalf of Cinder.
         </para>
         <formalpara>
-            <title>OnCommand Workflow Automator</title>
+            <title><trademark class="registered">OnCommand</trademark> Workflow Automator</title>
             <para>
-                OnCommand Workflow Automator (WFA) is a flexible framework that provides automation for storage-related tasks, customization, scripting capabilities, and integration with higher-order IT systems such as orchestration software through web services.
+                <trademark class="registered">OnCommand</trademark> Workflow Automator (WFA) is a flexible framework that provides automation for storage-related tasks, customization, scripting capabilities, and integration with higher-order IT systems such as orchestration software through web services.
             </para>
         </formalpara>
         <para>
-            While WFA can be utilized in conjunction with NetApp's unified Cinder driver, a deployment of Cinder and WFA does introduce additional complexity, management entities, and potential points of failure within a cloud architecture. If you have an existing set of workflows that are written within the WFA framework, and are looking to leverage them in lieu of the default provisioning behavior of the Cinder driver operating directly against a FAS system, then it may be desirable to use the intermediated mode.
+            While WFA can be utilized in conjunction with the NetApp unified Cinder driver, a deployment of Cinder and WFA does introduce additional complexity, management entities, and potential points of failure within a cloud architecture. If you have an existing set of workflows that are written within the WFA framework, and are looking to leverage them in lieu of the default provisioning behavior of the Cinder driver operating directly against a FAS system, then it may be desirable to use the intermediated mode.
         </para>
         <formalpara>
-            <title>SANtricity<trademark class="registered"/> Web Services Proxy</title>
+            <title><trademark class="registered">SANtricity</trademark> Web Services Proxy</title>
             <para>
-                The NetApp SANtricity Web Services Proxy provides access through standard HTTPS mechanisms to configuring management services for E-Series storage arrays. You can install Web Services Proxy on either Linux or Windows. As Web Services Proxy satisfies the client request by collecting data or executing configuration change requests to a target storage array, the Web Services Proxy module issues SYMbol requests to the target storage arrays. Web Services Proxy provides a Representative State Transfer (REST)-style API for managing E-Series controllers. The API enables you to integrate storage array management into other applications or ecosystems.
+                The NetApp <trademark class="registered">SANtricity</trademark> Web Services Proxy provides access through standard HTTPS mechanisms to configuring management services for E-Series storage arrays. You can install Web Services Proxy on either Linux or Windows. As Web Services Proxy satisfies the client request by collecting data or executing configuration change requests to a target storage array, the Web Services Proxy module issues SYMbol requests to the target storage arrays. Web Services Proxy provides a Representative State Transfer (REST)-style API for managing E-Series controllers. The API enables you to integrate storage array management into other applications or ecosystems.
             </para>
         </formalpara>
         <important>
             <title>Recommendation</title>
             <para>
-                Unless you have a significant existing investment with OnCommand Workflow Automator that you wish to leverage in an OpenStack deployment, it is recommended that you start with the <emphasis>direct</emphasis> mode of operation when using Cinder with a NetApp FAS deployment. When using Cinder with a NetApp E-Series deployment, use of the SANtricity Web Services Proxy in the <emphasis>intermediated</emphasis> mode is currently required. 
+                Unless you have a significant existing investment with OnCommand Workflow Automator that you wish to leverage in an OpenStack deployment, it is recommended that you start with the <emphasis>direct</emphasis> mode of operation when deploying Cinder with a NetApp FAS system. When Cinder is used with a NetApp E-Series system, use of the SANtricity Web Services Proxy in the <emphasis>intermediated</emphasis> mode is currently required. 
             </para>
         </important>
     </simplesect>
@@ -97,7 +97,7 @@
         <formalpara>
             <title>E-Series</title>
             <para>
-                For cloud environments where higher performance is critical, or where higher-value data management features are not needed or are implemented within an application, NetApp's E-Series product line can provide a cost-effective underpinning for a Cinder deployment. NetApp's E-Series storage offers a feature called Dynamic Disk Pools, which simplifies data protection by removing the complexity of configuring RAID groups and allocating hot spares. Utilization is improved by dynamically spreading data, parity, and spare capacity across all drives in a pool, reducing performance bottlenecks due to hot-spots. Additionally, should a drive failure occur, DDP enables the pool to return to an optimal state significantly faster than RAID6, while reducing the performance impact during the reconstruction of a failed drive. 
+                For cloud environments where higher performance is critical, or where higher-value data management features are not needed or are implemented within an application, the NetApp E-Series product line can provide a cost-effective underpinning for a Cinder deployment. NetApp E-Series storage offers a feature called Dynamic Disk Pools, which simplifies data protection by removing the complexity of configuring RAID groups and allocating hot spares. Utilization is improved by dynamically spreading data, parity, and spare capacity across all drives in a pool, reducing performance bottlenecks due to hot-spots. Additionally, should a drive failure occur, DDP enables the pool to return to an optimal state significantly faster than RAID6, while reducing the performance impact during the reconstruction of a failed drive. 
             </para>
         </formalpara>
         <note>
@@ -117,14 +117,14 @@
         <important>
             <title>Recommendation</title>
             <para>
-                NetApp strongly recommends that all OpenStack deployments built upon NetApp's FAS product set leverage clustered Data ONTAP.
+                NetApp strongly recommends that all OpenStack deployments built upon the NetApp FAS product set leverage clustered Data ONTAP.
             </para>
         </important>
     </simplesect>
     <simplesect>
         <title>Deployment Choice: NFS versus iSCSI</title>
         <para>
-            A frequent question from customers and partners is whether to utilize NFS or iSCSI as the storage protocol with a Cinder deployment ontop of NetApp's FAS product line. 
+            A frequent question from customers and partners is whether to utilize NFS or iSCSI as the storage protocol with a Cinder deployment ontop of the NetApp FAS product line. 
             Both protocol options are TCP/IP-based, deliver similar throughputs and latencies, support Cinder features, snapshot copies and cloning are supported to similar degrees, as well as advertisement of other storage efficienty, data protection, and high availability features.
         </para>
         <formalpara>
@@ -146,20 +146,20 @@
         </formalpara>
         <itemizedlist>
             <listitem>There is no difference in the maximum size of a Cinder volume regardless of the storage protocol chosen (a file on NFS or an iSCSI LUN are both 16TB). </listitem>
-            <listitem>Performance differences between iSCSI and NFS are normally negligible in virtualized environments; for a detailed investigation, please refer to <link xlink:href="http://www.netapp.com/us/system/pdf-reader.aspx?m=tr-3808.pdf&amp;cc=us">NetApp TR3808: VMware vSphere and ESX 3.5 Multiprotocol Performance Comparison using FC, iSCSI, and NFS</link>.</listitem>
+            <listitem>Performance differences between iSCSI and NFS are normally negligible in virtualized environments; for a detailed investigation, please refer to <link xlink:href="http://www.netapp.com/us/system/pdf-reader.aspx?m=tr-3808.pdf&amp;cc=us">NetApp TR3808: <trademark class="registered">VMware</trademark> vSphere and ESX 3.5 Multiprotocol Performance Comparison using FC, iSCSI, and NFS</link>.</listitem>
         </itemizedlist>
         <important>
             <title>Recommendation</title>
             <para>
-                Deploying NetApp's Cinder driver with clustered Data ONTAP utilizing the NFS storage protocol yields a more scalable OpenStack deployment than iSCSI with negligible performance differences. If Cinder is being used to provide block storage services independent of other OpenStack services, the iSCSI protocol must be utilized.
+                Deploying the NetApp Cinder driver with clustered Data ONTAP utilizing the NFS storage protocol yields a more scalable OpenStack deployment than iSCSI with negligible performance differences. If Cinder is being used to provide block storage services independent of other OpenStack services, the iSCSI protocol must be utilized.
             </para>
         </important>
         <tip>
             <para>
-                A related use case for using iSCSI with OpenStack deployments involves creating a FlexVol volume to serve as the storage for OpenStack compute nodes. As more hypervisor nodes are added, a master boot LUN can simply be cloned for each node, and compute nodes can become completely stateless. Since the configuration of hypervisor nodes are usually nearly identical (except for node-specific data like configuration files, logs, etc), the boot disk lends well to optimizations like deduplication and compression.
+                A related use case for the use of iSCSI with OpenStack deployments involves creating a FlexVol volume to serve as the storage for OpenStack compute nodes. As more hypervisor nodes are added, a master boot LUN can simply be cloned for each node, and compute nodes can become completely stateless. Since the configuration of hypervisor nodes are usually nearly identical (except for node-specific data like configuration files, logs, etc), the boot disk lends well to optimizations like deduplication and compression.
             </para>
             <para>
-                Currently this configuration must be done outside of the management scope of Cinder, but it serves as another example of how NetApp's differentiated capabilities can be leveraged to ease the deployment and ongoing operation of an OpenStack cloud deployment.
+                Currently this configuration must be done outside of the management scope of Cinder, but it serves as another example of how the differentiated capabilities of NetApp storage can be leveraged to ease the deployment and ongoing operation of an OpenStack cloud deployment.
             </para>
         </tip>
     </simplesect>
@@ -172,13 +172,13 @@
             The storage features are organized or combined into groups based on the customer needs to achieve a particular scenario or use case. Based on the catalog of the storage features, intelligent provisioning decisions are made by infrastructure or software enabling the storage service catalog. In OpenStack, this is achieved together by the Cinder filter scheduler and the NetApp driver by making use of volume type extra-specs support together with the filter scheduler. There are some prominent features which are exposed in the NetApp driver including mirroring, de-duplication, compression, and thin provisioning.
         </para>
         <para>
-            When using the NetApp unified driver with a clustered Data ONTAP storage system, you can leverage extra specs with Cinder volume types to ensure that Cinder volumes are created on storage backends that have certain properties (e.g. QoS, mirroring, compression) configured.
+            When the NetApp unified driver is used with a clustered Data ONTAP storage system, you can leverage extra specs with Cinder volume types to ensure that Cinder volumes are created on storage backends that have certain properties (e.g. QoS, mirroring, compression) configured.
         </para>
         <para>
-            Extra specs are associated with Cinder volume types, so that when users request volumes of a particular volume type, they will be created on storage backends that meet the list of requirements (e.g. available space, extra specs, etc). You can use the specs in <xref linkend="cinder.netapp.extra_specs"/> later in this section when defining Cinder volume types using the <command>cinder type-key</command> command.
+            Extra specs are associated with Cinder volume types, so that when users request volumes of a particular volume type, they are created on storage backends that meet the list of requirements (e.g. available space, extra specs, etc). You can use the specs in <xref linkend="cinder.netapp.extra_specs"/> later in this section when defining Cinder volume types with the <command>cinder type-key</command> command.
         </para>
         <table rules="all" width="100%" xml:id="cinder.netapp.extra_specs">
-            <caption>NetApp-supported Extra Specs for use with Cinder Volume Types</caption>
+            <caption>NetApp supported Extra Specs for use with Cinder Volume Types</caption>
             <col width="1.75in"/>
             <col width="0.65in"/>
             <col width="3.35in"/>
@@ -249,7 +249,7 @@
         </table>
         <caution>
             <para>
-                If both the positive and negative specs for a pair are specified (e.g. <option>netapp_dedup</option> and <option>netapp_nodedup</option>) and set to the same value within a single extra_specs list, then neither spec will be utilized by the driver.
+                If both the positive and negative specs for a pair are specified (e.g. <option>netapp_dedup</option> and <option>netapp_nodedup</option>) and set to the same value within a single extra_specs list, then neither spec is utilized by the driver.
             </para>
         </caution>
         <important>

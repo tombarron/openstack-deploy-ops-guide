@@ -2,7 +2,7 @@
 <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_cdot-ops">
     <title>Operational Concerns with Data ONTAP</title>
     <simplesect xml:id="ops.thin_provisioning">
-        <title>Considerations for using thin provisioning with FlexVol volumes</title>
+        <title>Considerations for the use of thin provisioning with FlexVol volumes</title>
         <para>
             Using thin provisioning, you can configure your volumes so that they appear to provide more storage than they have available, provided that the storage that is actually being used does not exceed the available storage.
         </para>
@@ -63,12 +63,12 @@ $ cinder service list
 |  cinder-volume   |  openstack1@cDOT  | nova | enabled |   up  | 2013-1-1T19:01:27.000000 |
 +------------------+-------------------+------+---------+-------+--------------------------+
 </programlisting>
-The host openstack1@7mode represents the backend representing the Data ONTAP operating in 7-Mode system, and openstack1@cDOT represents the backend representing the clustered Data ONTAP system.
-Volumes can be migrated individually to the new backend, using the cinder migrate CLI command. For example, suppose we have a volume with ID 781501e1-af79-4d3e-be90-f332a5841f5e on the openstack1@7mode storage backend. We can move it to the openstack1@cDOT backend with the following CLI command:
+The host <literal>openstack1@7mode</literal> represents the backend representing the Data ONTAP operating in 7-Mode system, and <literal>openstack1@cDOT</literal> represents the backend representing the clustered Data ONTAP system.
+Volumes can be migrated individually to the new backend, through the use of the <command>cinder migrate</command> CLI command. For example, suppose we have a volume with ID <literal>781501e1-af79-4d3e-be90-f332a5841f5e</literal> on the <literal>openstack1@7mode</literal> storage backend. We can move it to the <literal>openstack1@cDOT</literal> backend with the following CLI command:
             <programlisting>
 cinder migrate 781501e1-af79-4d3e-be90-f332a5841f5e openstack1@cDOT
         </programlisting>
-            The command is asynchronous and will complete in the background. You can check the status of the migration with the show command:
+            The command is asynchronous and completes in the background. You can check the status of the migration with the show command:
             <programlisting>
 cinder show 781501e1-af79-4d3e-be90-f332a5841f5e
         </programlisting>
@@ -80,7 +80,7 @@ cinder show 781501e1-af79-4d3e-be90-f332a5841f5e
             During this process, the data is copied inefficiently through the cinder-volume node. This compares unfavorably to data-efficient migration techniques, but has the significant advantage that it can be completely non-disruptive (if live migration is supported) and it can be done in small increments of one Cinder volume at a time, so the operations can be distributed over periods when load is minimal.
         </para>
         <para>
-            If you are utilizing a hypervisor that does not support live migration of volumes and the volume is currently attached, it will be necessary to detach the volume from the Nova instance before performing the migration. If the volume is the boot volume or otherwise critical to the operation of the instance, you will need to shutdown the Nova instance before performing the migration. 
+            If you are utilizing a hypervisor that does not support live migration of volumes and the volume is currently attached, it is necessary to detach the volume from the Nova instance before performing the migration. If the volume is the boot volume or otherwise critical to the operation of the instance, you need to shutdown the Nova instance before performing the migration. 
         </para>
     </simplesect>
 </section>

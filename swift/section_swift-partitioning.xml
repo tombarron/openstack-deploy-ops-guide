@@ -19,7 +19,7 @@ lrwxrwxrwx 1 root root       7 May  5 15:20 360080e50003222300000019153450e18 ->
 lrwxrwxrwx 1 root root       7 May  5 15:20 360080e50003222300000019053450e18 -> ../dm-2
 crw------- 1 root root 10, 236 May  5 15:20 control
             </programlisting>
-            Now we will use the <command>parted</command> command to partition the mapped devices:
+            Now we use the <command>parted</command> command to partition the mapped devices:
             <programlisting><?db-font-size 70%?>
 root@stlrx300s7-102:/dev/mapper# luns=`ls|grep -v control`
 root@stlrx300s7-102:/dev/mapper# for i in $luns
@@ -44,7 +44,7 @@ crw------- 1 root root 10, 236 May  5 15:20 control
         </para>
     </simplesect>
     <para>
-        Swift currently requires that the underlying filesystem have support for extended attributes of the file system. While this requirement may be removed in a future release of Swift, as of the Havana release XFS is currently the recommended filesystem.
+        Swift currently requires that the underlying filesystem have support for extended attributes of the file system. While this requirement may be removed in a future release of Swift, as of the Havana release the recommended filesystem type is XFS.
     </para>
     <para>
         Internal volumes created in a DDP layout resemble a traditional RAID 6 volume with the following parameters:
@@ -53,7 +53,7 @@ crw------- 1 root root 10, 236 May  5 15:20 control
         <listitem>Segment Size:  128K</listitem>
         <listitem>Stripe Width:  1MB <inlineequation><mathphrase>(total number of data drives * segment size = 128K * 8)</mathphrase></inlineequation></listitem>
     </itemizedlist>
-        These parameters can be leveraged to configure the file system for optimal performance with the LUN. When a file system is created on a logical volume device, <command>mkfs.xfs</command> will automatically query the logical volume to determine appropriate stripe unit and stripe width values, unless values are passed at the time of filesystem creation; for example:
+        These parameters can be leveraged to configure the file system for optimal performance with the LUN. When a file system is created on a logical volume device, <command>mkfs.xfs</command> automatically queries the logical volume to determine appropriate stripe unit and stripe width values, unless values are passed at the time of filesystem creation; for example:
     <programlisting>
 # ls -l /dev/mapper/|grep part|awk '{print $9}'
 360080e50003220a80000017353450e3f-part1
@@ -103,7 +103,7 @@ mount –t xfs –o “nobarrier,noatime,nodiratime,inode64” \
     </programlisting>
         <warning>
             <para>
-                The mount points for the account, container, and object storage will not be managed by Swift; therefore, you must use the standard Linux mechanisms (e.g. <filename>/etc/fstab</filename>) to ensure that the mount points exist and are mounted before Swift starts.
+                The mount points for the account, container, and object storage are not managed by Swift; therefore, you must use the standard Linux mechanisms (e.g. <filename>/etc/fstab</filename>) to ensure that the mount points exist and are mounted before Swift starts.
             </para>
         </warning>
     </para>
