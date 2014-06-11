@@ -128,6 +128,9 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <enableDisqus>false</enableDisqus>
+                            <enableGoogleAnalytics>1</enableGoogleAnalytics>
+                            <googleAnalyticsId>UA-51693000-1</googleAnalyticsId>
+                            <googleAnalyticsDomain>netapp.github.io</googleAnalyticsDomain>
                             <generateToc>
                                 appendix  toc,title
                                 article/appendix  nop
