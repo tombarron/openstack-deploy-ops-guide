@@ -12,7 +12,7 @@
 cinder create <replaceable>size_gb</replaceable>
                     </programlisting>
                     <itemizedlist>
-                        <listitem>No space left on the NetApp volume or NetApp volume does not have sufficient free space to host the specified OpenStack volume. Here NetApp volume refers to flexvols inside the configured Storage Virtual Machine (SVM aka Vserver) for Clustered Data ONTAP driver. It refers to NetApp volume names configured in Cinder as parameter <option>netapp_volume_list</option> or NetApp volumes in the configured vfiler as parameter <option>netapp_vfiler</option> or system wide NetApp volumes for 7-mode storage system.</listitem>
+                        <listitem>No space left on the NetApp volume or NetApp volume does not have sufficient free space to host the specified OpenStack volume. Here NetApp volume refers to a FlexVol volume inside the configured Storage Virtual Machine (SVM aka Vserver) for Clustered Data ONTAP driver. It refers to NetApp volume names configured in Cinder as parameter <option>netapp_volume_list</option> or NetApp volumes in the configured vFiler unit as parameter <option>netapp_vfiler</option> or system wide NetApp volumes for 7-mode storage system.</listitem>
                         <listitem>Cinder API service is down.</listitem>
                         <listitem>Cinder scheduler service is down.</listitem>
                         <listitem>Cinder scheduler reports sufficient available space on NetApp backend but Cinder volume fails to create backend:
@@ -168,7 +168,7 @@ cinder migrate <replaceable>volume-id</replaceable> <replaceable>host</replaceab
     <section xml:id="appendix.debug.triage">
         <title>Triage and Data Collection</title>
         <para>
-            Please use the NetApp OpenStack Communities site to track or report issues related to Cinder. In case of issues, the data can be collected from logs printed by each of the below mentioned process. Logs need to be collected for Cinder related processes. For Glance and Nova verifying the service up status will be sufficient.
+            Please use the NetApp OpenStack Communities site to track or report issues related to Cinder. In case of issues, the data can be collected from logs printed by each of the below mentioned process. Logs need to be collected for Cinder related processes. For Glance and Nova verifying the service up status is sufficient.
         </para>
         <simplesect>
             <title>Cinder processes</title>
@@ -242,7 +242,7 @@ cinder migrate <replaceable>volume-id</replaceable> <replaceable>host</replaceab
             <link xlink:href="http://support.netapp.com/matrix/"/>
         </para>
         <para>
-            The NetApp OpenStack team presently intends to provide maintenance of the two most recently released versions of OpenStack. For example, during Juno development, all code that is part of the Havana and Icehouse official branches will be supported. Upon Juno release, direct maintenance for Havana would be dropped and maintenance for Icehouse will be added.
+            The NetApp OpenStack team presently intends to provide maintenance of the two most recently released versions of OpenStack. For example, during Juno development, all code that is part of the Havana and Icehouse official branches are supported. Upon Juno release, direct maintenance for Havana would be dropped and maintenance for Icehouse is added.
         </para>
         <para>
             NetApp can provide customized support options for production requirements. For more information, please contact your sales team.

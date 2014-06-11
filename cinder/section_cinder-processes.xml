@@ -7,7 +7,7 @@
     <itemizedlist>
         <listitem><literal>cinder-api</literal> is an WSGI application that accepts and validates REST (JSON or XML) requests from clients and routes them to other Cinder processes as appropriate over AMQP.</listitem>
         <listitem><literal>cinder-scheduler</literal> determines which backend should serve as the destination for a volume creation or movement request. It maintains non-persistent state for backends (e.g. available capacity, capabilities, and supported extra specs) that can be leveraged when making placement decisions. The algorithm utilized by the scheduler can be changed through Cinder configuration.</listitem>
-        <listitem><literal>cinder-volume</literal> accepts requests from other Cinder processes and serves as the operational container for Cinder drivers. This process is multi-threaded, and will typically have one thread of execution per Cinder backend as defined in the Cinder configuration file.</listitem>
+        <listitem><literal>cinder-volume</literal> accepts requests from other Cinder processes and serves as the operational container for Cinder drivers. This process is multi-threaded and typically has one thread of execution per Cinder backend as defined in the Cinder configuration file.</listitem>
         <listitem><literal>cinder-backup</literal> handles the interaction with potential backup targets (e.g. OpenStack Object Storage Service (Swift)) when a client requests a volume backup to be created or managed.</listitem>
     </itemizedlist>
     <figure xml:id="cinder.process_overview">
@@ -24,7 +24,7 @@
     <simplesect>
         <title>Volume Creation Workflow</title>
         <para>
-            The following section will walk through the steps that occur when a user requests the creation of a new volume from Cinder.
+            The following section walks through the steps that occur when a user requests the creation of a new volume from Cinder.
         </para>
         <figure xml:id="cinder.create_volume_workflow">
             <title>Cinder Workflow - Volume Creation</title>
@@ -70,7 +70,7 @@
     <simplesect>
         <title>Volume Attach Workflow</title>
         <para>
-            The following section will walk through the steps that occur when a user requests that a Cinder volume be attached to a Nova compute instance.
+            The following section walks through the steps that occur when a user requests that a Cinder volume be attached to a Nova compute instance.
         </para>
         <figure xml:id="cinder.volume_attach_workflow">
             <title>Cinder &amp; Nova Workflow - Volume Attach</title>
@@ -106,7 +106,7 @@
                 <literal>cinder-api</literal> process reads response message from <literal>cinder-volume</literal> from queue; passes connection information in RESTful response to Nova caller.
             </listitem>
             <listitem>
-                Nova creates the connection to the storage using the returned information from Cinder.
+                Nova creates the connection to the storage with the returned information from Cinder.
             </listitem>
             <listitem>
                 Nova passes the volume device/file to the hypervisor, who then attaches the volume device/file to the guest VM as an actual or virtualized block device (dependent on storage protocol).

@@ -21,13 +21,13 @@
             Virtual hardware templates are called "flavors" in OpenStack, defining sizes for RAM, disk, number of cores, and so on. The default install provides five flavors, and are configurable by admin users.
         </para>
         <para>
-            Flavors define a number of parameters, resulting in the user having a choice of what type of virtual machine to run—just like they would have if they were purchasing a physical server. The table lists the elements that can be set. Flavors may also contain extra_specs, which can be used to define free-form characteristics, giving a lot of flexibility beyond just the size of RAM, CPU, and Disk in determining where an instance will be provisioned.
+            Flavors define a number of parameters, resulting in the user having a choice of what type of virtual machine to run—just like they would have if they were purchasing a physical server. The table lists the elements that can be set. Flavors may also contain extra_specs, which can be used to define free-form characteristics, giving a lot of flexibility beyond just the size of RAM, CPU, and Disk in determining where an instance is provisioned.
         </para>
     </simplesect>
     <simplesect>
         <title>Root (and ephemeral) disks</title>
         <para>
-            Each instance needs at least one root disk (that contains the bootloader and core operating system files), and may have optional ephemeral disk (per the definition of the flavor selected at instance creation time). The content for the root disk will either come from an image stored within the Glance repository (and copied to storage attached to the destination hypervisor) or it can come from a persistent block storage volume (via Cinder). For more information on the root disk strategies available during instance creation, refer to <xref linkend="nova.boot.options"/>.
+            Each instance needs at least one root disk (that contains the bootloader and core operating system files), and may have optional ephemeral disk (per the definition of the flavor selected at instance creation time). The content for the root disk either comes from an image stored within the Glance repository (and copied to storage attached to the destination hypervisor) or from a persistent block storage volume (via Cinder). For more information on the root disk strategies available during instance creation, refer to <xref linkend="nova.boot.options"/>.
         </para>
     </simplesect>
 </section>

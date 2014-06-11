@@ -2,21 +2,21 @@
 <section xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:id="section_swift-e-series">
     <title>Swift Zones and NetApp E-Series Storage</title>
     <para>
-        Swift uses zoning to isolate the cluster into separate partitions to isolate the cluster from failures. Swift data is replicated across the cluster in zones that are as unique as possible. A zone is an arbitrary grouping of nodes; typically zones are established using physical attributes of the cluster, such as geographical locations, separate networks, equipment racks, storage subsystems, or even single drives. Zoning allows the cluster to tolerate equipment failures within the cluster without data loss or loss of connectivity to the remaining cluster.
+        Swift uses zoning to isolate the cluster into separate partitions to isolate the cluster from failures. Swift data is replicated across the cluster in zones that are as unique as possible. A zone is an arbitrary grouping of nodes; typically zones are established that use physical attributes of the cluster, such as geographical locations, separate networks, equipment racks, storage subsystems, or even single drives. Zoning allows the cluster to tolerate equipment failures within the cluster without data loss or loss of connectivity to the remaining cluster.
     </para>
     <para>
-        By default, Swift replicates data 3 times across the cluster. Swift replicates data across zones in a unique pattenr that attempts to ensure high availability and high durability for data. Swift will choose to place a replica of data in a server in an unused zone before placing it into an unused server in a zone that already has a replica of the data.
+        By default, Swift replicates data 3 times across the cluster. Swift replicates data across zones in a unique pattenr that attempts to ensure high availability and high durability for data. Swift chooses to place a replica of data in a server in an unused zone before placing it into an unused server in a zone that already has a replica of the data.
     </para>
     <para>
-        The data reconstruction feature of E-Series ensures that clients will always have access to their data - regardless of drive or other component failures within the storage subsystem.  When E-Series storage is used Swift data replication counts specified when rings are built can be reduced from 3 to 1.
+        The data reconstruction feature of E-Series ensures that clients always have access to their data - regardless of drive or other component failures within the storage subsystem.  When E-Series storage is used Swift data replication counts specified when rings are built can be reduced from 3 to 1.
     </para>
     <para>
-        E-Series storage offers flexible configuration options that will satisfy practically all Swift zoning requirements. DDP reconstruction also eliminates the requirement of Swift data replication within a single storage array. Zoning based on E-Series storage can be done on a storage subsystem, individual controller, or drive tray basis.
+        E-Series storage offers flexible configuration options that satisfy practically all Swift zoning requirements. DDP reconstruction also eliminates the requirement of Swift data replication within a single storage array. Zoning based on E-Series storage can be done on a storage subsystem, individual controller, or drive tray basis.
     </para>
     <formalpara>
         <title>Controller-subsystem based zoning</title>
         <para>
-            In a cluster that contains several E-Series storage subsystems zoning may be done using the 1 or more E-Series subsystems as a zone. An example of this is shown in <xref linkend="swift.controller_subsystem_zoning"/>.
+            In a cluster that contains several E-Series storage subsystems zoning may be done through the use of 1 or more E-Series subsystems as a zone. An example of this is shown in <xref linkend="swift.controller_subsystem_zoning"/>.
         </para>
     </formalpara>
     <figure xml:id="swift.controller_subsystem_zoning">

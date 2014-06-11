@@ -36,7 +36,7 @@
     <simplesect>
         <title>OpenStack Dashboard (project name: Horizon)</title>
         <para>
-            The OpenStack Dashboard provides administrators and users a graphical interface to access, provision and automate cloud-based resources. The extensible design makes it easy to plug in and expose third-party products and services, such as billing, monitoring, and additional management tools. The dashboard can also be made brand specific for service providers and other Enterprises who require customization. The dashboard is one of several ways to interact with OpenStack resources. Developers can automate access or build tools to manage their resources using the native OpenStack API or the EC2 compatibility API. The dashboard provides users a self-service portal to provision their own resources within the limits set by administrators.
+            The OpenStack Dashboard provides administrators and users a graphical interface to access, provision and automate cloud-based resources. The extensible design makes it easy to plug in and expose third-party products and services, such as billing, monitoring, and additional management tools. The dashboard can also be made brand specific for service providers and other Enterprises who require customization. The dashboard is one of several ways to interact with OpenStack resources. Developers can automate access or build tools to manage their resources that use the native OpenStack API or the EC2 compatibility API. The dashboard provides users a self-service portal to provision their own resources within the limits set by administrators.
         </para>
     </simplesect>
     <simplesect>
@@ -49,7 +49,7 @@
                 Configuration of centralized policies across users and systems
             </listitem>
             <listitem>
-                Creation of users and tenants and define permissions for compute, storage and networking resources using role-based access control (RBAC) features
+                Creation of users and tenants and define permissions for compute, storage and networking resources through the use of role-based access control (RBAC) features
             </listitem>
             <listitem>
                 Integration with existing directories, allowing for a single source of identity authentication
@@ -68,7 +68,7 @@
     <simplesect>
         <title>OpenStack Network Service (project name: Neutron)</title>
         <para>
-            OpenStack Networking is a pluggable, scalable and API-driven system for managing networks and IP addresses. Like other aspects of the cloud operating system, it can be used by administrators and users to increase the value of existing data center assets. OpenStack Networking ensures the network will not be the bottleneck or limiting factor in a cloud deployment and provides users self-service over their own network configurations. The pluggable backend architecture lets users take advantage of basic commodity gear or advanced networking services from supported vendors. Administrators can take advantage of software-defined networking (SDN) technology like OpenFlow to allow for high levels of multi-tenancy and massive scale. OpenStack Networking has an extension framework allowing additional network services, such as intrusion detection systems (IDS), load balancing, firewalls and virtual private networks (VPN) to be deployed and managed.
+            OpenStack Networking is a pluggable, scalable and API-driven system for managing networks and IP addresses. Like other aspects of the cloud operating system, it can be used by administrators and users to increase the value of existing data center assets. OpenStack Networking ensures the network is not the bottleneck or limiting factor in a cloud deployment and provides users self-service over their own network configurations. The pluggable backend architecture lets users take advantage of basic commodity gear or advanced networking services from supported vendors. Administrators can take advantage of software-defined networking (SDN) technology like OpenFlow to allow high levels of multi-tenancy and massive scale. OpenStack Networking has an extension framework allowing additional network services, such as intrusion detection systems (IDS), load balancing, firewalls and virtual private networks (VPN) to be deployed and managed.
         </para>
     </simplesect>
     <simplesect>
@@ -80,7 +80,7 @@
     <simplesect>
         <title>OpenStack Orchestration (project name: Heat)</title>
         <para>
-            OpenStack Orchestration implements a service to orchestrate multiple composite cloud applications using the Amazon Web Services (AWS) CloudFormation template format, through both an OpenStack-native and CloudFormation-compatible API. It is intended, in part, to facilitate movement of workloads from AWS to OpenStack deployments. Heat was promoted from incubation status to an integrated component of OpenStack in the Grizzly (April 2013) release.
+            OpenStack Orchestration implements a service to orchestrate multiple composite cloud applications that use the Amazon Web Services (AWS) CloudFormation template format, through both an OpenStack-native and CloudFormation-compatible API. It is intended, in part, to facilitate movement of workloads from AWS to OpenStack deployments. Heat was promoted from incubation status to an integrated component of OpenStack in the Grizzly (April 2013) release.
         </para>
     </simplesect>
     <simplesect>
@@ -103,7 +103,7 @@
     </simplesect>
     <note>
         <para>
-            The OpenStack Foundation regularly evaluates new project contributions for eventual inclusion as officially integrated. As such, the list above is expected to grow over time.
+            The OpenStack Foundation regularly evaluates new project contributions for eventual inclusion as officially integrated. As such, the list declared previously is expected to grow over time.
         </para>
     </note>
 </section>

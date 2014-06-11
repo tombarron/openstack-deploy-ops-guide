@@ -170,7 +170,7 @@ nfs modify -vserver demo-nfs-svm -v4.0 enabled -v4.1 enabled \
         <title>Cinder Command Line Interface (CLI)</title>
         <simplesect>
             <title>Cinder Service Verfification</title>
-            <para>In this section, we will use the Cinder CLI to verify that the configuration presented in <xref linkend="cinder.examples.cinder_conf"/> has been properly initialized by Cinder.
+            <para>In this section, we use the Cinder CLI to verify that the configuration presented in <xref linkend="cinder.examples.cinder_conf"/> has been properly initialized by Cinder.
                 <programlisting><?db-font-size 60%?>
 vagrant@precise64:~/devstack$ cinder service-list
 +------------------+--------------------------+------+---------+-------+------------------------+-----------------+
@@ -204,14 +204,14 @@ vagrant@precise64:~/devstack$ cinder service-list
         <simplesect>
             <title>Creating and Defining Cinder Volume Types</title>
             <para>
-                In this section, we'll create a variety of Cinder Volume Types that leverage both the default capabilities of each driver, as well as the NetApp-specific extra specs described in <xref linkend="cinder.netapp.extra_specs"/>. 
+                In this section, we create a variety of Cinder Volume Types that leverage both the default capabilities of each driver, as well as the NetApp specific extra specs described in <xref linkend="cinder.netapp.extra_specs"/>. 
                 <itemizedlist>
-                    <listitem>The <option>iscsi</option> type will provision Cinder volumes onto any backend that uses the iSCSI storage protocol (in this example, that would be <option>[cdot-iscsi]</option> and <option>[eseries-iscsi]</option>).</listitem>
-                    <listitem>The <option>nfs</option> type will provision Cinder volumes onto any backend that uses the NFS storage protocol (in this example, that would be <option>[cdot-nfs]</option>).</listitem>
-                    <listitem>The <option>gold</option> type will provision Cinder volumes onto any backend that has a SnapMirror relationship (in this example, that would be <option>[cdot-nfs]</option>, although only one of the four NFS exports defined in <filename>/etc/cinder/nfs_shares</filename> has this support).</listitem>
-                    <listitem>The <option>silver</option> type will provision Cinder volumes onto any backend that has deduplication enabled (in this example, that would be <option>[cdot-nfs]</option>, although only one of the four NFS exports defined in <filename>/etc/cinder/nfs_shares</filename> has this support).</listitem>
-                    <listitem>The <option>bronze</option> type will provision Cinder volumes onto any backend that has compression enabled (in this example, that would be <option>[cdot-nfs]</option>, although only one of the four NFS exports defined in <filename>/etc/cinder/nfs_shares</filename> has this support).</listitem>
-                    <listitem>The <option>analytics</option> type will provision Cinder volumes onto the <option>[eseries-iscsi]</option> backend.</listitem>
+                    <listitem>The <option>iscsi</option> type provisions Cinder volumes onto any backend that uses the iSCSI storage protocol (in this example, that would be <option>[cdot-iscsi]</option> and <option>[eseries-iscsi]</option>).</listitem>
+                    <listitem>The <option>nfs</option> type provisions Cinder volumes onto any backend that uses the NFS storage protocol (in this example, that would be <option>[cdot-nfs]</option>).</listitem>
+                    <listitem>The <option>gold</option> type provisions Cinder volumes onto any backend that has a SnapMirror relationship (in this example, that would be <option>[cdot-nfs]</option>, although only one of the four NFS exports defined in <filename>/etc/cinder/nfs_shares</filename> has this support).</listitem>
+                    <listitem>The <option>silver</option> type provisions Cinder volumes onto any backend that has deduplication enabled (in this example, that would be <option>[cdot-nfs]</option>, although only one of the four NFS exports defined in <filename>/etc/cinder/nfs_shares</filename> has this support).</listitem>
+                    <listitem>The <option>bronze</option> type provisions Cinder volumes onto any backend that has compression enabled (in this example, that would be <option>[cdot-nfs]</option>, although only one of the four NFS exports defined in <filename>/etc/cinder/nfs_shares</filename> has this support).</listitem>
+                    <listitem>The <option>analytics</option> type provisions Cinder volumes onto the <option>[eseries-iscsi]</option> backend.</listitem>
                 </itemizedlist>
 <programlisting><?db-font-size 90%?>
 vagrant@precise64:~/devstack$ cinder type-create iscsi
@@ -280,7 +280,7 @@ vagrant@precise64:~/devstack$ cinder extra-specs-list
         <simplesect>
             <title>Creating Cinder Volumes with Volume Types</title>
             <para>
-                In this section, we'll create volumes with no type, as well as each of the previously defined volume types.
+                In this section, we create volumes with no type, as well as each of the previously defined volume types.
                 <programlisting><?db-font-size 75%?>
 vagrant@precise64:~/devstack$ cinder create --name myGold --volume-type gold 1
 +--------------------------------+--------------------------------------+
@@ -473,7 +473,7 @@ vagrant@precise64:/opt/stack/data/cinder$ cinder list
 +--------------------------------------+-----------+--------------+------+-------------+----------+-------------+
 </programlisting>
                 We'll now look at the local NFS mounts that are present on the node that is running <command>cinder-volume</command> and look for the volumes that were created
-                on NFS backends. By mapping the mountpoints to the directories where the volume files exist, we are able to associate that the volumes were created in the appropriate FlexVol volume that had the NetApp-specific features enabled that matched the Cinder volume type definitions.
+                on NFS backends. By mapping the mountpoints to the directories where the volume files exist, we are able to associate that the volumes were created in the appropriate FlexVol volume that had the NetApp specific features enabled that matched the Cinder volume type definitions.
                 <programlisting><?db-font-size 70%?>
 vagrant@precise64:~/devstack$ mount |grep cinder
 10.63.40.153:/vol2_dedup on /opt/stack/data/cinder/mnt/6fbcc46d69a86a6be25f3df3e6ae55ba type nfs (rw,vers=4,addr=10.63.40.153,clientaddr=192.168.114.157)
