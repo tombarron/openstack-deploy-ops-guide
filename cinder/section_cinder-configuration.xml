@@ -823,6 +823,9 @@ security login create –username openstack –application ontapi –authmethod 
                     While formally introduced in the Icehouse release of OpenStack, NetApp has backported the E-Series driver to the Grizzly and Havana releases of OpenStack, accessible at <link xlink:href="https://github.com/NetApp/cinder">https://github.com/NetApp/cinder</link>. Be sure to choose the branch from this repository that matches the release version of OpenStack you are deploying with. 
                 </para>
             </tip>
+            <para>
+                In the Icehouse release, the E-Series driver sets the host type to Linux - Asymmetric Logical Unit Access (LnxALUA). A host type defines how the controllers in the storage array will work with the particular operating system on the hosts that are connected to it. This will be a configurable option within Cinder in a future release of the E-Series driver.
+            </para>
         </simplesect>
         <simplesect>
             <title>Configuration Options</title>
