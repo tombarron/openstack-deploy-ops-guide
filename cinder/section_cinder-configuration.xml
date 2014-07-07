@@ -70,7 +70,6 @@ enabled_backends=myNfsBackend,myIscsiBackend,myESeriesBackend
 volume_backend_name=myIscsiBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
-netapp_server_port=<replaceable>80</replaceable>
 netapp_storage_protocol=iscsi <co id="cdot-iscsi-protocol-co" linkends="cdot-iscsi-protocol"/>
 netapp_storage_family=ontap_cluster
 netapp_login=<replaceable>admin_username</replaceable>
@@ -181,7 +180,6 @@ netapp_vserver=<replaceable>svm_name</replaceable>
 volume_backend_name=myNfsBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
-netapp_server_port=<replaceable>80</replaceable>
 netapp_storage_protocol=nfs 
 netapp_storage_family=ontap_cluster
 netapp_login=<replaceable>admin_username</replaceable>
@@ -316,7 +314,6 @@ nfs_shares_config=<replaceable>path_to_nfs_exports_file</replaceable>
 volume_backend_name=myIscsiBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
-netapp_server_port=<replaceable>80</replaceable>
 netapp_storage_protocol=iscsi <co id="7mode-iscsi-protocol-co" linkends="7mode-iscsi-protocol"/> 
 netapp_storage_family=ontap_7mode <co id="7mode-iscsi-family-co" linkends="7mode-iscsi-family"/>
 netapp_login=<replaceable>admin_username</replaceable>
@@ -430,7 +427,6 @@ netapp_password=<replaceable>admin_password</replaceable>
 volume_backend_name=myNfsBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
-netapp_server_port=<replaceable>80</replaceable>
 netapp_storage_protocol=nfs 
 netapp_storage_family=ontap_7mode <co id="7mode-nfs-family-co" linkends="7mode-nfs-family"/>
 netapp_login=<replaceable>admin_username</replaceable>
@@ -832,7 +828,6 @@ security login create –username openstack –application ontapi –authmethod 
 volume_backend_name=myESeriesBackend
 volume_driver=cinder.volume.drivers.netapp.common.NetAppDriver
 netapp_server_hostname=<replaceable>hostname</replaceable>
-netapp_server_port=<replaceable>80</replaceable>
 netapp_storage_protocol=iscsi <co id="eseries-iscsi-protocol-co" linkends="eseries-iscsi-protocol"/> 
 netapp_storage_family=eseries <co id="eseries-iscsi-family-co" linkends="eseries-iscsi-family"/> 
 netapp_controller_ips=<replaceable>1.2.3.4,1.2.3.5</replaceable>
